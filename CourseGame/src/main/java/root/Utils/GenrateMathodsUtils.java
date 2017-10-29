@@ -1,4 +1,4 @@
-package com.Utils;
+package root.Utils;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;

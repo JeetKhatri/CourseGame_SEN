@@ -19,7 +19,6 @@
 		</property>
 	</bean>
 
-	<!-- Data-base work -->
 	<bean id="ds"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
@@ -36,6 +35,5 @@
 		<property name="template" ref="jt"></property>
 	</bean>
 
-	<!-- <mvc:resources mapping="/resources/**" location="/resources/"/> <mvc:resources 
-		mapping="/webjars/**" location="/webjars/"/> -->
+
 </beans>

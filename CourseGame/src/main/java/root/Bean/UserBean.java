@@ -1,5 +1,8 @@
 package root.Bean;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserBean {
 
 	private String userId;
