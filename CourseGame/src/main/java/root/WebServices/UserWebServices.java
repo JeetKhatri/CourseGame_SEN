@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import root.Bean.UserBean;
@@ -23,13 +24,14 @@ public class UserWebServices {
 
 	@RequestMapping(value = "/user-insert/{token}", method = RequestMethod.POST)
 	public Integer insertUser(@PathVariable("token") String token, @RequestBody UserBean userBean) {
-
+		System.out.println(userBean.getEmailId()+"");
+		System.out.println(userBean.getUserName()+"");
 		System.out.println(user.insert(userBean));
 		return 1;
 	}
 
-	@RequestMapping(value = "/user-list/{token}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ArrayList<UserBean>> listUser(@PathVariable("token") String token) {
+	@RequestMapping(value = "/user-list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ArrayList<UserBean>> listUser() {
 		System.out.println();
 		return new ResponseEntity<ArrayList<UserBean>>(user.list(), HttpStatus.OK);
 		
