@@ -24,17 +24,18 @@ public class UserWebServices {
 
 	@RequestMapping(value = "/user-insert/{token}", method = RequestMethod.POST)
 	public Integer insertUser(@PathVariable("token") String token, @RequestBody UserBean userBean) {
-		System.out.println(userBean.getEmailId()+"");
-		System.out.println(userBean.getUserName()+"");
-		System.out.println(user.insert(userBean));
 		return 1;
 	}
+	
+	@RequestMapping(value = "/user-login/{token}/{userName}/{password}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public UserBean loginUser(@PathVariable("token") String token, @PathVariable("userName") String userName, @PathVariable("password") String password) {
+		return user.login();
+	}
 
+	
 	@RequestMapping(value = "/user-list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ArrayList<UserBean>> listUser() {
-		System.out.println();
 		return new ResponseEntity<ArrayList<UserBean>>(user.list(), HttpStatus.OK);
-		
 	}
 	
 	@RequestMapping(value = "/user-update/{token}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
