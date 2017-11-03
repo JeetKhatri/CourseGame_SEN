@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -83,6 +84,56 @@ public class UserDAO {
 
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, userId);
+			}
+		});
+	}
+
+	public UserBean login(final String userName, final String password) {
+		String sql = "select * from user where emailId=? and password=?";
+		return template.query(sql, new PreparedStatementSetter() {
+
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, userName);
+				ps.setString(2, password);
+			}
+		}, new ResultSetExtractor<UserBean>() {
+			public UserBean extractData(ResultSet rs) throws SQLException {
+				UserBean bean = new UserBean();
+
+				while (rs.next()) {
+					bean.setEmailId(rs.getString("emailId"));
+					bean.setUserId(rs.getString("userId"));
+					bean.setUserName(rs.getString("name"));
+					bean.setUserRole(rs.getString("role"));
+					bean.setUserIsAvailable(rs.getString("isAvailable"));
+					//bean.setToken(getToken());
+					return bean;
+				}
+				return null;
+			}
+		});
+	}
+
+	protected String getToken() {
+		
+		Random r=new Random();
+		
+		int random=r.nextInt(25);
+		String sql = "select * from token where isAvailable='y'";
+
+		return null;
+	}
+
+	public boolean isVaildToken(String token) {
+
+		String sql = "select * from token where isAvailable='n' and token='" + token + "'";
+
+		return template.query(sql, new ResultSetExtractor<Boolean>() {
+			public Boolean extractData(ResultSet rs) throws SQLException {
+				while (rs.next()) {
+					return true;
+				}
+				return false;
 			}
 		});
 	}
