@@ -6,13 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import root.Bean.TABean;
 import root.Bean.UserBean;
 import root.Controller.SendEmail;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
-public class UserDAO {
+public class TADAO {
 
 	ResultSet rs = null;
 	PreparedStatement pstmt = null;
@@ -86,6 +85,7 @@ public class UserDAO {
 						return false;
 					} else {
 						SendEmail obj = new SendEmail();
+						System.out.println("email" + userBean.getEmailId());
 						obj.SendEmail("Request arrive", userBean.getEmailId(), "Request arrive we accept your requst");
 						return true;
 					}
@@ -105,86 +105,4 @@ public class UserDAO {
 		}
 		return false;
 	}
-
-	public ArrayList<TABean> insertTA(UserBean userBean, String batchId) {
-
-		ArrayList<TABean> beans = new ArrayList<TABean>();
-		TABean bean = new TABean();
-		String random = GenrateMathodsUtils.getRandomString(7);
-		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
-		conn = DBConnection.getConnection();
-		String id = GenrateMathodsUtils.getRandomString(15);
-		if (conn != null) {
-			try {
-			//	conn.setAutoCommit(false);
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				pstmt.setString(2, userBean.getEmailId());
-				pstmt.setString(3, userBean.getUserName());
-				pstmt.setString(4, userBean.getUserRole());
-				pstmt.setString(5, "Y");
-				pstmt.setString(6, random);
-				int no = pstmt.executeUpdate();
-				if (no != 0) {
-
-					pstmt = conn.prepareStatement("insert into ta (taid,userId,batchId) values(?,?,?)");
-					String taid = GenrateMathodsUtils.getRandomString(15);
-					pstmt.setString(1, taid);
-					pstmt.setString(2, id);
-					pstmt.setString(3, batchId);
-					if (pstmt.executeUpdate() == 0) {
-				//		conn.rollback();
-						beans.add(new TABean());
-					} else {
-						bean.setBatchid(batchId);
-						bean.setTaid(taid);
-						bean.setUserid(id);
-
-						SendEmail obj = new SendEmail();
-						obj.SendEmail("Request accepted", getTEmail(taid),
-								"TA Request arrive we accept your requst & password is " + random);
-						beans.add(bean);
-					}
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				
-			}
-		}
-		return beans;
-	}
-
-	private String getTEmail(String id) {
-		String sql = "select * from ta,users where users.userid = ta.userid and taid = ?";
-		conn = DBConnection.getConnection();
-
-		if (conn != null) {
-
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					System.out.println(rs.getString("emailid"));
-					return rs.getString("emailid")+"";
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
-		return null;
-
-	}
-
 }

@@ -1,8 +1,5 @@
 package root.Bean;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserBean {
 
 	private String userId;
@@ -11,15 +8,6 @@ public class UserBean {
 	private String userPassword;
 	private String userRole;
 	private String userIsAvailable;
-	private String token;
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public String getUserId() {
 		return userId;
