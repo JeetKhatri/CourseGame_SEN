@@ -8,6 +8,15 @@ public class UserBean {
 	private String userPassword;
 	private String userRole;
 	private String userIsAvailable;
+	private boolean userResponseStatus=false;
+
+	public boolean isUserResponseStatus() {
+		return userResponseStatus;
+	}
+
+	public void setUserResponseStatus(boolean userResponseStatus) {
+		this.userResponseStatus = userResponseStatus;
+	}
 
 	public String getUserId() {
 		return userId;

@@ -16,7 +16,7 @@ public class BatchWebService {
 	@POST
 	@Path("/batch-insert")
 	@Produces("application/json")
-	public Response insertAlbum(@Context UriInfo info) {
+	public Response insert(@Context UriInfo info) {
 
 		String facultyId = info.getQueryParameters().getFirst("facultyid");
 		String batchname = info.getQueryParameters().getFirst("batchName");

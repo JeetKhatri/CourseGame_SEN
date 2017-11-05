@@ -5,6 +5,15 @@ public class TABean {
 	private String taid;
 	private String userid;
 	private String batchid;
+	private UserBean userBean;
+
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
 
 	public String getTaid() {
 		return taid;

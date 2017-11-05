@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import root.Bean.FacultyBean;
 import root.Bean.UserBean;
 import root.Controller.SendEmail;
 import root.Utils.DBConnection;
@@ -19,7 +20,6 @@ public class FacultyDAO {
 
 	public boolean insert(String id, String degree) {
 
-		String sql = "insert into Faculty(userId,degree,isApproved) value(?,?,?)";
 		conn = DBConnection.getConnection();
 		if (conn != null) {
 
@@ -51,27 +51,22 @@ public class FacultyDAO {
 		conn = DBConnection.getConnection();
 		if (conn != null) {
 			try {
-			//	conn.setAutoCommit(false);
+				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(sql);
 				if (pstmt.executeUpdate() != 0) {
 					String random = GenrateMathodsUtils.getRandomString(7);
-					System.out.println(random+" "+facultyId);
-					pstmt1 = conn.prepareStatement("update users set password=? where userid=(select userid from faculty where facultyid=?)");
-					pstmt1.setString(1, random);
+					pstmt1 = conn.prepareStatement("update users set password=?,isavailable='Y' where userid=(select userid from faculty where facultyid=?)");
+					pstmt1.setString(1, GenrateMathodsUtils.makeSHA512(random));
 					pstmt1.setString(2, facultyId);
-					System.out.println(pstmt1.toString());
 					int no = pstmt1.executeUpdate();
-					System.out.println(no);
 					if(no==0){
-						System.out.println("rollback");
-				//		conn.rollback();
+						conn.rollback();
 					}else {
 						SendEmail obj = new SendEmail();
 						obj.SendEmail("Request accepted", getFacultyEmail(facultyId),
 								"Request arrive, we accept your requst & password is "+random);
-						System.out.println("mail");
-					//	conn.commit();
-					//	conn.setAutoCommit(true);
+						conn.commit();
+						conn.setAutoCommit(true);
 						return true;
 					}
 				}
@@ -79,7 +74,11 @@ public class FacultyDAO {
 				e.printStackTrace();
 				return false;
 			} finally {
-				
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 
 		}
@@ -88,7 +87,7 @@ public class FacultyDAO {
 
 	public String getFacultyEmail(String id) {
 		String sql = "select * from faculty,users where users.userid = faculty.userid and facultyid = ?";
-		conn = DBConnection.getConnection();
+	//	conn = DBConnection.getConnection();
 
 		if (conn != null) {
 
@@ -104,7 +103,51 @@ public class FacultyDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
+			}
+
+		}
+		return null;
+
+	}
+	public boolean update(FacultyBean bean) {
+
+		String sql = "update faculty set degree=?,isapproved=? where facultyid=?";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+
+			try {
+				conn.setAutoCommit(false);
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, bean.getDegree());
+				pstmt.setString(2, bean.getIsApproved());
+				pstmt.setString(3, bean.getFacultyId());
+				System.out.println("Hi");
+				int temp = pstmt.executeUpdate();
+				if (temp > 0) {
+					System.out.println("Hello");
+					sql = "update users set " + "emailid=?,name=?,role=?,isavailable=? where userid=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, bean.getUserbean().getEmailId());
+					pstmt.setString(2, bean.getUserbean().getUserName());
+					pstmt.setString(3, bean.getUserbean().getUserRole());
+					pstmt.setString(4, bean.getUserbean().getUserIsAvailable());
+					pstmt.setString(5, bean.getUserbean().getUserId());
+					temp = pstmt.executeUpdate();
+					if (temp > 0)
+						return true;
+					conn.rollback();
+					return false;
+				} else{
+					conn.rollback();
+					return false;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
 				try {
+					conn.commit();
+					conn.setAutoCommit(true);
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -112,8 +155,6 @@ public class FacultyDAO {
 			}
 
 		}
-		return null;
-
+		return false;
 	}
-
 }

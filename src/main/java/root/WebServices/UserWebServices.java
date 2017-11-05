@@ -16,7 +16,6 @@ import root.Utils.GenrateMathodsUtils;
 @Path("/user")
 public class UserWebServices {
 
-	
 	@GET
 	@Path("/user-list")
 	@Produces("application/json")
@@ -25,25 +24,4 @@ public class UserWebServices {
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
 
-	@POST
-	@Path("/user-insert")
-	@Produces("application/json")
-	public boolean insertAlbum(@Context UriInfo info) {
-
-		String emailId = info.getQueryParameters().getFirst("emailid");
-		String userPassword = info.getQueryParameters().getFirst("password");
-		String userRole = info.getQueryParameters().getFirst("role");
-		String userName = info.getQueryParameters().getFirst("name");
-		String degree = info.getQueryParameters().getFirst("degree");
-
-		UserBean userBean = new UserBean();
-
-		userBean.setEmailId(emailId);
-		userBean.setUserRole(userRole);
-		userBean.setUserName(userName);
-		userBean.setUserPassword(userPassword);
-		
-		return new UserDAO().insert(userBean,degree);
-	}
-	
 }

@@ -23,4 +23,6 @@ public class BatchBean {
 	public void setFacultyid(String facultyid) {
 		this.facultyid = facultyid;
 	}
+	
+	
 }

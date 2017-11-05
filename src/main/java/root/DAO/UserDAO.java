@@ -38,6 +38,7 @@ public class UserDAO {
 					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
 					albumBean.setUserName(rs.getString("name"));
 					albumBean.setUserRole(rs.getString("role"));
+					albumBean.setUserResponseStatus(true);
 					list.add(albumBean);
 					flag = true;
 				}
@@ -57,7 +58,7 @@ public class UserDAO {
 
 	}
 
-	public boolean insert(UserBean userBean, String degree) {
+	public boolean insertFaculty(UserBean userBean, String degree) {
 
 		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
 		conn = DBConnection.getConnection();
@@ -69,9 +70,9 @@ public class UserDAO {
 				pstmt.setString(1, id);
 				pstmt.setString(2, userBean.getEmailId());
 				pstmt.setString(3, userBean.getUserName());
-				pstmt.setString(4, userBean.getUserRole());
+				pstmt.setString(4, "Faculty");
 				pstmt.setString(5, "N");
-				pstmt.setString(6, "hekdnkndfk");
+				pstmt.setString(6, GenrateMathodsUtils.makeSHA512("hekdnknd0@#fk"));
 				int no = pstmt.executeUpdate();
 				if (no != 0) {
 
@@ -116,14 +117,14 @@ public class UserDAO {
 		String id = GenrateMathodsUtils.getRandomString(15);
 		if (conn != null) {
 			try {
-			//	conn.setAutoCommit(false);
+				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 				pstmt.setString(2, userBean.getEmailId());
 				pstmt.setString(3, userBean.getUserName());
-				pstmt.setString(4, userBean.getUserRole());
+				pstmt.setString(4, "TA");
 				pstmt.setString(5, "Y");
-				pstmt.setString(6, random);
+				pstmt.setString(6, GenrateMathodsUtils.makeSHA512(random));
 				int no = pstmt.executeUpdate();
 				if (no != 0) {
 
@@ -133,7 +134,7 @@ public class UserDAO {
 					pstmt.setString(2, id);
 					pstmt.setString(3, batchId);
 					if (pstmt.executeUpdate() == 0) {
-				//		conn.rollback();
+						conn.rollback();
 						beans.add(new TABean());
 					} else {
 						bean.setBatchid(batchId);
@@ -144,13 +145,20 @@ public class UserDAO {
 						obj.SendEmail("Request accepted", getTEmail(taid),
 								"TA Request arrive we accept your requst & password is " + random);
 						beans.add(bean);
+						conn.commit();
+						conn.setAutoCommit(true);
 					}
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		return beans;
@@ -158,7 +166,6 @@ public class UserDAO {
 
 	private String getTEmail(String id) {
 		String sql = "select * from ta,users where users.userid = ta.userid and taid = ?";
-		conn = DBConnection.getConnection();
 
 		if (conn != null) {
 
@@ -168,18 +175,13 @@ public class UserDAO {
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					System.out.println(rs.getString("emailid"));
 					return rs.getString("emailid")+"";
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				
 			}
 
 		}

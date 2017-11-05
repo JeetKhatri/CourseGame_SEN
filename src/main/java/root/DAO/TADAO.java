@@ -19,7 +19,7 @@ public class TADAO {
 
 	public ArrayList<UserBean> getList() {
 		ArrayList<UserBean> list = new ArrayList<UserBean>();
-		UserBean albumBean = new UserBean();
+		UserBean Bean = new UserBean();
 		String sql = "select * from users";
 		conn = DBConnection.getConnection();
 
@@ -31,13 +31,14 @@ public class TADAO {
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					albumBean = new UserBean();
-					albumBean.setEmailId(rs.getString("emailid"));
-					albumBean.setUserId(rs.getString("userId"));
-					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
-					albumBean.setUserName(rs.getString("name"));
-					albumBean.setUserRole(rs.getString("role"));
-					list.add(albumBean);
+					Bean = new UserBean();
+					Bean.setEmailId(rs.getString("emailid"));
+					Bean.setUserId(rs.getString("userId"));
+					Bean.setUserIsAvailable(rs.getString("isAvailable"));
+					Bean.setUserName(rs.getString("name"));
+					Bean.setUserRole(rs.getString("role"));
+					Bean.setUserResponseStatus(true);
+					list.add(Bean);
 					flag = true;
 				}
 
@@ -85,7 +86,6 @@ public class TADAO {
 						return false;
 					} else {
 						SendEmail obj = new SendEmail();
-						System.out.println("email" + userBean.getEmailId());
 						obj.SendEmail("Request arrive", userBean.getEmailId(), "Request arrive we accept your requst");
 						return true;
 					}

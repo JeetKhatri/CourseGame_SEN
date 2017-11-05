@@ -1,9 +1,13 @@
 package root.Utils;
 
 import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.sql.Timestamp;
 
 public class GenrateMathodsUtils {
 
@@ -85,6 +89,17 @@ public class GenrateMathodsUtils {
 	public static String convertDate(String date) {
 		String temp[] = date.split("-");
 		return temp[1] + "/" + temp[2] + "/" + temp[0];
+	}
+	
+	public static Timestamp convertStringDateToTimeStamp(String date) {
+		Date d = new Date();
+		try {
+			d = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss.S").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Timestamp timeStamp = new Timestamp(d.getTime());
+		return timeStamp;
 	}
 	
 	public static void main(String[] args) {
