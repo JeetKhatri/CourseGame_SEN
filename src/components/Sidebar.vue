@@ -6,7 +6,7 @@
 					<li><router-link to='/dashboard'>Batch</router-link></li>
 					<li><router-link to='profile'>Profile</router-link></li>
 					<li><router-link to='settings'>Settings</router-link></li>
-					<li><router-link to='quiz'>Quiz Questions (gaurav)</router-link></li>
+					<li><router-link to='quiz-questions'>Quiz Questions (gaurav)</router-link></li>
 					<li><router-link to='dhiral'>Quiz (dhiral)</router-link></li>
 					<li><router-link to='captcha'>Captcha</router-link></li>
 				</ul>

@@ -6,6 +6,7 @@ import Dashboard from '@/containers/Dashboard'
 import Batch from '@/containers/Batch'
 import Profile from '@/containers/Profile'
 import Settings from '@/containers/Settings'
+import QuizQuestions from '@/containers/QuizQuestions'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
 			path: '/settings',
 			name: 'settings',
 			component: Settings
+		},
+		{
+			path: '/quiz-questions',
+			name: 'quiz-questions',
+			component: QuizQuestions
 		}
 		]
 	}
