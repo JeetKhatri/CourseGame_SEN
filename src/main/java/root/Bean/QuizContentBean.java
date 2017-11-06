@@ -1,6 +1,6 @@
 package root.Bean;
 
-public class QuizContentBean {
+public class QuizContentBean  extends QuizBean {
 
 	private String quizContentId;
 	private String quizId;

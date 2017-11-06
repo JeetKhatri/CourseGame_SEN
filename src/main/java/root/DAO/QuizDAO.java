@@ -149,10 +149,10 @@ public class QuizDAO {
 				pstmt.setString(1, batchId);
 				pstmt.setString(2, "Y");
 				rs = pstmt.executeQuery();
-				
-				boolean flag=false;
+
+				boolean flag = false;
 				while (rs.next()) {
-					flag=true;
+					flag = true;
 					quizBean = new QuizBean();
 					quizBean.setBatchId(rs.getString("batchId"));
 					quizBean.setCreatedBy(rs.getString("createdBy"));
@@ -165,9 +165,11 @@ public class QuizDAO {
 					quizBean.setQuizId(rs.getString("quizId"));
 					obj.add(quizBean);
 				}
-				map.put("data", obj);
-				if(flag)	map.put("status", true);
-				else	map.put("status", false);
+				if (flag) {
+					map.put("status", true);
+					map.put("quizList", obj);
+				} else
+					map.put("status", false);
 
 			} catch (SQLException e) {
 				e.printStackTrace();

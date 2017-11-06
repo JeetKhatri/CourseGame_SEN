@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import root.Bean.QuizContentBean;
 import root.Utils.DBConnection;
@@ -147,5 +148,48 @@ public class QuizContentDAO {
 		}
 		return false;
 	}
+	
+	public ArrayList<QuizContentBean> listQuetion(String batchid) {
+
+		ArrayList<QuizContentBean> arrayList = new ArrayList<QuizContentBean>();
+
+		String sql = "select * from quiz q,quizcontent qc where batchid='" + batchid
+				+ "' and q.quizid=qc.quizid and isavailable=1 and status='Y';";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				QuizContentBean contentBean = new QuizContentBean();
+				while (rs.next()) {
+					contentBean = new QuizContentBean();
+					contentBean.setOption1(rs.getString("option1"));
+					contentBean.setOption2(rs.getString("option2"));
+					contentBean.setOption3(rs.getString("option3"));
+					contentBean.setOption4(rs.getString("option4"));
+					contentBean.setAnswer(rs.getString("answer"));
+					contentBean.setDifficulty(rs.getString("difficulty"));
+					contentBean.setName(rs.getString("name"));
+					contentBean.setBatchId(rs.getString("batchid"));
+					contentBean.setMark(rs.getString("mark"));
+					contentBean.setQuestion(rs.getString("questioncontent"));
+					contentBean.setQuizContentId(rs.getString("quizcontentid"));
+					contentBean.setQuizId(rs.getString("quizid"));
+					arrayList.add(contentBean);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return arrayList;
+	}
+
 
 }

@@ -1,6 +1,7 @@
 package root.WebServices;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -84,6 +85,28 @@ public class QuizContentWebService {
 	public boolean insertAlbum(@Context UriInfo info) {
 		String questionContentId = info.getQueryParameters().getFirst("quizcontentid");
 		return new QuizContentDAO().questionBlocked(questionContentId);
+	}
+
+	@POST
+	@Path("/play-quiz")
+	@Produces("application/json")
+	public Response playQuiz(@Context UriInfo info) {
+		String batchId = info.getQueryParameters().getFirst("batchid");
+
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		boolean b = false;
+
+		ArrayList<QuizContentBean> contentBeans = new QuizContentDAO().listQuetion(batchId);
+
+		if (contentBeans.size() != 0) {
+			b = true;
+			hashMap.put("responcestatus", b);
+			hashMap.put("questionList", contentBeans);
+		} else {
+			hashMap.put("responcestatus", b);
+		}
+
+		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }
