@@ -37,7 +37,7 @@ public class TADAO {
 					Bean.setUserIsAvailable(rs.getString("isAvailable"));
 					Bean.setUserName(rs.getString("name"));
 					Bean.setUserRole(rs.getString("role"));
-					Bean.setUserResponseStatus(true);
+					Bean.setResponseStatus(true);
 					list.add(Bean);
 					flag = true;
 				}

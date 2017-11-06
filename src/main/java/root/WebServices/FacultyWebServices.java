@@ -58,18 +58,15 @@ public class FacultyWebServices {
 		String degree = info.getQueryParameters().getFirst("degree");
 
 		
-		UserBean userBean = new UserBean();
-		userBean.setEmailId(userEmailId);
-		userBean.setUserId(userId);
-		userBean.setUserIsAvailable(isAvailable);
-		userBean.setUserName(userName);
-		userBean.setUserRole(userRole);
-
 		FacultyBean bean = new FacultyBean();
 		bean.setFacultyId(facultyId);
 		bean.setDegree(degree);
 		bean.setIsApproved(isApproved);
-		bean.setUserbean(userBean);
+		bean.setEmailId(userEmailId);
+		bean.setUserId(userId);
+		bean.setUserIsAvailable(isAvailable);
+		bean.setUserName(userName);
+		bean.setUserRole(userRole);
 
 		return new FacultyDAO().update(bean);
 	}

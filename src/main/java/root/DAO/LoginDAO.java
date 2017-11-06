@@ -41,7 +41,7 @@ public class LoginDAO {
 					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
 					albumBean.setUserName(rs.getString("name"));
 					albumBean.setUserRole(rs.getString("role"));
-					albumBean.setUserResponseStatus(true);
+					albumBean.setResponseStatus(true);
 					bean.setBatchId(rs.getString("batchid"));
 					bean.setUserBean(albumBean);
 					bean.setStudentId(rs.getString("studentid"));
@@ -63,7 +63,6 @@ public class LoginDAO {
 	}
 
 	public FacultyBean facultyLogin(String emailId, String password) {
-		UserBean albumBean = new UserBean();
 		FacultyBean facultyBean = new FacultyBean();
 		String sql = "select * from users u,faculty f where emailid=? and password=? and u.userid=f.userid and isavailable='Y' and role='Faculty'";
 
@@ -78,17 +77,15 @@ public class LoginDAO {
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					albumBean = new UserBean();
-					albumBean.setEmailId(rs.getString("emailid"));
-					albumBean.setUserId(rs.getString("userid"));
-					albumBean.setUserIsAvailable(rs.getString("isavailable"));
-					albumBean.setUserName(rs.getString("name"));
-					albumBean.setUserRole(rs.getString("role"));
-					albumBean.setUserResponseStatus(true);
-					facultyBean.setUserbean(albumBean);
 					facultyBean.setDegree(rs.getString("degree"));
 					facultyBean.setFacultyId(rs.getString("facultyid"));
 					facultyBean.setIsApproved(rs.getString("isApproved"));
+					facultyBean.setEmailId(rs.getString("emailid"));
+					facultyBean.setUserId(rs.getString("userid"));
+					facultyBean.setUserIsAvailable(rs.getString("isavailable"));
+					facultyBean.setUserName(rs.getString("name"));
+					facultyBean.setUserRole(rs.getString("role"));
+					facultyBean.setResponseStatus(true);
 				}
 
 			} catch (SQLException e) {
@@ -127,7 +124,7 @@ public class LoginDAO {
 					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
 					albumBean.setUserName(rs.getString("name"));
 					albumBean.setUserRole(rs.getString("role"));
-					albumBean.setUserResponseStatus(true);
+					albumBean.setResponseStatus(true);
 					flag = true;
 				}
 
@@ -169,7 +166,7 @@ public class LoginDAO {
 					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
 					albumBean.setUserName(rs.getString("name"));
 					albumBean.setUserRole(rs.getString("role"));
-					albumBean.setUserResponseStatus(true);
+					albumBean.setResponseStatus(true);
 					bean.setUserBean(albumBean);
 					bean.setTaid(rs.getString("taid"));
 					bean.setUserid(rs.getString("userid"));

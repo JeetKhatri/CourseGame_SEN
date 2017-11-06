@@ -38,7 +38,7 @@ public class UserDAO {
 					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
 					albumBean.setUserName(rs.getString("name"));
 					albumBean.setUserRole(rs.getString("role"));
-					albumBean.setUserResponseStatus(true);
+					albumBean.setResponseStatus(true);
 					list.add(albumBean);
 					flag = true;
 				}
@@ -107,9 +107,8 @@ public class UserDAO {
 		return false;
 	}
 
-	public ArrayList<TABean> insertTA(UserBean userBean, String batchId) {
+	public boolean insertTA(UserBean userBean, String batchId) {
 
-		ArrayList<TABean> beans = new ArrayList<TABean>();
 		TABean bean = new TABean();
 		String random = GenrateMathodsUtils.getRandomString(7);
 		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
@@ -135,7 +134,6 @@ public class UserDAO {
 					pstmt.setString(3, batchId);
 					if (pstmt.executeUpdate() == 0) {
 						conn.rollback();
-						beans.add(new TABean());
 					} else {
 						bean.setBatchid(batchId);
 						bean.setTaid(taid);
@@ -144,9 +142,9 @@ public class UserDAO {
 						SendEmail obj = new SendEmail();
 						obj.SendEmail("Request accepted", getTEmail(taid),
 								"TA Request arrive we accept your requst & password is " + random);
-						beans.add(bean);
 						conn.commit();
 						conn.setAutoCommit(true);
+						return true;
 					}
 				}
 
@@ -161,7 +159,7 @@ public class UserDAO {
 				}
 			}
 		}
-		return beans;
+		return false;
 	}
 
 	private String getTEmail(String id) {
@@ -188,5 +186,4 @@ public class UserDAO {
 		return null;
 
 	}
-
 }

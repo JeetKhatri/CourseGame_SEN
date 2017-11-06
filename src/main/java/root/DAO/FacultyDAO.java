@@ -127,11 +127,11 @@ public class FacultyDAO {
 					System.out.println("Hello");
 					sql = "update users set " + "emailid=?,name=?,role=?,isavailable=? where userid=?";
 					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, bean.getUserbean().getEmailId());
-					pstmt.setString(2, bean.getUserbean().getUserName());
-					pstmt.setString(3, bean.getUserbean().getUserRole());
-					pstmt.setString(4, bean.getUserbean().getUserIsAvailable());
-					pstmt.setString(5, bean.getUserbean().getUserId());
+					pstmt.setString(1, bean.getEmailId());
+					pstmt.setString(2, bean.getUserName());
+					pstmt.setString(3, bean.getUserRole());
+					pstmt.setString(4, bean.getUserIsAvailable());
+					pstmt.setString(5, bean.getUserId());
 					temp = pstmt.executeUpdate();
 					if (temp > 0)
 						return true;

@@ -16,13 +16,12 @@ public class BatchWebService {
 	@POST
 	@Path("/batch-insert")
 	@Produces("application/json")
-	public Response insert(@Context UriInfo info) {
+	public boolean insert(@Context UriInfo info) {
 
 		String facultyId = info.getQueryParameters().getFirst("facultyid");
 		String batchname = info.getQueryParameters().getFirst("batchName");
-
-		ArrayList<BatchBean> list = new BatchDAO().insert(facultyId, batchname);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+		
+		return new BatchDAO().insert(facultyId, batchname);
 	}
 
 }

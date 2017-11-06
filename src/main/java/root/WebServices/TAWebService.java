@@ -30,8 +30,7 @@ public class TAWebService {
 		userBean.setEmailId(emailId);
 		userBean.setUserName(userName);
 
-		ArrayList<TABean> list = new UserDAO().insertTA(userBean, batchId);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(new UserDAO().insertTA(userBean, batchId)).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }

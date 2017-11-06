@@ -17,9 +17,8 @@ public class BatchDAO {
 	Connection conn = null;
 
 	
-	public ArrayList<BatchBean> insert(String facultyId, String batchname) {
+	public boolean insert(String facultyId, String batchname) {
 
-		ArrayList<BatchBean> arrayList = new ArrayList<BatchBean>();
 		String sql = "insert into batch(facultyid,batchname,batchid) values(?,?,?)";
 		conn = DBConnection.getConnection();
 		String id = GenrateMathodsUtils.getRandomString(15);
@@ -37,9 +36,9 @@ public class BatchDAO {
 				pstmt.setString(3, batchid);
 				if (pstmt.executeUpdate() == 0) {
 					conn.rollback();
-					arrayList.add(new BatchBean());
+					return false;
 				} else {
-					arrayList.add(obj);
+					return true;
 				}
 
 			} catch (SQLException e) {
@@ -54,6 +53,6 @@ public class BatchDAO {
 				}
 			}
 		}
-		return arrayList;
+		return false;
 	}
 }

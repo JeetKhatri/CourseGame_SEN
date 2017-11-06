@@ -1,19 +1,10 @@
 package root.Bean;
 
-public class FacultyBean {
+public class FacultyBean extends UserBean {
 
 	private String facultyId;
 	private String degree;
 	private String isApproved;
-	private UserBean userbean;
-
-	public UserBean getUserbean() {
-		return userbean;
-	}
-
-	public void setUserbean(UserBean userbean) {
-		this.userbean = userbean;
-	}
 
 	public String getFacultyId() {
 		return facultyId;
