@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import root.Bean.QuizBean;
 import root.Bean.StatusBean;
+import root.Bean.UserBean;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
@@ -95,7 +98,7 @@ public class QuizDAO {
 		}
 		return false;
 	}
-	
+
 	public StatusBean quizActivation(String batchId, String quizId) {
 		String sql = "update quiz set status='N' where batchid=?";
 		conn = DBConnection.getConnection();
@@ -131,5 +134,51 @@ public class QuizDAO {
 			}
 		}
 		return objStatus;
+	}
+
+	public HashMap<String, Object> batchWiseQuiz(String batchId) {
+
+		String sql = "select * from quiz where batchid=? and status=?";
+		conn = DBConnection.getConnection();
+		QuizBean quizBean = new QuizBean();
+		ArrayList<QuizBean> obj = new ArrayList<QuizBean>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, batchId);
+				pstmt.setString(2, "Y");
+				rs = pstmt.executeQuery();
+				
+				boolean flag=false;
+				while (rs.next()) {
+					flag=true;
+					quizBean = new QuizBean();
+					quizBean.setBatchId(rs.getString("batchId"));
+					quizBean.setCreatedBy(rs.getString("createdBy"));
+					quizBean.setEndTime(rs.getString("endTime"));
+					quizBean.setName(rs.getString("name"));
+					quizBean.setBatchId(rs.getString("batchId"));
+					quizBean.setReaponseStatus(true);
+					quizBean.setStartTime(rs.getString("startTime"));
+					quizBean.setStatus(rs.getString("status"));
+					quizBean.setQuizId(rs.getString("quizId"));
+					obj.add(quizBean);
+				}
+				map.put("data", obj);
+				if(flag)	map.put("status", true);
+				else	map.put("status", false);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return map;
 	}
 }

@@ -1,5 +1,9 @@
 package root.WebServices;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -58,6 +62,16 @@ public class QuizWebService {
 		String batchId = info.getQueryParameters().getFirst("batchid");
 		String quizId = info.getQueryParameters().getFirst("quizid");
 		StatusBean list = new QuizDAO().quizActivation(batchId, quizId);
+		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+	}
+	
+	@GET
+	@Path("/batch-wise-quiz")
+	@Produces("application/json")
+	public Response batchWiseQuiz(@Context UriInfo info) {
+
+		String batchId = info.getQueryParameters().getFirst("batchid");
+		HashMap<String, Object> list = new QuizDAO().batchWiseQuiz(batchId);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
 }

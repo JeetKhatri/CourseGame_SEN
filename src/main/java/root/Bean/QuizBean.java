@@ -9,6 +9,15 @@ public class QuizBean {
 	private String startTime;
 	private String endTime;
 	private String createdBy;
+	private boolean reaponseStatus=false;
+
+	public boolean isReaponseStatus() {
+		return reaponseStatus;
+	}
+
+	public void setReaponseStatus(boolean reaponseStatus) {
+		this.reaponseStatus = reaponseStatus;
+	}
 
 	public String getQuizId() {
 		return quizId;
