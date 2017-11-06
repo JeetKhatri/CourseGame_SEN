@@ -1,9 +1,18 @@
 package root.Bean;
 
-public class StudentBean extends UserBean{
+public class StudentBean {
 
+	private UserBean userBean;
 	private String studentId;
 	private String batchId;
+
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
 
 	public String getStudentId() {
 		return studentId;

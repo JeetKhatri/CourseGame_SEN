@@ -5,13 +5,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import root.Bean.QuizBean;
-import root.Bean.StatusBean;
 import root.DAO.QuizDAO;
-import root.DAO.UserDAO;
 
 @Path("/quiz")
 public class QuizWebService {
@@ -48,16 +45,5 @@ public class QuizWebService {
 		quiz.setCreatedBy(info.getQueryParameters().getFirst("createdby"));
 
 		return new QuizDAO().update(quiz);
-	}
-	
-	@POST
-	@Path("/quiz-activation")
-	@Produces("application/json")
-	public Response availableQuiz(@Context UriInfo info) {
-
-		String batchId = info.getQueryParameters().getFirst("batchid");
-		String quizId = info.getQueryParameters().getFirst("quizid");
-		StatusBean list = new QuizDAO().quizActivation(batchId, quizId);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
 }
