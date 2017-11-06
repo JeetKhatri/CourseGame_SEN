@@ -3,12 +3,11 @@
 		<div class="card sidebar">
 			<aside class="menu">
 				<ul class="menu-list">
-					<li><router-link to='/dashboard'>Batch</router-link></li>
-					<li><router-link to='profile'>Profile</router-link></li>
-					<li><router-link to='settings'>Settings</router-link></li>
-					<li><router-link to='quiz-questions'>Quiz Questions (gaurav)</router-link></li>
-					<li><router-link to='dhiral'>Quiz (dhiral)</router-link></li>
-					<li><router-link to='captcha'>Captcha</router-link></li>
+					<li><router-link to='/dashboard'>Home</router-link></li>
+					<li><router-link to='/view-details'>Students</router-link></li>
+					<li><router-link to='/ta'>TA</router-link></li>
+					<li><router-link to='/quiz-played'>Quiz Played</router-link></li>
+					<li><router-link to='/games-lists'>Games</router-link></li>
 				</ul>
 			</aside>
 		</div>		
@@ -27,7 +26,7 @@ export default {
 	.card {
 		position: absolute;
 		width: 20%;
-		top: 1.5rem;
+		top: 1.6rem;
 	}
 }
 

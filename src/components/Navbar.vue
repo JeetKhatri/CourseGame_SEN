@@ -14,8 +14,18 @@
 			<div id="navMenuTransparentExample" class="navbar-menu">
 				<div class="navbar-end">
 					<div class="navbar-item">
-						<div class="field is-grouped">
+						<div class="field is-grouped" id="menus">
 							<p class="control">
+								<div class="navbar-item has-dropdown is-hoverable">
+									<div class="navbar-link">
+										Quiz
+									</div>
+									<div id="moreDropdown" class="navbar-dropdown is-boxed">
+										<a class="navbar-item">Create New</a>
+										<hr class="navbar-divider">
+										<a class="navbar-item">View All</a>
+									</div>
+								</div>
 								<div class="navbar-item has-dropdown is-hoverable">
 									<div class="navbar-link">
 										Username
@@ -54,6 +64,10 @@ export default {
 }
 </script>
 
-<style type="text/css">
-
+<style lang="scss">
+.navigation-bar {
+	#menus {
+		margin-right: 2rem;
+	}
+}
 </style>

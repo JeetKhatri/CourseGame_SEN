@@ -12,7 +12,7 @@
 						</div>
 					</header>
 					<footer class="card-footer">
-						<router-link to="view" class="card-footer-item">View</router-link>
+						<router-link to="/view-details" class="card-footer-item">View</router-link>
 					</footer>
 				</div>
 			</div>

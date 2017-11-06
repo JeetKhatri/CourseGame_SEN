@@ -7,26 +7,12 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="field-wrap">
-								<input type="text" name="text" placeholder="First Name">
+								<input type="text" name="text" placeholder="First Name" v-model="firstname">
 							</div>
 						</div>
 						<div class="field">
 							<div class="field-wrap">
-								<input type="text" name="text" placeholder="Last Name">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="field is-horizontal">
-					<div class="field-body">
-						<div class="field">
-							<div class="field-wrap">
-								<input type="email" name="email" placeholder="Email Address">
-							</div>
-						</div>
-						<div class="field">
-							<div class="field-wrap">
-								<input type="number" name="number" placeholder="Contact Number">
+								<input type="text" name="text" placeholder="Last Name" v-model="lastname">
 							</div>
 						</div>
 					</div>
@@ -35,12 +21,35 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="field-wrap">
-								<input type="password" name="password" placeholder="Password">
+								<input type="email" name="email" placeholder="Email Address" v-model="emailAddress">
 							</div>
 						</div>
 						<div class="field">
 							<div class="field-wrap">
-								<input type="password" name="confirmPassword" placeholder="Confirm Password">
+								<input type="text" name="degree" placeholder="Degree" v-model="degree">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="field is-horizontal">
+					<div class="field-body">
+						<div class="field">
+							<div class="field-wrap">
+								<input type="text" name="role" placeholder="Role" v-model="role">
+							</div>
+						</div>
+						<div class="field">
+							<div class="field-wrap">
+								<input type="password" name="Password" placeholder="Password">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="field is-horizontal">
+					<div class="field-body">
+						<div class="field">
+							<div class="field-wrap">
+								<input type="password" name="confrimPassword" placeholder="Confirm Password">
 							</div>
 						</div>
 					</div>
@@ -52,22 +61,31 @@
 </template>
 
 <script>
+import HTTP from '@/packages/HTTP';
 export default {
 	name: 'HelloWorld',
 	data () {
 		return {
-
+			firstname: '',
+			lastname: '',
+			emailAddress: '',
+			degree: '',
+			role: ''
 		}
 	},
 
 	methods: {
 		register() {
-			alert('Functionality yet to be added!');
+			// https://coursegame.herokuapp.com/rest/faculty/faculty-insert/?emailid=jeet.g.khatri@gmail.com&name=Jeet Faculty Online&degree=MSCIT
+			HTTP.post(`rest/faculty/faculty-insert/?emailid=`+ this.emailAddress + `&name=` +this.firstname +' '+ this.lastname+ `&degree=`+ this.degree, {
+				// emailid: this.emailAddress,
+				// name: this.firstname +''+ this.lastname,
+				// role: this.role,
+				// degree: this.degree
+			}).then(response => {
+				console.log(response.data);
+			})
 		}
-	},
-
-	created() {
-		console.log('component loaded!');
 	}
 }
 </script>
@@ -79,7 +97,7 @@ export default {
 	-webkit-background-size: cover;
 	-moz-background-size: cover; 
 	background-size: cover;
-	height: -webkit-fill-available;
+	height: fit-content;
 
 
 	h1 {
