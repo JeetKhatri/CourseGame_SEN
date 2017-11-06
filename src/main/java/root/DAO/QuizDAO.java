@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import root.Bean.QuizBean;
+import root.Bean.StatusBean;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
@@ -93,5 +94,42 @@ public class QuizDAO {
 			}
 		}
 		return false;
+	}
+	
+	public StatusBean quizActivation(String batchId, String quizId) {
+		String sql = "update quiz set status='N' where batchid=?";
+		conn = DBConnection.getConnection();
+		StatusBean objStatus = new StatusBean();
+		if (conn != null) {
+			try {
+				conn.setAutoCommit(false);
+
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, batchId);
+				int no = pstmt.executeUpdate();
+				if (no != 0) {
+					sql = "update quiz set status='Y' where quizId=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, quizId);
+					no = pstmt.executeUpdate();
+
+					if (no != 0) {
+						objStatus.setResponseStatus(true);
+					}
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.commit();
+					conn.setAutoCommit(true);
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return objStatus;
 	}
 }
