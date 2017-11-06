@@ -19,12 +19,10 @@ public class LoginDAO {
 	Connection conn = null;
 
 	public StudentBean studentLogin(String emailId, String password) {
-		UserBean albumBean = new UserBean();
 		StudentBean bean = new StudentBean();
 		String sql = "select * from users u,student s where emailid=? and password=? and u.userId=s.userId and role='Student'";
 		conn = DBConnection.getConnection();
 
-		boolean flag = false;
 		if (conn != null) {
 
 			try {
@@ -35,15 +33,13 @@ public class LoginDAO {
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					albumBean = new UserBean();
-					albumBean.setEmailId(rs.getString("emailid"));
-					albumBean.setUserId(rs.getString("userId"));
-					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
-					albumBean.setUserName(rs.getString("name"));
-					albumBean.setUserRole(rs.getString("role"));
-					albumBean.setResponseStatus(true);
+					bean.setEmailId(rs.getString("emailid"));
+					bean.setUserId(rs.getString("userId"));
+					bean.setUserIsAvailable(rs.getString("isAvailable"));
+					bean.setUserName(rs.getString("name"));
+					bean.setUserRole(rs.getString("role"));
+					bean.setResponseStatus(true);
 					bean.setBatchId(rs.getString("batchid"));
-					bean.setUserBean(albumBean);
 					bean.setStudentId(rs.getString("studentid"));
 				}
 
