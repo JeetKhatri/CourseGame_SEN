@@ -38,6 +38,7 @@ export default {
 .view-details {
 	.main {
 		margin-top: 1rem;
+		height: auto;
 	}
 }
 </style>

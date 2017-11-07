@@ -1,7 +1,7 @@
 <template>
 	<div class="students">
 		<h2>List of Students</h2>
-		<div class="columns" id="lists" v-for="i in 10" :key="i">
+		<div class="columns" id="lists" v-for="i in 20" :key="i">
 			<div class="column">
 				<h4>201612065</h4>
 			</div>

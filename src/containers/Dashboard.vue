@@ -36,7 +36,7 @@ export default {
 <style lang="scss">
 .dashboard {
 	.main{
-		height: 40rem;
+		height: auto;
 		top: 0.8rem;
 
 		.title {

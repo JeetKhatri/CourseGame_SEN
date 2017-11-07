@@ -6,7 +6,7 @@
 				<h4>Games Lists</h4>
 			</div>
 			<div class="column">
-				<span class="tag is-info">Remove</span>
+				<span class="tag is-info">Allowed</span>
 			</div>
 		</div>
 	</div>
@@ -29,15 +29,15 @@ export default {
 		justify-content: center;
 		padding-bottom: 0.5rem;
 	}
-
 	.columns {
 		margin: 0px;
 	}
-
+	.column {
+		padding-left: 8rem;
+	}
 	#lists {
 		padding: 0.1rem;
 	}
-
 	span:hover {
 		cursor: pointer;
 	}

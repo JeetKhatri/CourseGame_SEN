@@ -33,14 +33,21 @@ export default {
       HTTP.get(`Employee/Search/5eb63bbbe01eeed093cb22bb8f5acdc3/572`, {
 
       }).then((response) => {
-        console.log(response.data.employee);
         var empname = response.data.employee.empname
         var empsalary = response.data.employee.empsalary
         if(this.name == empname && this.salary == empsalary) {
-          // alert("user authenticated");
           this.$router.push('/dashboard');
+          let toast = this.$toasted.success('You have successfully logged in', {
+            theme: 'outline',
+            position: 'top-center',
+            duration: 3000
+          });
         } else {
-          alert("unauthorized access");
+          let toast = this.$toasted.success('Please enter correct username and password!', {
+            theme: 'outline',
+            position: 'top-center',
+            duration: 3000
+          });
         }
         this.name = '';
         this.salary = '';
@@ -48,10 +55,6 @@ export default {
         console.log(e);
       }) 
     }
-  },
-
-  created() {
-    console.log('component loaded!');
   }
 }
 </script>
@@ -59,12 +62,12 @@ export default {
 <style lang="scss">
 
 .login{ 
-    background-image: url('../assets/game.jpg');
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover; 
-    background-size: cover;
-    height: -webkit-fill-available;
+  background-image: url('../assets/game.jpg');
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover; 
+  background-size: cover;
+  height: -webkit-fill-available;
 
   h1 {
     font-size: 3em;
