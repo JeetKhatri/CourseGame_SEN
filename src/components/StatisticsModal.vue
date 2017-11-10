@@ -8,17 +8,23 @@
 					<button class="delete" @click="close"></button>
 				</header>
 				<section class="modal-card-body">
-					<div class="details">
-						<div class="field">
-							<label class="label">CPI</label>
-							<p class="control">
-								<input class="input" type="number" name="cpi" placeholder="CPI">
-							</p>
+					<div class="view">
+						<button class="button is-info" @click="leaderboard">View Leaderboard</button>
+					</div>
+					<div class="columns" id="lists" v-for="i in 20" :key="i">
+						<div class="column">
+							<h4>Question</h4>
+						</div>
+						<div class="column">
+							<h4>Answer</h4>
+						</div>
+						<div class="column">
+							<h4>Update</h4>
 						</div>
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-success">Save</a>
+					<a class="button is-info">Save</a>
 					<a class="button close-btn" @click="close">Close</a>
 				</footer>
 			</div>
@@ -33,10 +39,19 @@ export default {
 	methods: {
 		close() {
 			this.$emit('closeStatistics');
+		},
+		leaderboard() {
+			this.$router.push('/leader-board');
 		}
 	}
 
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.statistics-modal {
+	.view {
+		padding-left: 27.5rem;
+	}
+}
+</style>

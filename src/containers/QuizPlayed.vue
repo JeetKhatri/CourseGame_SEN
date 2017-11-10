@@ -68,7 +68,7 @@ export default {
 		margin: 0px;
 	}
 	h2 {
-		font-size: 20px;
+		font-size: 24px;
 		text-decoration: underline;
 		display: flex;
 		justify-content: center;
@@ -76,6 +76,7 @@ export default {
 	}
 	#button {
 		float: right;
+		padding: 0px;
 	}
 
 	#correctAnswer {

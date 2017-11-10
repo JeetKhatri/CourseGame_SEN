@@ -7,10 +7,10 @@
 					<div class="card main" id="views">
 						<div class="field has-addons title">
 							<p class="control is-fullwidth">
-								<input class="input newBatch" type="text" placeholder="Create New Batch">
+								<input class="input newBatch" type="text" placeholder="Add Faculty">
 							</p>
 							<p class="control">
-								<a class="button is-info" id="createBtn" @click=""> Create </a>
+								<a class="button is-info" id="createBtn" @click=""> Add </a>
 							</p>
 						</div>
 						<router-view></router-view>
@@ -22,7 +22,7 @@
 </template>
 
 <script type="text/javascript">
-import navbar from '@/components/Navbar'
+import navbar from '@/components/AdminNavbar'
 export default {
 	name: 'dashboard',
 

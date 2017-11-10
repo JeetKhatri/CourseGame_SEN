@@ -5,7 +5,7 @@
 				<a class="navbar-item">
 					<img src="../assets/courseGame.png" alt="course-game" width="40" height="28">Course-Game
 				</a>
-				<router-link to="/dashboard" class="navbar-item">Home</router-link>
+				<router-link to="/admin-dashboard" class="navbar-item">Home</router-link>
 				<div class="navbar-burger burger" data-target="navMenuTransparentExample">
 					<span></span>
 					<span></span>
@@ -57,12 +57,11 @@ export default {
 .navigation-bar {
 	position: fixed;
 	width: 100%;
-	height: 100px;
 	z-index: 2;
+
 	#menus {
 		margin-right: 2rem;
 	}
-
 	.navbar-item {
 		padding-bottom: 0px;
 	}

@@ -37,7 +37,7 @@ export default {
 <style lang="scss">
 .view-details {
 	.main {
-		margin-top: 1rem;
+		margin-top: 3.9rem;
 		height: auto;
 	}
 }

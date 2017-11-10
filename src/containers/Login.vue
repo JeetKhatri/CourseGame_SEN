@@ -5,10 +5,10 @@
       <h1>Welcome To Course Game</h1>
       <div class="mainw3-agileinfo form"> 
         <div class="field-wrap">
-          <input type="text" name="email" placeholder="Email" v-model='name'>
+          <input type="text" name="email" placeholder="Email" v-model='email'>
         </div> 
         <div class="field-wrap">
-          <input type="password" name="password" placeholder="password" v-model='salary'>
+          <input type="password" name="password" placeholder="password" v-model='pass'>
         </div> 
         <button class="button button-block" @click="login">Log In</button> 
         <p class="forgot"><router-link to="facultyRegistration">SignUp for faculty?</router-link></p>
@@ -23,36 +23,30 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      name: '',
-      salary: ''
+      email: '',
+      pass: ''
     }
   },
 
   methods: {
     login() {
-      HTTP.get(`Employee/Search/5eb63bbbe01eeed093cb22bb8f5acdc3/572`, {
+      HTTP.post(`https://coursegame.herokuapp.com/rest/login/faculty?emailid=`+this.email+`&password=`+this.pass,{
 
-      }).then((response) => {
-        var empname = response.data.employee.empname
-        var empsalary = response.data.employee.empsalary
-        if(this.name == empname && this.salary == empsalary) {
-          this.$router.push('/dashboard');
-          let toast = this.$toasted.success('You have successfully logged in', {
-            theme: 'outline',
-            position: 'top-center',
-            duration: 3000
-          });
-        } else {
-          let toast = this.$toasted.success('Please enter correct username and password!', {
-            theme: 'outline',
-            position: 'top-center',
-            duration: 3000
-          });
+      })
+      .then(response => {
+        if (response.status === 200) {
+          if(response.data.userRole=="Faculty"){
+            this.$router.push('/dashboard');
+            let toast = this.$toasted.success('You have successfully logged in', {
+              theme: 'outline',
+              position: 'top-center',
+              duration: 3000
+            });
+          }
         }
-        this.name = '';
-        this.salary = '';
-      }).catch((e) => {
-        console.log(e);
+      })
+      .catch((e) => {
+        console.log(e)
       }) 
     }
   }

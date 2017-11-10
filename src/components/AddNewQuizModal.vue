@@ -47,8 +47,8 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-success">Save</a>
-					<a class="button is-success" id="closeBtn" @click="close">Close</a>
+					<a class="button is-info">Save</a>
+					<a class="button is-info" id="closeBtn" @click="close">Close</a>
 				</footer>
 			</div>
 		</div>

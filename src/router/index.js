@@ -4,14 +4,14 @@ import Login from '@/containers/Login'
 import FacultyRegistration from '@/containers/FacultyRegistration'
 import Dashboard from '@/containers/Dashboard'
 import Batch from '@/containers/Batch'
-import Profile from '@/containers/Profile'
-import Settings from '@/containers/Settings'
-import QuizQuestions from '@/containers/QuizQuestions'
 import ViewDetails from '@/containers/ViewDetails'
 import Students from '@/containers/Students'
 import Ta from '@/containers/Ta'
 import GamesLists from '@/containers/GamesLists'
 import QuizPlayed from '@/containers/QuizPlayed'
+import LeaderBoard from '@/containers/LeaderBoard'
+import AdminDashboard from '@/containers/Admin/AdminDashboard'
+import Faculties from '@/containers/Admin/Faculties'
 
 Vue.use(Router)
 
@@ -37,21 +37,17 @@ export default new Router({
 			path: '/dashboard',
 			name: 'dashboard',
 			component: Batch
-		},
+		}
+		]
+	},
+	{
+		path: '/admin-dashboard', 	
+		component: AdminDashboard,
+		children: [
 		{
-			path: '/profile',
-			name: 'profile',
-			component: Profile
-		},
-		{
-			path: '/settings',
-			name: 'settings',
-			component: Settings
-		},
-		{
-			path: '/quiz-questions',
-			name: 'quiz-questions',
-			component: QuizQuestions
+			path: '/admin-dashboard',
+			name: 'admin-dashboard',
+			component: Faculties
 		}
 		]
 	},
@@ -78,6 +74,11 @@ export default new Router({
 			path: '/quiz-played',
 			name: 'quiz-played',
 			component: QuizPlayed
+		},
+		{
+			path: '/leader-board',
+			name: 'leader-board',
+			component: LeaderBoard
 		}
 		]
 	}

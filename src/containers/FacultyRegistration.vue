@@ -31,29 +31,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="field is-horizontal">
-					<div class="field-body">
-						<div class="field">
-							<div class="field-wrap">
-								<input type="text" name="role" placeholder="Role" v-model="role">
-							</div>
-						</div>
-						<div class="field">
-							<div class="field-wrap">
-								<input type="password" name="Password" placeholder="Password">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="field is-horizontal">
-					<div class="field-body">
-						<div class="field">
-							<div class="field-wrap">
-								<input type="password" name="confrimPassword" placeholder="Confirm Password">
-							</div>
-						</div>
-					</div>
-				</div>
 				<button class="button button-block" @click="register">SignUp</button>  
 			</div>
 		</div>
@@ -69,21 +46,26 @@ export default {
 			firstname: '',
 			lastname: '',
 			emailAddress: '',
-			degree: '',
-			role: ''
+			degree: ''
 		}
 	},
 
 	methods: {
 		register() {
-			// https://coursegame.herokuapp.com/rest/faculty/faculty-insert/?emailid=jeet.g.khatri@gmail.com&name=Jeet Faculty Online&degree=MSCIT
-			HTTP.post(`rest/faculty/faculty-insert/?emailid=`+ this.emailAddress + `&name=` +this.firstname +' '+ this.lastname+ `&degree=`+ this.degree, {
-				// emailid: this.emailAddress,
-				// name: this.firstname +''+ this.lastname,
-				// role: this.role,
-				// degree: this.degree
+			HTTP.post(`https://coursegame.herokuapp.com/rest/faculty/faculty-insert/?emailid=`+this.emailAddress+`&name=`+this.firstname+` `+this.lastname+`&degree=`+this.degree, {
+				
 			}).then(response => {
-				console.log(response.data);
+				if(response.status===200)
+				{
+					if(response.data == true)
+					{
+						let toast = this.$toasted.success('Registration Successfull! Mail has been sent to your email address', {
+							theme: 'outline',
+							position: 'top-center',
+							duration: 3000
+						});
+					}
+				}
 			})
 		}
 	}
@@ -97,7 +79,7 @@ export default {
 	-webkit-background-size: cover;
 	-moz-background-size: cover; 
 	background-size: cover;
-	height: fit-content;
+	height: -webkit-fill-available;
 
 
 	h1 {
