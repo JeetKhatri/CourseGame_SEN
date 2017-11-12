@@ -1,6 +1,6 @@
 package root.Bean;
 
-public class TABean {
+public class TABean extends UserBean{
 
 	private String taid;
 	private String userid;

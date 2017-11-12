@@ -1,12 +1,14 @@
 package root.WebServices;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import root.Bean.BatchBean;
 import root.Bean.FacultyBean;
 import root.Bean.UserBean;
 import root.DAO.FacultyDAO;
@@ -71,5 +73,39 @@ public class FacultyWebServices {
 		return new FacultyDAO().update(bean);
 	}
 
-	
+	@POST
+	@Path("/faculty-batch")
+	@Produces("application/json")
+	public Response facultyBatch(@Context UriInfo info) {
+
+		String facultyId = info.getQueryParameters().getFirst("facultyid");
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		ArrayList<BatchBean> beans = new FacultyDAO().facultyBatch(facultyId);
+		if (beans == null || beans.size() == 0) {
+			hashMap.put("responseStatus", false);
+		} else {
+			hashMap.put("responseStatus", true);
+			hashMap.put("batchBeans", beans);
+		}
+
+		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
+	}
+
+	@GET
+	@Path("/faculty-list")
+	@Produces("application/json")
+	public Response facultyList(@Context UriInfo info) {
+
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		ArrayList<FacultyBean> beans = new FacultyDAO().facultyList();
+		if (beans == null || beans.size() == 0) {
+			hashMap.put("responseStatus", false);
+		} else {
+			hashMap.put("responseStatus", true);
+			hashMap.put("facutlyBeans", beans);
+		}
+
+		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
+	}
+
 }

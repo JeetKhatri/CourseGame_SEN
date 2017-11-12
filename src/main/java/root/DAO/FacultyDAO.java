@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import root.Bean.BatchBean;
 import root.Bean.FacultyBean;
 import root.Bean.UserBean;
 import root.Controller.SendEmail;
@@ -156,5 +157,75 @@ public class FacultyDAO {
 
 		}
 		return false;
+	}
+	
+	public ArrayList<BatchBean> facultyBatch(String facultyId) {
+
+		ArrayList<BatchBean> arrayList = new ArrayList<BatchBean>();
+
+		String sql = "select * from batch where facultyid='" + facultyId + "'";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				BatchBean bean = new BatchBean();
+				while (rs.next()) {
+					bean = new BatchBean();
+					bean.setBatchid(rs.getString("batchid"));
+					bean.setBatchname(rs.getString("batchname"));
+					bean.setFacultyid(rs.getString("facultyid"));
+
+					arrayList.add(bean);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return arrayList;
+	}
+
+	public ArrayList<FacultyBean> facultyList() {
+		ArrayList<FacultyBean> arrayList = new ArrayList<FacultyBean>();
+
+		String sql = "select * from faculty f,users u where f.userid=u.userid";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				FacultyBean bean = new FacultyBean();
+				while (rs.next()) {
+					bean = new FacultyBean();
+					bean.setDegree(rs.getString("degree"));
+					bean.setFacultyId(rs.getString("facultyid"));
+					bean.setIsApproved(rs.getString("isApproved"));
+					bean.setEmailId(rs.getString("emailid"));
+					bean.setUserId(rs.getString("userid"));
+					bean.setUserIsAvailable(rs.getString("isavailable"));
+					bean.setUserName(rs.getString("name"));
+					bean.setUserRole(rs.getString("role"));
+
+					arrayList.add(bean);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return arrayList;
 	}
 }

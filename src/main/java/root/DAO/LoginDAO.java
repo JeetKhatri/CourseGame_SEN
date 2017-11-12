@@ -184,4 +184,43 @@ public class LoginDAO {
 		return bean;
 	}
 
+	public UserBean login(String emailId, String password) {
+		UserBean albumBean = new UserBean();
+		String sql = "select * from users where emailid=? and password=?";
+		conn = DBConnection.getConnection();
+
+		boolean flag = false;
+		if (conn != null) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, emailId);
+				pstmt.setString(2, GenrateMathodsUtils.makeSHA512(password));
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					albumBean = new UserBean();
+					albumBean.setEmailId(rs.getString("emailid"));
+					albumBean.setUserId(rs.getString("userId"));
+					albumBean.setUserIsAvailable(rs.getString("isAvailable"));
+					albumBean.setUserName(rs.getString("name"));
+					albumBean.setUserRole(rs.getString("role"));
+					albumBean.setResponseStatus(true);
+					flag = true;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return albumBean;
+	}
+	
 }

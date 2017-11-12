@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import root.Bean.TABean;
 import root.Bean.UserBean;
 import root.Controller.SendEmail;
 import root.Utils.DBConnection;
@@ -104,5 +105,45 @@ public class TADAO {
 			}
 		}
 		return false;
+	}
+	
+	public ArrayList<TABean> taList(String batchId) {
+
+		ArrayList<TABean> arrayList = new ArrayList<TABean>();
+
+		String sql = "select * from ta t,users u where t.userid=u.userid and batchid='" + batchId + "'";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				TABean bean = new TABean();
+				while (rs.next()) {
+					bean = new TABean();
+					bean.setTaid(rs.getString("taid"));
+					bean.setBatchid(rs.getString("batchid"));
+					bean.setEmailId(rs.getString("emailid"));
+					bean.setUserId(rs.getString("userid"));
+					bean.setUserIsAvailable(rs.getString("isavailable"));
+					bean.setUserName(rs.getString("name"));
+					bean.setUserRole(rs.getString("role"));
+					bean.setUserid(rs.getString("userid"));
+
+					arrayList.add(bean);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println(arrayList.size());
+		return arrayList;
+
 	}
 }

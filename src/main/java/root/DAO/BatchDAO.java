@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import root.Bean.BatchBean;
+import root.Bean.QuizBean;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
@@ -54,5 +55,40 @@ public class BatchDAO {
 			}
 		}
 		return false;
+	}
+	
+	public ArrayList<QuizBean> quizList(String batchid) {
+
+		ArrayList<QuizBean> arraylist = new ArrayList<QuizBean>();
+
+		String ssql = "select batchid,q.name as qname,u.name as uname,status,quizid,createdby,userid from users u,quiz q where batchid='"
+				+ batchid + "' and q.createdby=u.userid";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(ssql);
+				rs = pstmt.executeQuery();
+				QuizBean bean = new QuizBean();
+				while (rs.next()) {
+					bean = new QuizBean();
+					bean.setBatchId(rs.getString("batchid"));
+					bean.setName(rs.getString("qname"));
+					bean.setCreatedBy(rs.getString("uname"));
+					bean.setStatus(rs.getString("status"));
+					bean.setQuizId(rs.getString("quizid"));
+					arraylist.add(bean);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return arraylist;
 	}
 }

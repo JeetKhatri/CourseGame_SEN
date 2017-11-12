@@ -1,5 +1,9 @@
 package root.WebServices;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -11,6 +15,7 @@ import root.Bean.StatusBean;
 import root.Bean.StudentBean;
 import root.Bean.UserBean;
 import root.DAO.LoginDAO;
+import root.DAO.StudentDAO;
 import root.DAO.UserDAO;
 
 @Path("/student")
@@ -32,4 +37,23 @@ public class StudentWebService {
 		StatusBean list = new UserDAO().insertStudent(studentBean);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
+	
+	@GET
+	@Path("/student-list")
+	@Produces("application/json")
+	public Response facultyList(@Context UriInfo info) {
+
+		String batchId = info.getQueryParameters().getFirst("batchid");
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		ArrayList<StudentBean> beans = new StudentDAO().studentList(batchId);
+		if (beans == null || beans.size() == 0) {
+			hashMap.put("responseStatus", false);
+		} else {
+			hashMap.put("responseStatus", true);
+			hashMap.put("studentBeans", beans);
+		}
+
+		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
+	}
+
 }

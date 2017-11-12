@@ -71,4 +71,15 @@ public class LoginWebService {
 		// return new LoginDAO().studentLogin(emailId,password);
 	}
 
+	@POST
+	@Path("/common")
+	@Produces("application/json")
+	public Response commonLogin(@Context UriInfo info) {
+		String emailId = info.getQueryParameters().getFirst("emailid");
+		String password = info.getQueryParameters().getFirst("password");
+
+		UserBean list = new LoginDAO().login(emailId, password);
+		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+	}
+
 }
