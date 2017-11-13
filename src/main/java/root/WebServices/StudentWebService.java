@@ -55,5 +55,15 @@ public class StudentWebService {
 
 		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
 	}
+	
+	@POST
+	@Path("/student-remove")
+	@Produces("application/json")
+	public Response studentRemove(@Context UriInfo info) {
+		String userId = info.getQueryParameters().getFirst("userid");
+
+		StatusBean list = new UserDAO().remove(userId);
+		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+	}
 
 }

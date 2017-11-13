@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import root.Bean.StatusBean;
 import root.Bean.StudentBean;
 import root.Utils.DBConnection;
 
@@ -50,4 +51,5 @@ public class StudentDAO {
 		}
 		return arrayList;
 	}
+	
 }

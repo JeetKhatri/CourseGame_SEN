@@ -240,4 +240,32 @@ public class UserDAO {
 
 	}
 
+	
+	public StatusBean remove(String userId) {
+		StatusBean bean = new StatusBean();
+		boolean flag = false;
+		String sql = "delete from users where userid='" + userId + "'";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				if (pstmt.executeUpdate() > 0)
+					bean.setResponseStatus(true);
+			}
+
+			catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return bean;
+	}
+	
 }
