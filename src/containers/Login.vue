@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    <div class="body"></div>
     <div class="main-agileits">
       <h1>Welcome To Course Game</h1>
       <div class="mainw3-agileinfo form"> 
@@ -30,6 +29,7 @@ export default {
 
   methods: {
     login() {
+      console.log('clicked')
       HTTP.post(`https://coursegame.herokuapp.com/rest/login/faculty?emailid=`+this.email+`&password=`+this.pass,{
 
       })
@@ -42,7 +42,7 @@ export default {
               position: 'top-center',
               duration: 3000
             });
-          }
+          } 
         }
       })
       .catch((e) => {

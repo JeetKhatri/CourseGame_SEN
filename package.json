@@ -15,7 +15,8 @@
     "vue": "^2.4.2",
     "vue-js-toggle-button": "^1.2.0",
     "vue-router": "^2.7.0",
-    "vue-toasted": "^1.1.22"
+    "vue-toasted": "^1.1.22",
+    "vee-validate": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

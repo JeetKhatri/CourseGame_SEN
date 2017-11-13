@@ -6,7 +6,7 @@
 				<h4>Games Lists</h4>
 			</div>
 			<div class="column">
-				<span class="tag is-info">Allowed</span>
+				<span class="tag is-info">Allow</span>
 			</div>
 		</div>
 	</div>

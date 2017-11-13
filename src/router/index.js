@@ -12,6 +12,7 @@ import QuizPlayed from '@/containers/QuizPlayed'
 import LeaderBoard from '@/containers/LeaderBoard'
 import AdminDashboard from '@/containers/Admin/AdminDashboard'
 import Faculties from '@/containers/Admin/Faculties'
+import ThankYou from '@/containers/ThankYou'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
 		path: '/facultyRegistration',
 		name: 'facultyRegistration',
 		component: FacultyRegistration
+	},
+	{
+		path: '/thank-you',
+		name: 'thank-you',
+		component: ThankYou
 	},
 	{
 		path: '/dashboard',
