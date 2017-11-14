@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import root.Bean.QuizContentBean;
+import root.Bean.StudentQuizBean;
 import root.Utils.DBConnection;
+import root.Utils.GenrateMathodsUtils;
 
 public class QuizContentDAO {
 	ResultSet rs = null;
@@ -189,6 +191,149 @@ public class QuizContentDAO {
 			}
 		}
 		return arrayList;
+	}
+
+	public boolean answerFirst(String studentId, String quizContentId, String selectedOption, String quizid) {
+
+		String delSql = "delete from studentquizcontent where studentid='" + studentId + "' and quizid = '" + quizid
+				+ "'";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				conn.setAutoCommit(false);
+
+				pstmt = conn.prepareStatement(delSql);
+				int rowAffected = pstmt.executeUpdate();
+
+				String insertSql = "insert into studentquizcontent(studentquizcontentid,studentid,quizcontentid,selectedoption,quizid) values(?,?,?,?,?)";
+
+				pstmt = null;
+				pstmt = conn.prepareStatement(insertSql);
+
+				pstmt.setString(1, GenrateMathodsUtils.getRandomString(15));
+				pstmt.setString(2, studentId);
+				pstmt.setString(3, quizContentId);
+				pstmt.setString(4, selectedOption);
+				pstmt.setString(5, quizid);
+
+				rowAffected = pstmt.executeUpdate();
+				if (rowAffected > 0)
+					return true;
+
+				conn.rollback();
+				return false;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				try {
+					conn.commit();
+					conn.setAutoCommit(true);
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean answerCurr(String studentId, String quizContentId, String selectedOption, String quizId) {
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				conn.setAutoCommit(false);
+
+				String insertSql = "insert into studentquizcontent(studentquizcontentid,studentid,quizcontentid,selectedoption,quizid) values(?,?,?,?,?)";
+
+				pstmt = null;
+				pstmt = conn.prepareStatement(insertSql);
+
+				pstmt.setString(1, GenrateMathodsUtils.getRandomString(15));
+				pstmt.setString(2, studentId);
+				pstmt.setString(3, quizContentId);
+				pstmt.setString(4, selectedOption);
+				pstmt.setString(5, quizId);
+
+				int rowAffected = pstmt.executeUpdate();
+				if (rowAffected > 0)
+					return true;
+
+				conn.rollback();
+				return false;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				try {
+					conn.commit();
+					conn.setAutoCommit(true);
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+
+	public StudentQuizBean generateMarks(String studentId, String quizId) {
+
+		StudentQuizBean bean = new StudentQuizBean();
+		String sql = "select * from studentquizcontent s,quizcontent q,quiz qu where s.quizcontentid=q.quizcontentid "
+				+ "and studentid=? and q.quizid=? and qu.quizid=q.quizid";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				int total = 0;
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, studentId);
+				pstmt.setString(2, quizId);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+
+					String ans = rs.getString("answer");
+					String selectedOption = rs.getString("selectedoption");
+
+					if (ans.equalsIgnoreCase(selectedOption)) {
+						total += Integer.parseInt(rs.getString("mark"));
+					}
+
+					bean.setName(rs.getString("name"));
+					bean.setBatchId(rs.getString("batchid"));
+					bean.setQuizId(rs.getString("quizid"));
+				}
+				bean.setTotal(total + "");
+
+				String insertSql = "insert into studentquiz(studentquizid,studentid,total,quizid) values(?,?,?,?)";
+
+				pstmt = null;
+				pstmt = conn.prepareStatement(insertSql);
+				String id = GenrateMathodsUtils.getRandomString(15);
+				bean.setStudentid(studentId);
+				bean.setStudentquizid(id);
+				bean.setReaponseStatus(true);
+				pstmt.setString(1, id);
+				pstmt.setString(2, studentId);
+				pstmt.setInt(3, total);
+				pstmt.setString(4, quizId);
+
+				int rowAffected = pstmt.executeUpdate();
+				if (rowAffected > 0) {
+					return bean;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+
 	}
 
 

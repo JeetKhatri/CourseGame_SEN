@@ -13,6 +13,8 @@ import javax.ws.rs.core.UriInfo;
 
 import root.Bean.BatchBean;
 import root.Bean.QuizContentBean;
+import root.Bean.StatusBean;
+import root.Bean.StudentQuizBean;
 import root.DAO.BatchDAO;
 import root.DAO.FacultyDAO;
 import root.DAO.QuizContentDAO;
@@ -107,6 +109,35 @@ public class QuizContentWebService {
 		}
 
 		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
+	}
+	
+	@POST 
+	@Path("/answer-quiz")
+	@Produces("application/json") 
+	public HashMap<String, Object> answerQuizContent(@Context UriInfo info) {
+		StatusBean st = new StatusBean();
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		String studentId = info.getQueryParameters().getFirst("studentid");
+		String quizId = info.getQueryParameters().getFirst("quizid");
+		String quizContentId = info.getQueryParameters().getFirst("quizcontentid");
+		String selectedOption = info.getQueryParameters().getFirst("selectedoption");
+		String var = info.getQueryParameters().getFirst("var");
+
+		if (var.equalsIgnoreCase("start")) {
+			st.setResponseStatus(new QuizContentDAO().answerFirst(studentId, quizContentId, selectedOption, quizId));
+			hashMap.put("responseStatus", st.isResponseStatus());
+
+		} else if (var.equalsIgnoreCase("finish")) {
+			st.setResponseStatus(new QuizContentDAO().answerCurr(studentId, quizContentId, selectedOption, quizId));
+			hashMap.put("responseStatus", st.isResponseStatus());
+			StudentQuizBean bean = new QuizContentDAO().generateMarks(studentId, quizId);
+			hashMap.put("studentQuizDetail", bean);
+		} else {
+			st.setResponseStatus(new QuizContentDAO().answerCurr(studentId, quizContentId, selectedOption, quizId));
+			hashMap.put("responseStatus", st.isResponseStatus());
+		}
+
+		return hashMap;
 	}
 
 }
