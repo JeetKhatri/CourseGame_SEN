@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import root.Bean.BatchBean;
 import root.Bean.TABean;
 import root.Bean.UserBean;
 import root.Controller.SendEmail;
@@ -145,5 +146,38 @@ public class TADAO {
 		System.out.println(arrayList.size());
 		return arrayList;
 
+	}
+
+	public ArrayList<BatchBean> batchList(String userId) {
+		
+
+		ArrayList<BatchBean> arrayList = new ArrayList<BatchBean>();
+
+		String sql = "select * from ta t,batch b where t.batchid=b.batchid and userid=?";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				rs = pstmt.executeQuery();
+				BatchBean bean = new BatchBean();
+				while (rs.next()) {
+					bean = new BatchBean();
+					bean.setBatchid(rs.getString("batchid"));
+					bean.setBatchname(rs.getString("batchname"));
+					arrayList.add(bean);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return arrayList;
 	}
 }

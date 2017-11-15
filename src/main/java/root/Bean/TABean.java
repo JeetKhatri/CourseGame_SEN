@@ -1,5 +1,6 @@
 package root.Bean;
 
+
 public class TABean extends UserBean{
 
 	private String taid;

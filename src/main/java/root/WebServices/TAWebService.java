@@ -8,6 +8,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import root.Bean.BatchBean;
 import root.Bean.FacultyBean;
 import root.Bean.TABean;
 import root.Bean.UserBean;
@@ -52,4 +55,21 @@ public class TAWebService {
 		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
 	}
 
+	@GET
+	@Path("/batch-list")
+	@Produces("application/json")
+	public Response batchList(@Context UriInfo info) {
+		String userId = info.getQueryParameters().getFirst("userid");
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		ArrayList<BatchBean> beans = new TADAO().batchList(userId);
+		if (beans == null || beans.size() == 0) {
+			hashMap.put("responseStatus", false);
+		} else {
+			hashMap.put("responseStatus", true);
+			hashMap.put("batchData", beans);
+		}
+
+		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
+	}
+	
 }
