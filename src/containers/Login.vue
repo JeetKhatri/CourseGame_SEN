@@ -55,6 +55,11 @@ export default {
         }
       })
       .catch((e) => {
+        let toast = this.$toasted.success('Incorrect Username or Password', {
+          theme: 'outline',
+          position: 'top-center',
+          duration: 3000
+        });
         console.log(e)
       }) 
     }

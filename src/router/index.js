@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Login from '@/containers/Login'
 import FacultyRegistration from '@/containers/FacultyRegistration'
 import Dashboard from '@/containers/Dashboard'
-import Batch from '@/containers/Batch'
+// import Batch from '@/containers/Batch'
 import ViewDetails from '@/containers/ViewDetails'
 import Students from '@/containers/Students'
 import Ta from '@/containers/Ta'
@@ -37,14 +37,8 @@ export default new Router({
 	},
 	{
 		path: '/dashboard',
+		name: 'dashboard',
 		component: Dashboard,
-		children: [
-		{
-			path: '/dashboard',
-			name: 'dashboard',
-			component: Batch
-		}
-		]
 	},
 	{
 		path: '/admin-dashboard', 	
