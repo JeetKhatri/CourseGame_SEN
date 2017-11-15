@@ -3,6 +3,7 @@ package root.WebServices;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -15,9 +16,11 @@ import root.Bean.BatchBean;
 import root.Bean.QuizContentBean;
 import root.Bean.StatusBean;
 import root.Bean.StudentQuizBean;
+import root.Bean.UserBean;
 import root.DAO.BatchDAO;
 import root.DAO.FacultyDAO;
 import root.DAO.QuizContentDAO;
+import root.DAO.UserDAO;
 import root.Utils.GenrateMathodsUtils;
 
 @Path("/quiz-content")
@@ -140,4 +143,13 @@ public class QuizContentWebService {
 		return hashMap;
 	}
 
+	
+	@GET
+	@Path("/questions-list")
+	@Produces("application/json")
+	public Response getList(@Context UriInfo info) {
+		String quizid = info.getQueryParameters().getFirst("quizid");
+		HashMap<String, Object> list = new QuizContentDAO().getList(quizid);
+		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+	}
 }

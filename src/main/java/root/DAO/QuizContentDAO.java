@@ -5,14 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import root.Bean.QuizContentBean;
 import root.Bean.StudentQuizBean;
+import root.Bean.UserBean;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
 public class QuizContentDAO {
-	ResultSet rs = null;
+	ResultSet rs = null,rs1=null;
 	PreparedStatement pstmt = null;
 	Connection conn = null;
 
@@ -112,8 +114,7 @@ public class QuizContentDAO {
 	public boolean update(QuizContentBean bean) {
 
 		String sql = "update quizcontent set quizcontentid=?,quizid=?,questioncontent=?,"
-				+ "option1=?,option2=?,option3=?,option4=?,answer=?,"
-				+ "mark=?,difficulty=? where quizcontentid=?";
+				+ "option1=?,option2=?,option3=?,option4=?,answer=?," + "mark=?,difficulty=? where quizcontentid=?";
 		conn = DBConnection.getConnection();
 		if (conn != null) {
 			try {
@@ -150,7 +151,7 @@ public class QuizContentDAO {
 		}
 		return false;
 	}
-	
+
 	public ArrayList<QuizContentBean> listQuetion(String batchid) {
 
 		ArrayList<QuizContentBean> arrayList = new ArrayList<QuizContentBean>();
@@ -336,5 +337,64 @@ public class QuizContentDAO {
 
 	}
 
+	public HashMap<String, Object> getList(String quizid) {
+		HashMap<String, Object> hash = new HashMap<String, Object>();
+		ArrayList<QuizContentBean> list = new ArrayList<QuizContentBean>();
+		QuizContentBean bean = new QuizContentBean();
+		String sql = "select * from quizcontent where quizid=?";
+		conn = DBConnection.getConnection();
+
+		boolean flag = false;
+		if (conn != null) {
+
+			try {
+
+				pstmt = conn.prepareStatement("select * from quiz where quizid=?");
+				pstmt.setString(1, quizid);
+				rs1 = pstmt.executeQuery();
+				if (rs1.next()) {
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, quizid);
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						bean = new QuizContentBean();
+						bean.setQuizContentId(rs.getString("quizcontentid"));
+						bean.setQuizId(rs.getString("quizid"));
+						bean.setQuestion(rs.getString("questioncontent"));
+						bean.setOption1(rs.getString("option1"));
+						bean.setOption2(rs.getString("option2"));
+						bean.setOption3(rs.getString("option3"));
+						bean.setOption4(rs.getString("option4"));
+						bean.setAnswer(rs.getString("answer"));
+						bean.setMark(rs.getString("mark"));
+						bean.setDifficulty(rs.getString("difficulty"));
+						bean.setIsAvailable(rs.getString("isavailable"));
+						list.add(bean);
+						flag = true;
+					}
+					if (flag == true) {
+						hash.put("quizcontent", list);
+						hash.put("name",rs1.getString("name"));
+						hash.put("starttime",rs1.getString("starttime"));
+						hash.put("endtime",rs1.getString("endtime"));
+						hash.put("createdby",rs1.getString("createdby"));
+					}
+					hash.put("responseStatus", flag);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return hash;
+	}
 
 }
