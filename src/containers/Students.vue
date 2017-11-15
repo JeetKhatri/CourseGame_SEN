@@ -8,15 +8,15 @@
 				<h2>List Of Students</h2>
 			</div>
 		</div>
-		<div class="columns" id="lists" v-for="i in 20" :key="i">
+		<div class="columns" id="lists" v-for="student in data">
 			<div class="column">
-				<h4>201612065</h4>
+				<h4>{{student.emailId}}</h4>
 			</div>
 			<div class="column">
-				<h4>Students</h4>
+				<h4>{{student.userName}}</h4>
 			</div>
 			<div class="column">
-				<span class="tag is-info">Remove</span>
+				<span class="tag is-info" @click="removeStudent(student.userId)">Remove</span>
 			</div>
 		</div>
 		<addStudent v-if="addNewStudent" @closeAddStudent="close"></addStudent>
@@ -25,21 +25,50 @@
 
 <script type="text/javascript">
 import addStudent from '@/components/AddNewStudentModal';
+import HTTP from '@/packages/HTTP'
 export default {
 	name: 'students',
+	data(){
+		return{
+			batchid: '',
+			addNewStudent:false,
+			data: []
+		}
+	},
 	components: {
 		addStudent
 	},
-
-	data() {
-		return{
-			addNewStudent:false
-		}
+	created(){
+		this.getStudents();
 	},
-
 	methods: {
 		close() {
 			this.addNewStudent = false
+		},
+		removeStudent(id){
+			console.log(id)
+			HTTP.post(`https://coursegame.herokuapp.com/rest/student/student-remove?userid=`+id,{
+
+				})
+			.then(response => {
+				if (response.status === 200) {
+					this.getStudents();
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
+		},
+		getStudents(){
+		this.batchid =this.$route.params.batchid,
+		HTTP.get(`https://coursegame.herokuapp.com/rest/student/student-list?batchid=`+this.batchid)
+		.then(response => {
+			this.data = response.data.studentBeans;
+			console.log(this.data)
+		})
+		.catch(e=>{
+			console.log(e);
+		})	
 		}
 	}
 }

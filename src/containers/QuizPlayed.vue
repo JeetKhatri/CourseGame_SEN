@@ -10,14 +10,14 @@
 		</div>
 		<div>
 			<div class="columns">
-				<div class="column" v-for="i in 3" :key="i">
+				<div class="column" v-for="quiz in data">
 					<div class="card">
 						<header class="card-header">
 							<p class="card-header-title">
-								Quiz 1
+								{{quiz.name}}
 							</p>
 							<div>
-								<span class="tag is-info">Msc.it</span>
+								<span class="tag is-info">{{quiz.createdBy}}</span>
 							</div>
 						</header>
 						<footer class="card-footer">
@@ -35,6 +35,7 @@
 <script type="text/javascript">
 import statistics from '@/components/StatisticsModal';
 import addNewQuiz from '@/components/AddNewQuizModal';
+import HTTP from '@/packages/HTTP';
 export default {
 	name: 'quiz-played',
 	components: {
@@ -45,8 +46,27 @@ export default {
 	data() {
 		return {
 			statistics: false,
-			addNewQuiz: false
+			addNewQuiz: false,
+			batchid: '',
+			data:  []
 		}
+	},
+created(){
+		this.batchid=this.$route.params.batchid;
+		HTTP.post(`https://coursegame.herokuapp.com/rest/batch/batch-quiz/?batchid=
+			`+this.batchid,{
+
+			})
+		.then(response => {
+			if (response.status === 200) {
+				this.data =response.data.quizBeans;
+				console.log(this.data);
+
+			}
+		})
+		.catch((e) => {
+			console.log(e)
+		})
 	},
 
 	methods:  {

@@ -23,25 +23,34 @@ export default {
   data () {
     return {
       email: '',
-      pass: ''
+      pass: '',
+      faculty_id: ''
     }
   },
 
   methods: {
     login() {
       console.log('clicked')
-      HTTP.post(`https://coursegame.herokuapp.com/rest/login/faculty?emailid=`+this.email+`&password=`+this.pass,{
+      HTTP.post(`https://coursegame.herokuapp.com/rest/login/common?emailid=`+this.email+`&password=`+this.pass,{
 
       })
       .then(response => {
         if (response.status === 200) {
           if(response.data.userRole=="Faculty"){
             this.$router.push('/dashboard');
+            this.faculty_id = response.data.userId;
+            console.log(this.faculty_id);
+            localStorage.setItem('faculty_id',this.faculty_id);
             let toast = this.$toasted.success('You have successfully logged in', {
               theme: 'outline',
               position: 'top-center',
               duration: 3000
             });
+          }
+          else if(response.data.userRole=="Admin"){
+            this.$router.push('/admin-dashboard');
+            localStorage.removeItem('faculty_id');
+            
           } 
         }
       })

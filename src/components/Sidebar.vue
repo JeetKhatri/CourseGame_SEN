@@ -3,10 +3,10 @@
 		<div class="card sidebar">
 			<aside class="menu">
 				<ul class="menu-list">
-					<li><router-link to='/view-details'>Students</router-link></li>
-					<li><router-link to='/ta'>TA</router-link></li>
-					<li><router-link to='/quiz-played'>Quiz Played</router-link></li>
-					<li><router-link to='/games-lists'>Games</router-link></li>
+					<li><router-link :to="{name: 'view-details', params:{batchid: batchid}}">Students</router-link></li>
+					<li><router-link :to="{name: 'ta', params:{batchid: batchid}}">TA</router-link></li>
+					<li><router-link :to="{name: 'quiz-played', params:{batchid: batchid}}">Quiz Played</router-link></li>
+					<li><router-link :to="{name: 'games-lists', params:{batchid: batchid}}">Games</router-link></li>
 				</ul>
 			</aside>
 		</div>		
@@ -16,6 +16,14 @@
 <script type="text/javascript">
 export default {
 	name: 'sidebar',
+	data(){
+		return{
+			batchid:''
+		}
+	},
+	created(){
+		this.batchid =this.$route.params.batchid;
+	}
 
 }
 </script>

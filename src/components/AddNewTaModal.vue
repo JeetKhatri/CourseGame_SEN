@@ -13,12 +13,12 @@
 							<div class="field-body">
 								<div class="field">
 									<div class="field-wrap">
-										<input type="text" placeholder="TA ID">
+										<input type="text" v-model="emailId" placeholder="Email Id">
 									</div>
 								</div>
 								<div class="field">
 									<div class="field-wrap">
-										<input type="text" placeholder="Name">
+										<input type="text" v-model="name" placeholder="Name">
 									</div>
 								</div>
 							</div>
@@ -26,7 +26,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info">Create</a>
+					<a class="button is-info" @click="addTa()">Create</a>
 					<a class="button close-btn" @click="close">Close</a>
 				</footer>
 			</div>
@@ -35,12 +35,35 @@
 </template>
 
 <script type="text/javascript">
+import HTTP from '@/packages/HTTP'
 export default {
 	name: 'add-new-student',
-
+	data(){
+		return{
+			emailId:'',
+			name:'',
+			batchid: ''
+		}
+	},
+	created(){
+		this.batchid =this.$route.params.batchid	
+	},
 	methods: {
 		close() {
 			this.$emit("closeAddTa");
+		},
+		addTa(){
+			HTTP.post(`https://coursegame.herokuapp.com/rest/ta/ta-insert?emailid=`+this.emailId+`&name=`+this.name+`&batchId=`+this.batchid,{
+
+			})
+			.then(response => {
+				if (response.status === 200) {
+					this.$emit("closeAddTa");x
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		}
 	}
 

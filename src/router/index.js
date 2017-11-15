@@ -58,26 +58,27 @@ export default new Router({
 		]
 	},
 	{
-		path: '/view-details',
+		path: '/view-details/:batchid',
+		name: 'ViewDetails',
 		component: ViewDetails,
 		children:[
 		{
-			path: '/view-details',
+			path: '/view-details/:batchid',
 			name: 'view-details',
 			component: Students
 		},
 		{
-			path: '/ta',
+			path: '/ta/:batchid',
 			name: 'ta',
 			component: Ta
 		},
 		{
-			path: '/games-lists',
+			path: '/games-lists/:batchid',
 			name: 'games-lists',
 			component: GamesLists
 		},
 		{
-			path: '/quiz-played',
+			path: '/quiz-played/:batchid',
 			name: 'quiz-played',
 			component: QuizPlayed
 		},

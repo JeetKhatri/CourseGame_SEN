@@ -8,15 +8,15 @@
 				<h2>Teaching Assistants</h2>
 			</div>
 		</div>
-		<div class="columns" id="lists" v-for="i in 10" :key="i">
+		<div class="columns" id="lists" v-for="ta in data" >
 			<div class="column">
-				<h4>201612065</h4>
+				<h4>{{ta.emailId}}</h4>
 			</div>
 			<div class="column">
-				<h4>TA Abc</h4>
+				<h4>{{ta.userName}}</h4>
 			</div>
 			<div class="column">
-				<span class="tag is-info">Remove</span>
+				<span class="tag is-info" @click="removeTa()">Remove</span>
 			</div>
 		</div>	
 		<addTa v-if="addTa" @closeAddTa="close"></addTa>
@@ -25,6 +25,7 @@
 
 <script type="text/javascript">
 import addTa from '@/components/AddNewTaModal';
+import HTTP from '@/packages/HTTP';
 export default {
 	name: 'ta',
 	components: {
@@ -33,13 +34,30 @@ export default {
 	
 	data() {
 		return{
+			batchid: '',
+			data:[],
 			addTa: false
 		}
 	},
-
+	created(){
+		this.fetchTa()
+	},
+	
 	methods: {
 		close() {
 			this.addTa = false
+			this.fetchTa()
+		},
+		fetchTa(){
+			this.batchid =this.$route.params.batchid,
+			HTTP.get(`https://coursegame.herokuapp.com/rest/ta/ta-list?batchid=`+this.batchid)
+			.then(response => {
+				this.data = response.data.TABeans;
+				console.log(this.data)
+			})
+			.catch(e=>{
+				console.log(e);
+			})
 		}
 	}
 
