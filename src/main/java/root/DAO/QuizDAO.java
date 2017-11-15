@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import root.Bean.LeaderBoardStudentBean;
 import root.Bean.QuizBean;
 import root.Bean.StatusBean;
 import root.Bean.UserBean;
@@ -181,6 +182,50 @@ public class QuizDAO {
 				}
 			}
 		}
+		return map;
+	}
+
+	public HashMap<String, Object> leaderBoardStudent(String quizid, String batchid) {
+
+		ArrayList<LeaderBoardStudentBean> arrayList = new ArrayList<LeaderBoardStudentBean>();
+		String sql = "select total,u.name as name from studentquiz s,quiz q,users u,student st where q.quizid=s.quizid and q.batchid=? and u.userid=st.userid and s.studentid=st.studentid and q.quizid=?";
+		conn = DBConnection.getConnection();
+
+		LeaderBoardStudentBean leaderBoardStudentBean = new LeaderBoardStudentBean();
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, batchid);
+				pstmt.setString(2, quizid);
+				rs = pstmt.executeQuery();
+
+				boolean flag = false;
+				while (rs.next()) {
+					flag = true;
+					leaderBoardStudentBean = new LeaderBoardStudentBean();
+					leaderBoardStudentBean.setMarks(rs.getString("total"));
+					leaderBoardStudentBean.setStudentname(rs.getString("name"));
+					arrayList.add(leaderBoardStudentBean);
+				}
+				if (flag) {
+					map.put("status", true);
+					map.put("marklist", arrayList);
+				} else
+					map.put("status", false);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 		return map;
 	}
 }

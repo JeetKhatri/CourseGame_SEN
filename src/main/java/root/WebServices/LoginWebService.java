@@ -18,10 +18,7 @@ public class LoginWebService {
 	@POST
 	@Path("/student")
 	@Produces("application/json")
-	public Response studentLogin(@Context UriInfo info) {
-
-		String emailId = info.getQueryParameters().getFirst("emailid");
-		String password = info.getQueryParameters().getFirst("password");
+	public Response studentLogin(@FormParam("emailid") String emailId,@FormParam("password") String password) {
 
 		StudentBean list = new LoginDAO().studentLogin(emailId, password);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();

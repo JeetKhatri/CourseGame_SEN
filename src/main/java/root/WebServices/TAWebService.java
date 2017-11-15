@@ -24,6 +24,18 @@ public class TAWebService {
 	@POST
 	@Path("/ta-insert")
 	@Produces("application/json")
+	public Response insertAlbum(@FormParam("emailid") String emailId,@FormParam("name") String userName,@FormParam("batchId") String batchId) {
+		
+		UserBean userBean = new UserBean();
+
+		userBean.setEmailId(emailId);
+		userBean.setUserName(userName);
+
+		return Response.ok(new UserDAO().insertTA(userBean, batchId)).header("Access-Control-Allow-Origin", "*").build();
+	}
+	/*@POST
+	@Path("/ta-insert")
+	@Produces("application/json")
 	public Response insertAlbum(@Context UriInfo info) {
 		String emailId = info.getQueryParameters().getFirst("emailid");
 		String userName = info.getQueryParameters().getFirst("name");
@@ -35,7 +47,7 @@ public class TAWebService {
 		userBean.setUserName(userName);
 
 		return Response.ok(new UserDAO().insertTA(userBean, batchId)).header("Access-Control-Allow-Origin", "*").build();
-	}
+	}*/
 
 	
 	@GET

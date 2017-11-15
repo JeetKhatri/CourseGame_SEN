@@ -20,6 +20,7 @@ import root.Bean.UserBean;
 import root.DAO.BatchDAO;
 import root.DAO.FacultyDAO;
 import root.DAO.QuizContentDAO;
+import root.DAO.QuizDAO;
 import root.DAO.UserDAO;
 import root.Utils.GenrateMathodsUtils;
 
@@ -151,5 +152,15 @@ public class QuizContentWebService {
 		String quizid = info.getQueryParameters().getFirst("quizid");
 		HashMap<String, Object> list = new QuizContentDAO().getList(quizid);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+	}
+	
+	@GET
+	@Path("/batch-wise-result")
+	@Produces("application/json")
+	public Response leaderBoardStudent(@Context UriInfo info) {
+
+		String quizid = info.getQueryParameters().getFirst("quizid");
+		String batchid = info.getQueryParameters().getFirst("batchid");
+		return Response.ok(new QuizDAO().leaderBoardStudent(quizid, batchid)).header("Access-Control-Allow-Origin", "*").build();
 	}
 }
