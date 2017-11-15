@@ -78,9 +78,9 @@ public class FacultyWebServices {
 	@Produces("application/json")
 	public Response facultyBatch(@Context UriInfo info) {
 
-		String facultyId = info.getQueryParameters().getFirst("facultyid");
+		String userId = info.getQueryParameters().getFirst("userid");
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
-		ArrayList<BatchBean> beans = new FacultyDAO().facultyBatch(facultyId);
+		ArrayList<BatchBean> beans = new FacultyDAO().facultyBatch(userId);
 		if (beans == null || beans.size() == 0) {
 			hashMap.put("responseStatus", false);
 		} else {

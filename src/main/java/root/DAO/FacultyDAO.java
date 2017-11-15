@@ -159,15 +159,16 @@ public class FacultyDAO {
 		return false;
 	}
 	
-	public ArrayList<BatchBean> facultyBatch(String facultyId) {
+	public ArrayList<BatchBean> facultyBatch(String userId) {
 
 		ArrayList<BatchBean> arrayList = new ArrayList<BatchBean>();
 
-		String sql = "select * from batch where facultyid='" + facultyId + "'";
+		String sql = "select * from batch b,faculty f where b.facultyid=f.facultyid and userId=?";
 		conn = DBConnection.getConnection();
 		if (conn != null) {
 			try {
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
 				rs = pstmt.executeQuery();
 				BatchBean bean = new BatchBean();
 				while (rs.next()) {
