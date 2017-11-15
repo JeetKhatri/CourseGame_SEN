@@ -23,8 +23,8 @@ public class FacultyWebServices {
 	@Produces("application/json")
 	public boolean facultyApproved(@Context UriInfo info) {
 
-		String facultyId = info.getQueryParameters().getFirst("facultyid");
-		return new FacultyDAO().approve(facultyId);
+		String userId = info.getQueryParameters().getFirst("userid");
+		return new FacultyDAO().approve(userId);
 	}
 	
 	@POST

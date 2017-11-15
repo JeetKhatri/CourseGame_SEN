@@ -46,9 +46,9 @@ public class FacultyDAO {
 		return false;
 	}
 
-	public boolean approve(String facultyId) {
+	public boolean approve(String userId) {
 
-		String sql = "update faculty set isApproved='Y' where facultyid= '" + facultyId + "'";
+		String sql = "update faculty set isApproved='Y' where userid= '" + userId + "'";
 		conn = DBConnection.getConnection();
 		if (conn != null) {
 			try {
@@ -56,15 +56,15 @@ public class FacultyDAO {
 				pstmt = conn.prepareStatement(sql);
 				if (pstmt.executeUpdate() != 0) {
 					String random = GenrateMathodsUtils.getRandomString(7);
-					pstmt1 = conn.prepareStatement("update users set password=?,isavailable='Y' where userid=(select userid from faculty where facultyid=?)");
+					pstmt1 = conn.prepareStatement("update users set password=?,isavailable='Y' where userid=?");
 					pstmt1.setString(1, GenrateMathodsUtils.makeSHA512(random));
-					pstmt1.setString(2, facultyId);
+					pstmt1.setString(2, userId);
 					int no = pstmt1.executeUpdate();
 					if(no==0){
 						conn.rollback();
 					}else {
 						SendEmail obj = new SendEmail();
-						obj.SendEmail("Request accepted", getFacultyEmail(facultyId),
+						obj.SendEmail("Request accepted", getFacultyEmail(userId),
 								"Request arrive, we accept your requst & password is "+random);
 						conn.commit();
 						conn.setAutoCommit(true);
@@ -87,7 +87,7 @@ public class FacultyDAO {
 	}
 
 	public String getFacultyEmail(String id) {
-		String sql = "select * from faculty,users where users.userid = faculty.userid and facultyid = ?";
+		String sql = "select * from users where userid = ?";
 	//	conn = DBConnection.getConnection();
 
 		if (conn != null) {
@@ -110,6 +110,32 @@ public class FacultyDAO {
 		return null;
 
 	}
+	
+	
+	public String getFacultyId(String id,Connection conn) {
+		String sql = "select facultyid from faculty where userid = ?";
+		String fid="";
+		if (conn != null) {
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					fid = rs.getString("facultyid");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			}
+
+		}
+		return fid;
+
+	}
+	
 	public boolean update(FacultyBean bean) {
 
 		String sql = "update faculty set degree=?,isapproved=? where facultyid=?";
