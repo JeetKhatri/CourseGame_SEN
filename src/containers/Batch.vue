@@ -1,18 +1,18 @@
 <template>
 	<div class="batch">
-		<div class="columns">
-			<div class="column" v-for="batch in data">
+		<div class="columns is-multiline">
+			<div class="column is-one-third" v-for="batch in data">
 				<div class="card">
 					<header class="card-header">
 						<p class="card-header-title">
-							Batch 2016-15
+							{{batch.batchname}}
 						</p>
-						<div>
+						<!-- <div>
 							<span class="tag is-info">Msc.it</span>
-						</div>
+						</div> -->
 					</header>
 					<footer class="card-footer">
-						<router-link :to="{name: 'ViewDetails', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
+						<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
 					</footer>
 				</div>
 			</div>
@@ -39,8 +39,7 @@ export default {
 		.then(response => {
 			if (response.status === 200) {
 				this.data =response.data.batchBeans;
-				console.log(this.data);
-
+				// console.log(this.data);
 			}
 		})
 		.catch((e) => {

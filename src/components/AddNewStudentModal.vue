@@ -32,7 +32,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info">Create</a>
+					<a class="button is-info">Add</a>
 					<a class="button close-btn" @click="close">Close</a>
 				</footer>
 			</div>

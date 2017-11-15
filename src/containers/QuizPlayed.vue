@@ -9,8 +9,8 @@
 			</div>
 		</div>
 		<div>
-			<div class="columns">
-				<div class="column" v-for="quiz in data">
+			<div class="columns is-multiline">
+				<div class="column is-one-third" v-for="quiz in data">
 					<div class="card">
 						<header class="card-header">
 							<p class="card-header-title">
@@ -28,30 +28,34 @@
 			</div>
 		</div>
 		<statistics @closeStatistics="closeStatistics" v-if="statistics"></statistics>
-		<addNewQuiz @closeAddNewQuiz="closeAddNewQuiz" v-if="addNewQuiz"></addNewQuiz>
+		<addNewQuiz @openAddNewQuestion="closeAddNewQuiz" v-if="addNewQuiz"></addNewQuiz>
+		<addQuestion @closeAddNewQuestion="closeAddNewQuestion" v-if="addquestion"></addQuestion>
 	</div>
 </template>
 
 <script type="text/javascript">
 import statistics from '@/components/StatisticsModal';
 import addNewQuiz from '@/components/AddNewQuizModal';
+import addQuestion from '@/components/AddNewQuestionModal'
 import HTTP from '@/packages/HTTP';
 export default {
 	name: 'quiz-played',
 	components: {
 		statistics,
-		addNewQuiz
+		addNewQuiz,
+		addQuestion
 	},
 
 	data() {
 		return {
 			statistics: false,
 			addNewQuiz: false,
+			addquestion: false,
 			batchid: '',
 			data:  []
 		}
 	},
-created(){
+	created(){
 		this.batchid=this.$route.params.batchid;
 		HTTP.post(`https://coursegame.herokuapp.com/rest/batch/batch-quiz/?batchid=
 			`+this.batchid,{
@@ -76,6 +80,11 @@ created(){
 
 		closeAddNewQuiz() {
 			this.addNewQuiz = false;
+			this.addquestion = true;
+		},
+
+		closeAddNewQuestion() {
+			this.addquestion = false;
 		}
 	}
 

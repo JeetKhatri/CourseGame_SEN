@@ -43,6 +43,7 @@ export default {
 			.then(response => {
 				if (response.status === 200) {
 					location.reload();
+
 				}
 			})
 			.catch((e) => {
@@ -53,7 +54,6 @@ export default {
 	components:{
 		navbar
 	}
-
 }
 </script>
 
@@ -67,19 +67,13 @@ export default {
 			display: flex;
 			justify-content: center;
 		}
-
 		.newBatch{
 			margin:1rem;
 			width: 100%;
-
 		}
-
 		#createBtn {
 			margin: 1rem;
 		}
-
 	}
-
-
 }
 </style>

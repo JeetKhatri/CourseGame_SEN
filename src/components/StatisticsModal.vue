@@ -9,7 +9,8 @@
 				</header>
 				<section class="modal-card-body">
 					<div class="view">
-						<button class="button is-info" @click="leaderboard">View Leaderboard</button>
+						<button class="button is-info" @click="leaderboard">Start</button>
+						<!-- <button class="button is-info" @click="leaderboard">View Leaderboard</button> -->
 					</div>
 					<div class="columns" id="lists" v-for="i in 20" :key="i">
 						<div class="column">
@@ -19,12 +20,11 @@
 							<h4>Answer</h4>
 						</div>
 						<div class="column">
-							<h4>Update</h4>
+							<span class="tag is-info">Update</span>
 						</div>
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info">Save</a>
 					<a class="button close-btn" @click="close">Close</a>
 				</footer>
 			</div>
@@ -51,7 +51,10 @@ export default {
 <style lang="scss">
 .statistics-modal {
 	.view {
-		padding-left: 27.5rem;
+		padding-left: 33rem;
+	}
+	span {
+		cursor: pointer;
 	}
 }
 </style>

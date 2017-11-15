@@ -5,50 +5,30 @@
 			<div class="modal-card">
 				<header class="modal-card-head">
 					<p class="modal-card-title">Add New Quiz</p>
-					<button class="delete" @click="close"></button>
+					<!-- <button class="delete" @click="close"></button> -->
 				</header>
 				<section class="modal-card-body">
 					<div class="details">
-						<textarea class="textarea" placeholder="Enter question for quiz"></textarea>
-						<br>
 						<div class="columns">
 							<div class="column">
 								<div class="field">
 									<div class="control">
-										<input class="input" type="text" placeholder="Option A">
+										<input class="input" type="text" placeholder="Quiz Name">
 									</div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="field">
 									<div class="control">
-										<input class="input" type="text" placeholder="Option B">
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="field">
-									<div class="control">
-										<input class="input" type="text" placeholder="Option c">
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="field">
-									<div class="control">
-										<input class="input" type="text" placeholder="Option D">
+										<input class="input" type="text" placeholder="Created By">
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="column" id="correctAnswer">
-						<input class="input" type="text" placeholder="Correct Answer">
-					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info">Save</a>
-					<a class="button is-info" id="closeBtn" @click="close">Close</a>
+					<a class="button is-info" @click="close">Add Questions</a>
 				</footer>
 			</div>
 		</div>
@@ -61,17 +41,14 @@ export default {
 
 	methods: {
 		close() {
-			this.$emit('closeAddNewQuiz');
+			this.$emit('openAddNewQuestion');
 		}
 	}
-
 }
 </script>
 
 <style lang="scss">
 .add-new-quiz {
-	#closeBtn {
-		margin-left: 29rem;
-	}
+	
 }
 </style>

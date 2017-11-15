@@ -59,7 +59,7 @@ export default new Router({
 	},
 	{
 		path: '/view-details/:batchid',
-		name: 'ViewDetails',
+		name: 'view-details',
 		component: ViewDetails,
 		children:[
 		{
