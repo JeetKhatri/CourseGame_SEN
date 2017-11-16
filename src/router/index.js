@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Login from '@/containers/Login'
 import FacultyRegistration from '@/containers/FacultyRegistration'
 import Dashboard from '@/containers/Dashboard'
-// import Batch from '@/containers/Batch'
 import ViewDetails from '@/containers/ViewDetails'
 import Students from '@/containers/Students'
 import Ta from '@/containers/Ta'
@@ -13,6 +12,7 @@ import LeaderBoard from '@/containers/LeaderBoard'
 import AdminDashboard from '@/containers/Admin/AdminDashboard'
 import Faculties from '@/containers/Admin/Faculties'
 import ThankYou from '@/containers/ThankYou'
+// import Batch from '@/containers/Batch'
 
 Vue.use(Router)
 
@@ -29,11 +29,6 @@ export default new Router({
 		path: '/facultyRegistration',
 		name: 'facultyRegistration',
 		component: FacultyRegistration
-	},
-	{
-		path: '/thank-you',
-		name: 'thank-you',
-		component: ThankYou
 	},
 	{
 		path: '/dashboard',
@@ -82,6 +77,11 @@ export default new Router({
 			component: LeaderBoard
 		}
 		]
-	}
+	},
+	{
+		path: '/thank-you',
+		name: 'thank-you',
+		component: ThankYou
+	},
 	]
 })

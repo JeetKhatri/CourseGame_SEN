@@ -9,7 +9,7 @@
 				</header>
 				<section class="modal-card-body">
 					<div class="view">
-						<button class="button is-info" @click="leaderboard">Start</button>
+						<button class="button is-info" @click="leaderboard">Start Quiz</button>
 						<!-- <button class="button is-info" @click="leaderboard">View Leaderboard</button> -->
 					</div>
 					<div class="columns" id="lists" v-for="i in 20" :key="i">
