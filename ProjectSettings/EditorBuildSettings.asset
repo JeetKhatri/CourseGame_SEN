@@ -26,3 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/achivement.unity
     guid: 5ffa2669c37c4ec499e445d75e06a076
+  - enabled: 1
+    path: Assets/quiz.unity
+    guid: 35b22ac8ec60d2f429ff436bc6720a3c
