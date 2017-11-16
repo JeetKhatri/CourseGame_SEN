@@ -1,0 +1,11 @@
+2017.1.0f3:3.3.0.0
+Android
+S:/Unity/Editor/Data/Managed/UnityEditor.dll
+S:/Unity/Editor/Data/Managed/UnityEngine.dll
+S:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll
+S:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll
+S:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll
+S:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll
+S:/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll
+S:/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll
+S:/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll
