@@ -175,28 +175,57 @@ public class UserDAO {
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					return rs.getString("emailid")+"";
+					return rs.getString("emailid") + "";
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				
+
 			}
 
 		}
 		return null;
 
 	}
-	
-	
+
+	public boolean forgotPass(String emailId) {
+		String sql = "update users set password = ? where emailId = ?";
+		conn = DBConnection.getConnection();
+		String pass = GenrateMathodsUtils.getRandomPass(15);
+		if (conn != null) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, GenrateMathodsUtils.makeSHA512(pass));
+				pstmt.setString(2, emailId);
+				int result = pstmt.executeUpdate();
+				if (result > 0) {
+					SendEmail send = new SendEmail();
+					send.SendEmail("Password", emailId, "Your Password is " + pass);
+					return true;
+				} else {
+					return false;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+
+			}
+
+		}
+		return false;
+
+	}
+
 	public StatusBean insertStudent(StudentBean studentBean) {
 
 		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
 		conn = DBConnection.getConnection();
 		String id = GenrateMathodsUtils.getRandomString(15);
 		String pass = GenrateMathodsUtils.getRandomString(7);
-		StatusBean status= new StatusBean(); 
+		StatusBean status = new StatusBean();
 		if (conn != null) {
 			try {
 				conn.setAutoCommit(false);
@@ -210,8 +239,7 @@ public class UserDAO {
 				int no = pstmt.executeUpdate();
 				if (no != 0) {
 
-					pstmt = conn.prepareStatement(
-							"insert into student (studentid,userid,batchid) values(?,?,?)");
+					pstmt = conn.prepareStatement("insert into student (studentid,userid,batchid) values(?,?,?)");
 					pstmt.setString(1, GenrateMathodsUtils.getRandomString(15));
 					pstmt.setString(2, id);
 					pstmt.setString(3, studentBean.getBatchId());
@@ -219,7 +247,7 @@ public class UserDAO {
 						conn.rollback();
 					} else {
 						SendEmail obj = new SendEmail();
-						obj.SendEmail("Dear Student ", studentBean.getEmailId(), ",   your password : "+pass);
+						obj.SendEmail("Dear Student ", studentBean.getEmailId(), ",   your password : " + pass);
 						status.setResponseStatus(true);
 					}
 				}
@@ -240,7 +268,6 @@ public class UserDAO {
 
 	}
 
-	
 	public StatusBean remove(String userId) {
 		StatusBean bean = new StatusBean();
 		boolean flag = false;
@@ -267,5 +294,5 @@ public class UserDAO {
 		}
 		return bean;
 	}
-	
+
 }

@@ -9,7 +9,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import root.Bean.FacultyBean;
+import root.Bean.StudentBean;
 import root.Bean.UserBean;
+import root.DAO.LoginDAO;
 import root.DAO.UserDAO;
 import root.Utils.GenrateMathodsUtils;
 
@@ -22,6 +24,14 @@ public class UserWebServices {
 	public Response getList() {
 		ArrayList<UserBean> list = new UserDAO().getList();
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+	}
+	
+	@POST
+	@Path("/forgot-pass")
+	@Produces("application/json")
+	public Response forgotPassword(@FormParam("emailid") String emailId) {
+		boolean result = new UserDAO().forgotPass(emailId);
+		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }
