@@ -65,5 +65,14 @@ public class StudentWebService {
 		StatusBean list = new UserDAO().remove(userId);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
+	
+	@POST
+	@Path("/student-csv")
+	@Produces("application/json")
+	public Response studentCSV(@Context UriInfo info) {
+		String studentList = info.getQueryParameters().getFirst("student");
+
+		return Response.ok(studentList).header("Access-Control-Allow-Origin", "*").build();
+	}
 
 }
