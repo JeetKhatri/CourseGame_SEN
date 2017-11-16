@@ -71,8 +71,9 @@ public class StudentWebService {
 	@Produces("application/json")
 	public Response studentCSV(@Context UriInfo info) {
 		String studentList = info.getQueryParameters().getFirst("student");
-
-		return Response.ok(studentList).header("Access-Control-Allow-Origin", "*").build();
+		HashMap<String, String> obj = new HashMap<String, String>();
+		obj.put("data",studentList);
+		return Response.ok(obj).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }
