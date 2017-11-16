@@ -175,18 +175,97 @@ public class UserDAO {
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					return rs.getString("emailid") + "";
+					return rs.getString("emailid")+"";
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-
+				
 			}
 
 		}
 		return null;
 
+	}
+	
+	
+	public StatusBean insertStudent(StudentBean studentBean) {
+
+		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
+		conn = DBConnection.getConnection();
+		String id = GenrateMathodsUtils.getRandomString(15);
+		String pass = GenrateMathodsUtils.getRandomString(7);
+		StatusBean status= new StatusBean(); 
+		if (conn != null) {
+			try {
+				conn.setAutoCommit(false);
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, studentBean.getEmailId());
+				pstmt.setString(3, studentBean.getUserName());
+				pstmt.setString(4, "Student");
+				pstmt.setString(5, "Y");
+				pstmt.setString(6, GenrateMathodsUtils.makeSHA512(pass));
+				int no = pstmt.executeUpdate();
+				if (no != 0) {
+
+					pstmt = conn.prepareStatement(
+							"insert into student (studentid,userid,batchid) values(?,?,?)");
+					pstmt.setString(1, GenrateMathodsUtils.getRandomString(15));
+					pstmt.setString(2, id);
+					pstmt.setString(3, studentBean.getBatchId());
+					if (pstmt.executeUpdate() == 0) {
+						conn.rollback();
+					} else {
+						SendEmail obj = new SendEmail();
+						obj.SendEmail("Dear Student ", studentBean.getEmailId(), ",   your password : "+pass);
+						status.setResponseStatus(true);
+					}
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.commit();
+					conn.setAutoCommit(true);
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return status;
+
+	}
+
+	
+	public StatusBean remove(String userId) {
+		StatusBean bean = new StatusBean();
+		boolean flag = false;
+		String sql = "delete from users where userid='" + userId + "'";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				if (pstmt.executeUpdate() > 0)
+					bean.setResponseStatus(true);
+			}
+
+			catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return bean;
 	}
 
 	public boolean forgotPass(String emailId) {
@@ -218,81 +297,5 @@ public class UserDAO {
 		return false;
 
 	}
-
-	public StatusBean insertStudent(StudentBean studentBean) {
-
-		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
-		conn = DBConnection.getConnection();
-		String id = GenrateMathodsUtils.getRandomString(15);
-		String pass = GenrateMathodsUtils.getRandomString(7);
-		StatusBean status = new StatusBean();
-		if (conn != null) {
-			try {
-				conn.setAutoCommit(false);
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				pstmt.setString(2, studentBean.getEmailId());
-				pstmt.setString(3, studentBean.getUserName());
-				pstmt.setString(4, "Student");
-				pstmt.setString(5, "Y");
-				pstmt.setString(6, GenrateMathodsUtils.makeSHA512(pass));
-				int no = pstmt.executeUpdate();
-				if (no != 0) {
-
-					pstmt = conn.prepareStatement("insert into student (studentid,userid,batchid) values(?,?,?)");
-					pstmt.setString(1, GenrateMathodsUtils.getRandomString(15));
-					pstmt.setString(2, id);
-					pstmt.setString(3, studentBean.getBatchId());
-					if (pstmt.executeUpdate() == 0) {
-						conn.rollback();
-					} else {
-						SendEmail obj = new SendEmail();
-						obj.SendEmail("Dear Student ", studentBean.getEmailId(), ",   your password : " + pass);
-						status.setResponseStatus(true);
-					}
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					conn.commit();
-					conn.setAutoCommit(true);
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return status;
-
-	}
-
-	public StatusBean remove(String userId) {
-		StatusBean bean = new StatusBean();
-		boolean flag = false;
-		String sql = "delete from users where userid='" + userId + "'";
-		conn = DBConnection.getConnection();
-		if (conn != null) {
-
-			try {
-				pstmt = conn.prepareStatement(sql);
-				if (pstmt.executeUpdate() > 0)
-					bean.setResponseStatus(true);
-			}
-
-			catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
-		return bean;
-	}
-
+	
 }
