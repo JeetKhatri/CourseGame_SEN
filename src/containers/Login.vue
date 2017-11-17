@@ -39,8 +39,10 @@ export default {
           if(response.data.userRole=="Faculty"){
             this.$router.push('/dashboard');
             this.faculty_id = response.data.userId;
-            console.log(this.faculty_id);
+            var name = response.data.userName
+            console.log(name);
             localStorage.setItem('faculty_id',this.faculty_id);
+            // localStorage.setItem('faculty_name',name);
             let toast = this.$toasted.success('You have successfully logged in', {
               theme: 'outline',
               position: 'top-center',

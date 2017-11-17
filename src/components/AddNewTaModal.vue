@@ -26,8 +26,8 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info" @click="addTa()">Create</a>
-					<a class="button close-btn" @click="close">Close</a>
+					<a class="button is-info" @click="addTa()">Add</a>
+					<a class="button is-info close-btn" @click="close">Close</a>
 				</footer>
 			</div>
 		</div>
@@ -53,12 +53,20 @@ export default {
 			this.$emit("closeAddTa");
 		},
 		addTa(){
-			HTTP.post(`https://coursegame.herokuapp.com/rest/ta/ta-insert?emailid=`+this.emailId+`&name=`+this.name+`&batchId=`+this.batchid,{
-
+			console.log(this.batchid)
+			HTTP.post(`https://coursegame.herokuapp.com/rest/ta/ta-insert`, {
+				emailid: this.emailId,
+				name: this.name,
+				batchId: this.batchid
 			})
 			.then(response => {
 				if (response.status === 200) {
-					this.$emit("closeAddTa");x
+					let toast = this.$toasted.success('TA created successfully', {
+						theme: 'outline',
+						position: 'top-center',
+						duration: 3000
+					});
+					this.$emit("closeAddTa");
 				}
 			})
 			.catch((e) => {

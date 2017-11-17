@@ -41,6 +41,7 @@ export default {
 	},
 	created(){
 		this.fetchTa()
+		this.getId()
 	},
 	
 	methods: {
@@ -58,6 +59,15 @@ export default {
 			.catch(e=>{
 				console.log(e);
 			})
+		},
+		getId () {
+			var id = window.localStorage.getItem('faculty_id')
+			if (id != null) {
+				this.authToken = id;
+				return true
+			} else {
+				this.$router.push('/')
+			}
 		}
 	}
 
@@ -71,7 +81,6 @@ export default {
 	}
 	#button {
 		float: right;
-		padding: 0px;
 	}
 	#lists {
 		padding: 0.1rem;

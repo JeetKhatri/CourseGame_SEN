@@ -12,6 +12,7 @@ import LeaderBoard from '@/containers/LeaderBoard'
 import AdminDashboard from '@/containers/Admin/AdminDashboard'
 import Faculties from '@/containers/Admin/Faculties'
 import ThankYou from '@/containers/ThankYou'
+import Statistics from '@/containers/Statistics'
 // import Batch from '@/containers/Batch'
 
 Vue.use(Router)
@@ -72,9 +73,14 @@ export default new Router({
 			component: QuizPlayed
 		},
 		{
-			path: '/leader-board',
-			name: 'leader-board',
+			path: '/leaderboard',
+			name: 'leaderboard',
 			component: LeaderBoard
+		},
+		{
+			path: '/statistics',
+			name: 'statistics',
+			component: Statistics
 		}
 		]
 	},

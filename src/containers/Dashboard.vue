@@ -42,15 +42,20 @@ import navbar from '@/components/Navbar'
 import HTTP from '@/packages/HTTP'
 export default {
 	name: 'dashboard',
+	components:{
+		navbar
+	},
 	data(){
 		return {
 			data: [],
 			faculty_id:'',
-			batchName:''
+			batchName:'',
+			// username: ''
 		}
 	},
 	created(){
 		this.getBatches()
+		this.getId()
 	},
 	methods:{
 		batchRegistration(){
@@ -88,12 +93,18 @@ export default {
 			.catch((e) => {
 				console.log(e)
 			})
+		},
+		getId () {
+			var id = window.localStorage.getItem('faculty_id')
+			// this.username = id
+			if (id != null) {
+				this.authToken = id;
+				return true
+			} else {
+				this.$router.push('/')
+			}
 		}
-	},
-	components:{
-		navbar
 	}
-
 }
 </script>
 

@@ -40,18 +40,23 @@ export default {
 	},
 	created(){
 		this.getStudents();
+		this.getId()
 	},
 	methods: {
 		close() {
 			this.addNewStudent = false
 		},
 		removeStudent(id){
-			console.log(id)
 			HTTP.post(`https://coursegame.herokuapp.com/rest/student/student-remove?userid=`+id,{
 
-				})
+			})
 			.then(response => {
 				if (response.status === 200) {
+					let toast = this.$toasted.success('Student Removed Successfully', {
+						theme: 'outline',
+						position: 'top-center',
+						duration: 3000
+					});
 					this.getStudents();
 				}
 			})
@@ -60,15 +65,24 @@ export default {
 			})
 		},
 		getStudents(){
-		this.batchid =this.$route.params.batchid,
-		HTTP.get(`https://coursegame.herokuapp.com/rest/student/student-list?batchid=`+this.batchid)
-		.then(response => {
-			this.data = response.data.studentBeans;
-			console.log(this.data)
-		})
-		.catch(e=>{
-			console.log(e);
-		})	
+			this.batchid =this.$route.params.batchid,
+			HTTP.get(`https://coursegame.herokuapp.com/rest/student/student-list?batchid=`+this.batchid)
+			.then(response => {
+				this.data = response.data.studentBeans;
+				console.log(this.data)
+			})
+			.catch(e=>{
+				console.log(e);
+			})	
+		},
+		getId () {
+			var id = window.localStorage.getItem('faculty_id')
+			if (id != null) {
+				this.authToken = id;
+				return true
+			} else {
+				this.$router.push('/')
+			}
 		}
 	}
 }
@@ -82,14 +96,11 @@ export default {
 
 	#button {
 		float: right;
-		padding: 0px;
 	}
 	#button:hover {
 		cursor: pointer;
 	}
-	.column {
-
-	}
+	
 	#lists {
 		padding: 0.1rem;
 		padding-left: 5rem;

@@ -19,10 +19,10 @@
 							<p class="control">
 								<div class="navbar-item has-dropdown is-hoverable">
 									<div class="navbar-link">
-										Username
+										 Username
 									</div>
 									<div id="moreDropdown" class="navbar-dropdown is-boxed">
-										<a class="navbar-item">Logout</a>
+										<a class="navbar-item" @click="logout">Logout</a>
 									</div>
 								</div>
 							</p>
@@ -37,16 +37,26 @@
 <script type="text/javascript">
 export default {
 	name: 'navbar',
+	// props: {
+	// 	username: {
+	// 		required: true
+	// 	}
+	// },
 
 	data() {
 		return {
 			isActive: false
 		}
 	},
+	// bHHbg9igB6lHnRL
 
 	methods: {
 		toggle() {
 			this.isActive = true
+		},
+		logout() {
+			localStorage.removeItem('faculty_id')
+			this.$router.push('/')
 		}
 	}
 

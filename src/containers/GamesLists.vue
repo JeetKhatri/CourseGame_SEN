@@ -16,7 +16,21 @@
 export default {
 	name: 'games-played',
 
+	created() {
+		this.getId()
+	},
 
+	methods: {
+		getId () {
+			var id = window.localStorage.getItem('faculty_id')
+			if (id != null) {
+				this.authToken = id;
+				return true
+			} else {
+				this.$router.push('/')
+			}
+		}
+	}
 }
 </script>
 

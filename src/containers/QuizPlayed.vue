@@ -21,29 +21,30 @@
 							</div>
 						</header>
 						<footer class="card-footer">
-							<a class="card-footer-item" @click="statistics = true">View</a>
+							<router-link class="card-footer-item" to="/statistics">View</router-link>
+							<a class="card-footer-item" @click="startQuiz">Start</a>
 						</footer>
 					</div>
 				</div>
 			</div>
 		</div>
-		<statistics @closeStatistics="closeStatistics" v-if="statistics"></statistics>
-		<addNewQuiz @openAddNewQuestion="closeAddNewQuiz" v-if="addNewQuiz"></addNewQuiz>
-		<addQuestion @closeAddNewQuestion="closeAddNewQuestion" v-if="addquestion"></addQuestion>
+		<!-- <statistics @closeStatistics="closeStatistics" v-if="statistics"></statistics> -->
+		<addNewQuiz @closeAddNewQuiz="closeAddNewQuiz" v-if="addNewQuiz"></addNewQuiz>
+		<!-- <addQuestion @closeAddNewQuestion="closeAddNewQuestion" v-if="addquestion"></addQuestion> -->
 	</div>
 </template>
 
 <script type="text/javascript">
-import statistics from '@/components/StatisticsModal';
+// import statistics from '@/components/StatisticsModal';
 import addNewQuiz from '@/components/AddNewQuizModal';
-import addQuestion from '@/components/AddNewQuestionModal'
+// import addQuestion from '@/components/AddNewQuestionModal'
 import HTTP from '@/packages/HTTP';
 export default {
 	name: 'quiz-played',
 	components: {
-		statistics,
-		addNewQuiz,
-		addQuestion
+		// statistics,
+		addNewQuiz
+		// addQuestion
 	},
 
 	data() {
@@ -56,21 +57,8 @@ export default {
 		}
 	},
 	created(){
-		this.batchid=this.$route.params.batchid;
-		HTTP.post(`https://coursegame.herokuapp.com/rest/batch/batch-quiz/?batchid=
-			`+this.batchid,{
-
-			})
-		.then(response => {
-			if (response.status === 200) {
-				this.data =response.data.quizBeans;
-				console.log(this.data);
-
-			}
-		})
-		.catch((e) => {
-			console.log(e)
-		})
+		this.getAllQuiz()
+		this.getId()
 	},
 
 	methods:  {
@@ -80,11 +68,41 @@ export default {
 
 		closeAddNewQuiz() {
 			this.addNewQuiz = false;
-			this.addquestion = true;
+			this.getAllQuiz()
+			// this.addquestion = true;
 		},
 
 		closeAddNewQuestion() {
 			this.addquestion = false;
+		},
+		getAllQuiz() {
+			this.batchid=this.$route.params.batchid;
+			HTTP.post(`https://coursegame.herokuapp.com/rest/batch/batch-quiz/?batchid=
+				`+this.batchid,{
+
+				})
+			.then(response => {
+				if (response.status === 200) {
+					this.data =response.data.quizBeans;
+					console.log(this.data);
+
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
+		},
+		startQuiz() {
+			alert('started')
+		},
+		getId () {
+			var id = window.localStorage.getItem('faculty_id')
+			if (id != null) {
+				this.authToken = id;
+				return true
+			} else {
+				this.$router.push('/')
+			}
 		}
 	}
 
@@ -105,7 +123,6 @@ export default {
 	}
 	#button {
 		float: right;
-		padding: 0px;
 	}
 
 	#correctAnswer {
