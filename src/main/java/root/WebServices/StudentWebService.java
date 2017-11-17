@@ -67,6 +67,17 @@ public class StudentWebService {
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
 	
+	/*@POST
+	@Path("/student-csv")
+	@Produces("application/json")
+	public Response studentCSV(@FormParam("student") String studentList) {
+		//String studentList = info.getQueryParameters().getFirst("student");
+		HashMap<String, String> obj = new HashMap<String, String>();
+		obj.put("data",studentList);
+		return Response.ok(obj).header("Access-Control-Allow-Origin", "*").build();
+	}*/
+	
+	
 	@POST
 	@Path("/student-csv")
 	@Produces("application/json")
