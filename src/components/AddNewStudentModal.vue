@@ -8,32 +8,27 @@
 					<button class="delete" @click="close"></button>
 				</header>
 				<section class="modal-card-body">
-					<form method="POST" action="https://rtdemo.000webhostapp.com/coursegame/importstudent.php" enctype="multipart/form-data">
-						<!-- <div class="field is-horizontal">
+					<form id="csvForm" method="POST" action="https://rtdemo.000webhostapp.com/coursegame/importstudent.php" enctype="multipart/form-data">
+						<div class="field is-horizontal">
 							<div class="field-body">
 								<div class="field">
 									<div class="field-wrap">
-										<input type="text" placeholder="Student ID">
-									</div>
-								</div>
-								<div class="field">
-									<div class="field-wrap">
-										<input type="text" placeholder="Name">
+										<input type="file">
 									</div>
 								</div>
 							</div>
-						</div> -->
-						<div class="field">
 							<div class="field-body">
-								<div class="field-wrap">
-									<input type="file">
+								<div class="field">
+									<div class="field-wrap">
+										<input type="hidden" name="import_student" value="True" />
+									</div>
 								</div>
 							</div>
 						</div>
 					</form>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info">Add</a>
+					<a class="button is-info" @click="upload">Add</a>
 					<a class="button close-btn" @click="close">Close</a>
 				</footer>
 			</div>
@@ -45,9 +40,19 @@
 export default {
 	name: 'add-new-student',
 
+	props: ['batchid'],
+
+	created() {
+		console.log(this.batchid)
+	},
+
 	methods: {
 		close() {
 			this.$emit("closeAddStudent");
+		},
+		upload() {
+			console.log("button clicked")
+			document.getElementById("csvForm").submit();
 		}
 	}
 

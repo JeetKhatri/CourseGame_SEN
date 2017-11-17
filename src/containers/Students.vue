@@ -19,7 +19,7 @@
 				<span class="tag is-info" @click="removeStudent(student.userId)">Remove</span>
 			</div>
 		</div>
-		<addStudent v-if="addNewStudent" @closeAddStudent="close"></addStudent>
+		<addStudent  :batchid="batchid" v-if="addNewStudent" @closeAddStudent="close"></addStudent>
 	</div>
 </template>
 

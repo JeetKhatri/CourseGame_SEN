@@ -30,7 +30,6 @@ export default {
 
   methods: {
     login() {
-      console.log('clicked')
       HTTP.post(`rest/login/common?emailid=`+this.email+`&password=`+this.pass,{
 
       })
@@ -39,8 +38,8 @@ export default {
           if(response.data.userRole=="Faculty"){
             this.$router.push('/dashboard');
             this.faculty_id = response.data.userId;
-            var name = response.data.userName
-            console.log(name);
+            // var name = response.data.userName
+            // console.log(name);
             localStorage.setItem('faculty_id',this.faculty_id);
             // localStorage.setItem('faculty_name',name);
             let toast = this.$toasted.success('You have successfully logged in', {
@@ -52,7 +51,6 @@ export default {
           else if(response.data.userRole=="Admin"){
             this.$router.push('/admin-dashboard');
             localStorage.removeItem('faculty_id');
-            
           } 
         }
       })
