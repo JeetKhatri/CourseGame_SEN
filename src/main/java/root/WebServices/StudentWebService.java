@@ -71,10 +71,17 @@ public class StudentWebService {
 	@Path("/student-csv")
 	@Produces("application/json")
 	public Response studentCSV(@FormParam("student") String studentList, @FormParam("batchid") String batchid) {
+
+		boolean status = new StudentDAO().insertStudent(studentList, batchid);
+
 		// String studentList = info.getQueryParameters().getFirst("student");
 		HashMap<String, String> obj = new HashMap<String, String>();
-		obj.put("data", studentList);
-		obj.put("batchid", batchid);
+		if (status) {
+			obj.put("status", status + "");
+		} else {
+			obj.put("status", false + "");
+		}
+
 		return Response.ok(obj).header("Access-Control-Allow-Origin", "*").build();
 	}
 
