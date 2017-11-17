@@ -13,7 +13,7 @@
 							<div class="field-body">
 								<div class="field">
 									<div class="field-wrap">
-										<input type="file">
+										<input type="file" name="student" required>
 									</div>
 								</div>
 							</div>
@@ -22,6 +22,13 @@
 									<div class="field-wrap">
 										<input type="hidden" name="import_student" value="True" />
 									</div>
+								</div>
+							</div>
+						</div>
+						<div class="field-body">
+							<div class="field">
+								<div class="field-wrap">
+									<input type="hidden" name="batch_id" v-model="batchid" />
 								</div>
 							</div>
 						</div>
@@ -40,7 +47,17 @@
 export default {
 	name: 'add-new-student',
 
-	props: ['batchid'],
+	props: {
+		batchid: {
+			required: true
+		}
+	},
+
+	// data() {
+	// 	return{
+	// 		batch_id: this.batchid
+	// 	}
+	// },
 
 	created() {
 		console.log(this.batchid)
