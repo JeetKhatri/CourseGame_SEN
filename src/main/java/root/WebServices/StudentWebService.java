@@ -3,6 +3,7 @@ package root.WebServices;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -69,8 +70,8 @@ public class StudentWebService {
 	@POST
 	@Path("/student-csv")
 	@Produces("application/json")
-	public Response studentCSV(@Context UriInfo info) {
-		String studentList = info.getQueryParameters().getFirst("student");
+	public Response studentCSV(@FormParam("student") String studentList) {
+		//String studentList = info.getQueryParameters().getFirst("student");
 		HashMap<String, String> obj = new HashMap<String, String>();
 		obj.put("data",studentList);
 		return Response.ok(obj).header("Access-Control-Allow-Origin", "*").build();
