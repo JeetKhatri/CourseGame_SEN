@@ -61,6 +61,7 @@ export default {
 
 	created() {
 		console.log(this.batchid)
+		// console.log("loaded")
 	},
 
 	methods: {
