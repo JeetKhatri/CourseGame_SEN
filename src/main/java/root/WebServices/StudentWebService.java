@@ -70,10 +70,11 @@ public class StudentWebService {
 	@POST
 	@Path("/student-csv")
 	@Produces("application/json")
-	public Response studentCSV(@FormParam("student") String studentList) {
+	public Response studentCSV(@FormParam("student") String studentList, @FormParam("batchid") String batchid) {
 		// String studentList = info.getQueryParameters().getFirst("student");
 		HashMap<String, String> obj = new HashMap<String, String>();
 		obj.put("data", studentList);
+		obj.put("batchid", batchid);
 		return Response.ok(obj).header("Access-Control-Allow-Origin", "*").build();
 	}
 
