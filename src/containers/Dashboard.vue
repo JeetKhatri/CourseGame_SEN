@@ -60,7 +60,7 @@ export default {
 	methods:{
 		batchRegistration(){
 			this.faculty_id=localStorage.getItem('faculty_id');
-			HTTP.post(`https://coursegame.herokuapp.com/rest/batch/batch-insert?userid=`+this.faculty_id+`&batchName=
+			HTTP.post(`rest/batch/batch-insert?userid=`+this.faculty_id+`&batchName=
 				`+this.batchName,{
 
 				})
@@ -72,6 +72,7 @@ export default {
 						duration: 3000
 					});
 					this.getBatches()
+					this.batchName = ''
 				}
 			})
 			.catch((e) => {
@@ -80,7 +81,7 @@ export default {
 		},
 		getBatches() {
 			this.faculty_id = localStorage.getItem('faculty_id');
-			HTTP.post(`https://coursegame.herokuapp.com/rest/faculty/faculty-batch/?userid=
+			HTTP.post(`rest/faculty/faculty-batch/?userid=
 				`+this.faculty_id,{
 
 				})

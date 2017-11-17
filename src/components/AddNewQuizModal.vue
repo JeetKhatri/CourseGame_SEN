@@ -47,7 +47,7 @@ export default {
 	methods: {
 		addQuestions() {
 			this.created_by_id = localStorage.getItem('faculty_id');
-			HTTP.post(`https://coursegame.herokuapp.com/rest/quiz/quiz-insert?name=`+this.quiz_name+`&batchid=`+this.batchid+`&starttime=1996-08-28&endtime=1996-08-28&createdby=`+this.created_by_id,{
+			HTTP.post(`rest/quiz/quiz-insert?name=`+this.quiz_name+`&batchid=`+this.batchid+`&starttime=1996-08-28&endtime=1996-08-28&createdby=`+this.created_by_id,{
 
 			})
 			.then(response => {
@@ -70,7 +70,7 @@ export default {
 		},
 		getAllQuiz() {
 			this.batchid=this.$route.params.batchid;
-			HTTP.post(`https://coursegame.herokuapp.com/rest/batch/batch-quiz/?batchid=
+			HTTP.post(`rest/batch/batch-quiz/?batchid=
 				`+this.batchid,{
 
 				})

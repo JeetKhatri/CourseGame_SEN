@@ -77,7 +77,7 @@ export default {
 		},
 		getAllQuiz() {
 			this.batchid=this.$route.params.batchid;
-			HTTP.post(`https://coursegame.herokuapp.com/rest/batch/batch-quiz/?batchid=
+			HTTP.post(`rest/batch/batch-quiz/?batchid=
 				`+this.batchid,{
 
 				})

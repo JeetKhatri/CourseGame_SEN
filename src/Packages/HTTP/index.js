@@ -3,8 +3,8 @@ import axios from 'axios';
 
 
 let axiosInstance = axios.create({
-	baseURL: 'https://afternoon-oasis-93157.herokuapp.com/'
-	// baseURL: 'https://coursegame.herokuapp.com/'
+	// baseURL: 'https://afternoon-oasis-93157.herokuapp.com/'
+	baseURL: 'https://coursegame.herokuapp.com/'
 })
 
 export default axiosInstance

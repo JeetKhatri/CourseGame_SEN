@@ -51,7 +51,7 @@ export default {
 		},
 		fetchTa(){
 			this.batchid =this.$route.params.batchid,
-			HTTP.get(`https://coursegame.herokuapp.com/rest/ta/ta-list?batchid=`+this.batchid)
+			HTTP.get(`rest/ta/ta-list?batchid=`+this.batchid)
 			.then(response => {
 				this.data = response.data.TABeans;
 				console.log(this.data)

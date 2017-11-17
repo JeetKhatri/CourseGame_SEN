@@ -31,7 +31,7 @@ export default {
   methods: {
     login() {
       console.log('clicked')
-      HTTP.post(`https://coursegame.herokuapp.com/rest/login/common?emailid=`+this.email+`&password=`+this.pass,{
+      HTTP.post(`rest/login/common?emailid=`+this.email+`&password=`+this.pass,{
 
       })
       .then(response => {

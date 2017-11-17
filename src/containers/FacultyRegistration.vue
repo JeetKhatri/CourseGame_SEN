@@ -52,7 +52,7 @@ export default {
 
 	methods: {
 		register() {
-			HTTP.post(`https://coursegame.herokuapp.com/rest/faculty/faculty-insert/?emailid=`+this.emailAddress+`&name=`+this.firstname+` `+this.lastname+`&degree=`+this.degree, {
+			HTTP.post(`rest/faculty/faculty-insert/?emailid=`+this.emailAddress+`&name=`+this.firstname+` `+this.lastname+`&degree=`+this.degree, {
 				
 			}).then(response => {
 				if(response.status===200)

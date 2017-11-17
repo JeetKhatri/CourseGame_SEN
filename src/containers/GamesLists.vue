@@ -13,6 +13,7 @@
 </template>
 
 <script type="text/javascript">
+import HTTP from '@/packages/HTTP'
 export default {
 	name: 'games-played',
 

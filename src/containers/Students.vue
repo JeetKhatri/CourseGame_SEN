@@ -47,7 +47,7 @@ export default {
 			this.addNewStudent = false
 		},
 		removeStudent(id){
-			HTTP.post(`https://coursegame.herokuapp.com/rest/student/student-remove?userid=`+id,{
+			HTTP.post(`rest/student/student-remove?userid=`+id,{
 
 			})
 			.then(response => {
@@ -66,7 +66,7 @@ export default {
 		},
 		getStudents(){
 			this.batchid =this.$route.params.batchid,
-			HTTP.get(`https://coursegame.herokuapp.com/rest/student/student-list?batchid=`+this.batchid)
+			HTTP.get(`rest/student/student-list?batchid=`+this.batchid)
 			.then(response => {
 				this.data = response.data.studentBeans;
 				console.log(this.data)

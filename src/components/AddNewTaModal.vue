@@ -13,7 +13,7 @@
 							<div class="field-body">
 								<div class="field">
 									<div class="field-wrap">
-										<input type="text" v-model="emailId" placeholder="Email Id">
+										<input type="email" v-model="email" placeholder="Email Id">
 									</div>
 								</div>
 								<div class="field">
@@ -40,7 +40,7 @@ export default {
 	name: 'add-new-student',
 	data(){
 		return{
-			emailId:'',
+			email:'',
 			name:'',
 			batchid: ''
 		}
@@ -54,8 +54,8 @@ export default {
 		},
 		addTa(){
 			console.log(this.batchid)
-			HTTP.post(`https://coursegame.herokuapp.com/rest/ta/ta-insert`, {
-				emailid: this.emailId,
+			HTTP.post(`rest/ta/ta-insert`, {
+				emailid: this.email,
 				name: this.name,
 				batchId: this.batchid
 			})
@@ -67,6 +67,8 @@ export default {
 						duration: 3000
 					});
 					this.$emit("closeAddTa");
+					this.emailId = '';
+					this.name = '';
 				}
 			})
 			.catch((e) => {
