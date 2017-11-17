@@ -8,28 +8,29 @@
 					<button class="delete" @click="close"></button>
 				</header>
 				<section class="modal-card-body">
-					<div class="field is-horizontal">
-						<div class="field-body">
-							<div class="field">
-								<div class="field-wrap">
-									<input type="text" placeholder="Student ID">
+					<form method="POST" action="https://rtdemo.000webhostapp.com/coursegame/importstudent.php" enctype="multipart/form-data">
+						<!-- <div class="field is-horizontal">
+							<div class="field-body">
+								<div class="field">
+									<div class="field-wrap">
+										<input type="text" placeholder="Student ID">
+									</div>
+								</div>
+								<div class="field">
+									<div class="field-wrap">
+										<input type="text" placeholder="Name">
+									</div>
 								</div>
 							</div>
-							<div class="field">
+						</div> -->
+						<div class="field">
+							<div class="field-body">
 								<div class="field-wrap">
-									<input type="text" placeholder="Name">
+									<input type="file">
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="field">
-						<div class="field-body">
-							<div class="field-wrap">
-								<input type="file">
-							</div>
-						</div>
-						
-					</div>
+					</form>
 				</section>
 				<footer class="modal-card-foot">
 					<a class="button is-info">Add</a>
