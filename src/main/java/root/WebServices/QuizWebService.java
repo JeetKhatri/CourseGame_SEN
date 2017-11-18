@@ -3,6 +3,7 @@ package root.WebServices;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -74,8 +75,8 @@ public class QuizWebService {
 		HashMap<String, Object> list = new QuizDAO().batchWiseQuiz(batchId);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
-
-        @POST
+	
+	@POST
 	@Path("/check-quiz")
 	@Produces("application/json")
 	public Response checkQuiz(@FormParam("studentid") String studentId,@FormParam("quizid") String quizId) {
