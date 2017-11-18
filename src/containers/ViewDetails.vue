@@ -52,6 +52,8 @@ export default {
 
 <style lang="scss">
 .view-details {
+	font-family: 'Quicksand', sans-serif;
+	
 	.main {
 		margin-top: 4.5rem;
 		height: auto;

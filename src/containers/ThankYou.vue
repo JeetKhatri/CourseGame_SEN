@@ -16,6 +16,8 @@ export default {
 
 <style lang="scss">
 .thank-you {
+	font-family: 'Quicksand', sans-serif;
+	
 	.greeting {
 		padding-top: 16rem;
 		text-align: center;

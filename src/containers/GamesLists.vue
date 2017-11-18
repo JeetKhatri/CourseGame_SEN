@@ -37,6 +37,8 @@ export default {
 
 <style lang="scss">
 .games-played {
+	font-family: 'Quicksand', sans-serif;
+	
 	h2 {
 		font-size: 20px;
 		text-decoration: underline;

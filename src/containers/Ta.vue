@@ -76,6 +76,8 @@ export default {
 
 <style lang="scss">
 .ta {
+	font-family: 'Quicksand', sans-serif;
+	
 	.columns {
 		margin: 0px;
 	}

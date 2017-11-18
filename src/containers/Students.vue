@@ -90,6 +90,8 @@ export default {
 
 <style lang="scss">
 .students {
+	font-family: 'Quicksand', sans-serif;
+	
 	.columns {
 		margin: 0px;
 	}

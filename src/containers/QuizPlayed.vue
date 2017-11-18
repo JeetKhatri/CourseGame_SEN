@@ -11,7 +11,7 @@
 		<div>
 			<div class="columns is-multiline">
 				<div class="column is-one-third" v-for="quiz in data">
-					<div class="card">
+					<div class="card" id="quizCard">
 						<header class="card-header">
 							<p class="card-header-title">
 								{{quiz.name}}
@@ -111,6 +111,8 @@ export default {
 
 <style lang="scss">
 .quiz-played {
+	font-family: 'Quicksand', sans-serif;
+	
 	.columns {
 		margin: 0px;
 	}
@@ -128,6 +130,9 @@ export default {
 	#correctAnswer {
 		display: flex;
 		justify-content: center;
+	}
+	#quizCard {
+		box-shadow: 0px 4px 5px #d0cfcf;
 	}
 }
 </style>

@@ -39,6 +39,8 @@ export default {
 
 <style lang="scss">
 .leaderboard {
+	font-family: 'Quicksand', sans-serif;
+	
 	.columns {
 		margin: 0px;
 	}

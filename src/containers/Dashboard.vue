@@ -17,24 +17,21 @@
 				</div>
 				<div class="columns is-multiline">
 					<div class="column is-one-third" v-for="batch in data">
-						<div class="card">
+						<div class="card" id="batchCard">
 							<header class="card-header">
 								<p class="card-header-title">
 									{{batch.batchname}}
 								</p>
-						<!-- <div>
-							<span class="tag is-info">Msc.it</span>
-						</div> -->
-					</header>
-					<footer class="card-footer">
-						<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
-					</footer>
+							</header>
+							<footer class="card-footer">
+								<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
+							</footer>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</div>	
+	</div>	
 </template>
 
 <script type="text/javascript">
@@ -111,25 +108,30 @@ export default {
 
 <style lang="scss">
 .dashboard {
+	font-family: 'Quicksand', sans-serif;
+
 	.main{
 		height: auto;
 		top: 4.5rem;
+	}
 
-		.title {
-			display: flex;
-			justify-content: center;
-		}
-		.newBatch{
-			margin:1rem;
-			width: 100%;
-		}
-		#createBtn {
-			margin: 1rem;
-		}
-		.columns {
-			padding-left: 1rem;
-			padding-right: 1rem;
-		}
+	.title {
+		display: flex;
+		justify-content: center;
+	}
+	.newBatch{
+		margin:1rem;
+		width: 100%;
+	}
+	#createBtn {
+		margin: 1rem;
+	}
+	.columns {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	#batchCard {
+		box-shadow: 0px 4px 5px #d0cfcf;
 	}
 }
 </style>

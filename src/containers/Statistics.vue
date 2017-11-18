@@ -61,6 +61,8 @@ export default {
 
 <style lang="scss">
 .statistics {
+	font-family: 'Quicksand', sans-serif;
+	
 	#tags {
 		float: right;
 		font-size: 16px;
