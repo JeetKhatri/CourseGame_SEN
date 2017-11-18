@@ -74,4 +74,13 @@ public class QuizWebService {
 		HashMap<String, Object> list = new QuizDAO().batchWiseQuiz(batchId);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
+
+        @POST
+	@Path("/check-quiz")
+	@Produces("application/json")
+	public Response checkQuiz(@FormParam("studentid") String studentId,@FormParam("quizid") String quizId) {
+		
+		HashMap<String, Object> list = new QuizDAO().checkQuiz(studentId,quizId);
+		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+	}
 }
