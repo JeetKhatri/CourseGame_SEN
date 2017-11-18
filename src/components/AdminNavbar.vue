@@ -19,7 +19,7 @@
 							<p class="control">
 								<div class="navbar-item has-dropdown is-hoverable">
 									<div class="navbar-link">
-										Username
+										{{adminName}}
 									</div>
 									<div id="moreDropdown" class="navbar-dropdown is-boxed">
 										<a class="navbar-item" @click="logout">Logout</a>
@@ -37,6 +37,12 @@
 <script type="text/javascript">
 export default {
 	name: 'navbar',
+
+	props: {
+		adminName: {
+			required: true
+		}
+	},
 
 	data() {
 		return {

@@ -1,6 +1,6 @@
 <template>
 	<div class="dashboard">
-		<navbar></navbar>
+		<navbar :name="name"></navbar>
 		<div class="container">
 			<div class="card main" id="views">
 				<div class="columns is-mobile">
@@ -47,12 +47,13 @@ export default {
 			data: [],
 			faculty_id:'',
 			batchName:'',
-			// username: ''
+			name: ''
 		}
 	},
 	created(){
 		this.getBatches()
 		this.getId()
+		this.name = localStorage.getItem('faculty_name')
 	},
 	methods:{
 		batchRegistration(){

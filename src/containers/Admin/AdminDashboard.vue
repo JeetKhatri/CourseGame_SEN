@@ -1,6 +1,6 @@
 <template>
 	<div class="dashboard">
-		<navbar></navbar>
+		<navbar :adminName="adminName"></navbar>
 		<div class="container">
 			<div class="columns is-multiline is-mobile">
 				<div class="column">
@@ -25,6 +25,16 @@
 import navbar from '@/components/AdminNavbar'
 export default {
 	name: 'dashboard',
+
+	data() {
+		return {
+			adminName: ''
+		}
+	},
+
+	created() {
+		this.adminName = localStorage.getItem('admin_name')
+	},
 
 	components:{
 		navbar

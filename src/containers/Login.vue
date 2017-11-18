@@ -24,8 +24,10 @@ export default {
     return {
       email: '',
       pass: '',
+      userName: '',
       faculty_id: '',
-      admin_id: ''
+      admin_id: '',
+      admin_name: ''
     }
   },
 
@@ -38,9 +40,10 @@ export default {
         if (response.status === 200) {
           if(response.data.userRole=="Faculty"){
             this.$router.push('/dashboard');
+            this.userName = response.data.userName
+            localStorage.setItem("faculty_name", this.userName)
             this.faculty_id = response.data.userId;
             localStorage.setItem('faculty_id',this.faculty_id);
-            // localStorage.setItem('faculty_name',name);
             let toast = this.$toasted.success('You have successfully logged in', {
               theme: 'outline',
               position: 'top-center',
@@ -50,9 +53,11 @@ export default {
           else if(response.data.userRole=="Admin"){
             this.$router.push('/admin-dashboard');
             console.log(response.data)
-            this.admin_id = response.data.userId;
+            this.admin_id = response.data.userId
+            this.admin_name = response.data.userName
             localStorage.removeItem('faculty_id');
             localStorage.setItem('admin_id', this.admin_id)
+            localStorage.setItem('admin_name', this.admin_name)
             let toast = this.$toasted.success('You have successfully logged in', {
               theme: 'outline',
               position: 'top-center',
