@@ -40,6 +40,10 @@ public class ChangeScript : MonoBehaviour
 	{
 		SceneManager.LoadScene ("achivement");
 	}
+	public void NavigateTOquiz()
+	{
+		SceneManager.LoadScene ("quiz");
+	}
 	public void Update ()
 	{
 		
