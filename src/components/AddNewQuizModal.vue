@@ -91,6 +91,6 @@ export default {
 
 <style lang="scss">
 .add-new-quiz {
-	
+	font-family: 'Quicksand', sans-serif;
 }
 </style>

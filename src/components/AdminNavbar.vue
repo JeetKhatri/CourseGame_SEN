@@ -22,7 +22,7 @@
 										Username
 									</div>
 									<div id="moreDropdown" class="navbar-dropdown is-boxed">
-										<a class="navbar-item">Logout</a>
+										<a class="navbar-item" @click="logout">Logout</a>
 									</div>
 								</div>
 							</p>
@@ -47,6 +47,10 @@ export default {
 	methods: {
 		toggle() {
 			this.isActive = true
+		},
+		logout() {
+			localStorage.removeItem('admin_id')
+			this.$router.push('/')
 		}
 	}
 

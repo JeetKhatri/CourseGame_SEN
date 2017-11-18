@@ -24,7 +24,8 @@ export default {
     return {
       email: '',
       pass: '',
-      faculty_id: ''
+      faculty_id: '',
+      admin_id: ''
     }
   },
 
@@ -38,8 +39,6 @@ export default {
           if(response.data.userRole=="Faculty"){
             this.$router.push('/dashboard');
             this.faculty_id = response.data.userId;
-            // var name = response.data.userName
-            // console.log(name);
             localStorage.setItem('faculty_id',this.faculty_id);
             // localStorage.setItem('faculty_name',name);
             let toast = this.$toasted.success('You have successfully logged in', {
@@ -50,7 +49,15 @@ export default {
           }
           else if(response.data.userRole=="Admin"){
             this.$router.push('/admin-dashboard');
+            console.log(response.data)
+            this.admin_id = response.data.userId;
             localStorage.removeItem('faculty_id');
+            localStorage.setItem('admin_id', this.admin_id)
+            let toast = this.$toasted.success('You have successfully logged in', {
+              theme: 'outline',
+              position: 'top-center',
+              duration: 3000
+            });
           } 
         }
       })
