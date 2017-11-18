@@ -1,6 +1,6 @@
 <template>
 	<div class="leaderboard">
-		<h2>Welcome to Leaderboard</h2>
+		<h2>Leaderboard</h2>
 		<div class="columns" id="lists" v-for="i in 20" :key="i">
 			<div class="column">
 				<h4>201612065</h4>

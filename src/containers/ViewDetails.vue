@@ -1,6 +1,6 @@
 <template>
 	<div class="view-details">
-		<navbar></navbar>
+		<navbar :name="name"></navbar>
 		<div class="container">
 			<div class="columns">
 				<div class="column is-one-quarter">
@@ -24,6 +24,13 @@ import sidebar from '@/components/Sidebar';
 import tabs from '@/components/Tabs';
 export default {
 	name: 'view-details',
+
+	data() {
+		return {
+			name: ''
+		}
+	},
+
 	components: {
 		navbar,
 		tabs,
@@ -32,6 +39,7 @@ export default {
 
 	created() {
 		this.getId()
+		this.name = localStorage.getItem('faculty_name')
 	},
 
 	methods: {

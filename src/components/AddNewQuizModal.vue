@@ -21,7 +21,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info" @click="addQuestions()">Add Questions</a>
+					<a class="button is-info" @click="addQuiz">Add Quiz</a>
 					<a class="button is-info" @click="close">Close</a>
 				</footer>
 			</div>
@@ -45,7 +45,7 @@ export default {
 
 	},
 	methods: {
-		addQuestions() {
+		addQuiz() {
 			this.created_by_id = localStorage.getItem('faculty_id');
 			HTTP.post(`rest/quiz/quiz-insert?name=`+this.quiz_name+`&batchid=`+this.batchid+`&starttime=1996-08-28&endtime=1996-08-28&createdby=`+this.created_by_id,{
 
