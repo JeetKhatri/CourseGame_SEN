@@ -5,11 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import root.Bean.StatusBean;
+import root.Bean.Mail;
 import root.Bean.StudentBean;
-import root.Controller.SendEmail;
+import root.Controller.ThreadImplement;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
@@ -61,21 +62,25 @@ public class StudentDAO {
 		String insertUser = "insert into users(userid,emailid,name,password,role,isavailable) values ";
 		String insertStudent = "insert into student(studentid,batchid,userid) values ";
 
-		String perticular[] = new String[2];
+		String perticular[];
 
 		String userid = "";
 		String password = "";
-		HashMap<String, String> hashmap = new HashMap<String, String>();
+		Queue<Mail> queue = new LinkedList<Mail>();
+
 		for (int i = 0; i < students.length; i++) {
 
-			perticular = new String[2];
 			perticular = students[i].split("~");
 			userid = GenrateMathodsUtils.getRandomString(15);
 			password = GenrateMathodsUtils.getRandomPass(10);
-			hashmap.put(perticular[0], password);
+
+			queue.add(new Mail("Account Activation", perticular[0],
+					"Dear, "+perticular[1] + " we accepted your requst and your password is " + password));
+
 			String temp = "('" + userid + "','" + perticular[0] + "','" + perticular[1] + "','"
 					+ GenrateMathodsUtils.makeSHA512(password) + "'," + "'Student','Y'),";
 			insertUser += temp;
+
 			String temps = "('" + GenrateMathodsUtils.getRandomString(15) + "','" + batchid + "','" + userid + "'),";
 			insertStudent += temps;
 		}
@@ -86,32 +91,26 @@ public class StudentDAO {
 				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(insertUser.substring(0, insertUser.length() - 1));
 
-				System.out.println(insertUser.substring(0, insertUser.length() - 1));
-				System.out.println(insertStudent.substring(0, insertStudent.length() - 1));
-				System.out.println(pstmt.toString());
 				if (pstmt.executeUpdate() != 0) {
+
 					pstmt = null;
 					pstmt = conn.prepareStatement(insertStudent.substring(0, insertStudent.length() - 1));
-					System.out.println(pstmt.toString());
+
 					int no = pstmt.executeUpdate();
 					if (no == 0) {
 						conn.rollback();
 					} else {
-						for (String keys : hashmap.keySet()) {
-							SendEmail obj = new SendEmail();
-							System.out.println(keys);
-							
-							  obj.SendEmail("Account Activation", keys,
-							  "Request arrive, we accept your requst & password is "
-							 + hashmap.get(keys));
-							 
-						}
-
+						
+						// send mail by thread
+						ThreadImplement th = new ThreadImplement(queue);
+						Thread thread = new Thread(th);
+						thread.start();
 						conn.commit();
 						conn.setAutoCommit(true);
 						return true;
 					}
 				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
@@ -127,4 +126,15 @@ public class StudentDAO {
 		return false;
 
 	}
+
+	public static void main(String[] args) {
+		System.out.println("ok");
+
+		System.out.println(new StudentDAO().insertStudent(
+				"201612066@daiict.ac.in~Dhiral,201612038@daiict.ac.in~Avnsih,201612024@daiict.ac.in~Jeet,201612019@daiict.ac.in~hardik,",
+				"WwFIwWWJGIGZEWw"));
+
+		System.out.println(GenrateMathodsUtils.makeSHA512("123456"));
+	}
+
 }
