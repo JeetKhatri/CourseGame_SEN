@@ -1,6 +1,6 @@
 <template>
 	<div class="dashboard">
-		<navbar :role="role"></navbar>
+		<navbar :name="name"></navbar>
 		<div class="container">
 			<div class="card main" id="views">
 				<div class="columns is-mobile">
@@ -45,55 +45,57 @@ export default {
 	data(){
 		return {
 			data: [],
-			faculty_id:'',
+			TA_id:'',
 			batchName:'',
-			role: ''
+			name: ''
 		}
 	},
 	created(){
-		this.getBatches()
-		this.getFacultyId()
-		this.role = localStorage.getItem('role')
+		// this.getBatches()
+		this.getTaId()
+		this.name = localStorage.getItem('TA_name')
 	},
 	methods:{
-		batchRegistration(){
-			this.faculty_id=localStorage.getItem('faculty_id');
-			HTTP.post(`rest/batch/batch-insert?userid=`+this.faculty_id+`&batchName=
-				`+this.batchName,{
+		// batchRegistration(){
+		// 	this.faculty_id=localStorage.getItem('faculty_id');
+		// 	HTTP.post(`rest/batch/batch-insert?userid=`+this.faculty_id+`&batchName=
+		// 		`+this.batchName,{
 
-				})
-			.then(response => {
-				if (response.status === 200) {
-					let toast = this.$toasted.success('Batch Created Successfully', {
-						theme: 'outline',
-						position: 'top-center',
-						duration: 3000
-					});
-					this.getBatches()
-					this.batchName = ''
-				}
-			})
-			.catch((e) => {
-				console.log(e)
-			})	
-		},
-		getBatches() {
-			this.faculty_id = localStorage.getItem('faculty_id');
-			HTTP.post(`rest/faculty/faculty-batch/?userid=
-				`+this.faculty_id,{
+		// 		})
+		// 	.then(response => {
+		// 		if (response.status === 200) {
+		// 			let toast = this.$toasted.success('Batch Created Successfully', {
+		// 				theme: 'outline',
+		// 				position: 'top-center',
+		// 				duration: 3000
+		// 			});
+		// 			this.getBatches()
+		// 			this.batchName = ''
+		// 		}
+		// 	})
+		// 	.catch((e) => {
+		// 		console.log(e)
+		// 	})	
+		// },
+		// getBatches() {
+		// 	this.faculty_id = localStorage.getItem('faculty_id');
+		// 	HTTP.post(`rest/faculty/faculty-batch/?userid=
+		// 		`+this.faculty_id,{
 
-				})
-			.then(response => {
-				if (response.status === 200) {
-					this.data =response.data.batchBeans;
-				}
-			})
-			.catch((e) => {
-				console.log(e)
-			})
-		},
-		getFacultyId () {
-			var id = window.localStorage.getItem('faculty_id')
+		// 		})
+		// 	.then(response => {
+		// 		if (response.status === 200) {
+		// 			this.data =response.data.batchBeans;
+		// 		// console.log(this.data);
+		// 	}
+		// })
+		// 	.catch((e) => {
+		// 		console.log(e)
+		// 	})
+		// },
+		getTaId () {
+			var id = window.localStorage.getItem('TA_id')
+			// this.username = id
 			if (id != null) {
 				return true
 			} else {

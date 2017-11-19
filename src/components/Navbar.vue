@@ -19,7 +19,7 @@
 							<p class="control">
 								<div class="navbar-item has-dropdown is-hoverable">
 									<div class="navbar-link">
-										 {{ name }}
+										{{ name }}
 									</div>
 									<div id="moreDropdown" class="navbar-dropdown is-boxed">
 										<a class="navbar-item" @click="logout">Logout</a>
@@ -38,28 +38,65 @@
 export default {
 	name: 'navbar',
 	props: {
-		name: {
+		role: {
 			required:true
 		}
 	},
 
 	data() {
 		return {
-			isActive: false
+			name: ''
 		}
 	},
-	// bHHbg9igB6lHnRL
+
+	created() {
+		this.getNames()
+	},
 
 	methods: {
-		toggle() {
-			this.isActive = true
-		},
 		logout() {
-			localStorage.removeItem('faculty_id')
-			this.$router.push('/')
+			if(this.role == 'Faculty') {
+				localStorage.removeItem('faculty_id')
+				localStorage.removeItem('faculty_name')
+				localStorage.removeItem('role')
+				this.$router.push('/')
+				let toast = this.$toasted.success('You have successfully logged out', {
+					theme: 'outline',
+					position: 'top-center',
+					duration: 3000
+				});
+			} else if(this.role == 'Admin') {
+				localStorage.removeItem('admin_id')
+				localStorage.removeItem('admin_name')
+				localStorage.removeItem('role')
+				this.$router.push('/')
+				let toast = this.$toasted.success('You have successfully logged out', {
+					theme: 'outline',
+					position: 'top-center',
+					duration: 3000
+				});
+			} else if(this.role == 'TA') {
+				localStorage.removeItem('TA_id')
+				localStorage.removeItem('TA_name')
+				localStorage.removeItem('role')
+				this.$router.push('/')
+				let toast = this.$toasted.success('You have successfully logged out', {
+					theme: 'outline',
+					position: 'top-center',
+					duration: 3000
+				});
+			}
+		},
+		getNames() {
+			if(this.role == 'Faculty') {
+				this.name = localStorage.getItem('faculty_name')
+			} else if(this.role == 'Admin') {
+				this.name = localStorage.getItem('admin_name')
+			} else if(this.role == 'TA') {
+				this.name = localStorage.getItem('TA_name')
+			}
 		}
 	}
-
 }
 </script>
 

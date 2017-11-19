@@ -35,7 +35,7 @@
 					</form>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info" @click="upload">Add</a>
+					<button type="submit" form="csvForm" class="button is-info">Add</button>
 					<a class="button close-btn" @click="close">Close</a>
 				</footer>
 			</div>
@@ -53,15 +53,8 @@ export default {
 		}
 	},
 
-	// data() {
-	// 	return{
-	// 		batch_id: this.batchid
-	// 	}
-	// },
-
 	created() {
 		console.log(this.batchid)
-		// console.log("loaded")
 	},
 
 	methods: {
@@ -69,7 +62,6 @@ export default {
 			this.$emit("closeAddStudent");
 		},
 		upload() {
-			console.log("button clicked")
 			document.getElementById("csvForm").submit();
 		}
 	}

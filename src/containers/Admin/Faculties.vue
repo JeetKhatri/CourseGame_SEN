@@ -19,6 +19,7 @@
 </template>
 
 <script type="text/javascript">
+import HTTP from '@/packages/HTTP';
 import viewDetails from '@/components/ViewFacultyDetailsModal';
 export default {
 	name: 'faculties',
@@ -36,6 +37,17 @@ export default {
 	methods: {
 		close() {
 			this.viewfaculty = false
+		},
+		getAllfaculties() {
+			HTTP.get(`rest/faculty/faculty-list`, {
+
+			})
+			.then(response => {
+				console.log(response)
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		}
 	}
 
