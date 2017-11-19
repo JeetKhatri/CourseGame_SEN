@@ -21,7 +21,7 @@
 							</div>
 						</header>
 						<footer class="card-footer">
-							<router-link class="card-footer-item" to="/statistics">View</router-link>
+							<router-link class="card-footer-item" :to="{name: 'statistics', params:{quizid: quiz.quizId }}">View</router-link>
 							<a class="card-footer-item" @click="startQuiz">Start</a>
 						</footer>
 					</div>
@@ -84,7 +84,6 @@ export default {
 			.then(response => {
 				if (response.status === 200) {
 					this.data =response.data.quizBeans;
-					console.log(this.data);
 
 				}
 			})

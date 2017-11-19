@@ -2,7 +2,7 @@
 	<div class="faculties">
 		<div class="columns">
 			<div class="column" v-for="i in 3" :key="i">
-				<div class="card">
+				<div class="card" id="facultyCard">
 					<header class="card-header">
 						<p class="card-header-title">
 							Faculty Name
@@ -47,9 +47,11 @@ export default {
 	.columns {
 		margin: 0px;
 	}
-
 	span:hover {
 		cursor: pointer;
+	}
+	#facultyCard{
+		box-shadow: 0px 4px 5px #d0cfcf;
 	}
 }
 </style>

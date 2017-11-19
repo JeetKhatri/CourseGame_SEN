@@ -69,7 +69,7 @@ export default {
 			HTTP.get(`rest/student/student-list?batchid=`+this.batchid)
 			.then(response => {
 				this.data = response.data.studentBeans;
-				console.log(this.data)
+				
 			})
 			.catch(e=>{
 				console.log(e);

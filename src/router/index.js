@@ -78,7 +78,7 @@ export default new Router({
 			component: LeaderBoard
 		},
 		{
-			path: '/statistics',
+			path: '/statistics/:quizid',
 			name: 'statistics',
 			component: Statistics
 		}

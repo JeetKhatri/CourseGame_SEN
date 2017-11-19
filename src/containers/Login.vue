@@ -4,8 +4,8 @@
       <h1>Welcome To Course Game</h1>
       <div class="mainw3-agileinfo form"> 
         <div class="field-wrap">
-          <input type="text" name="email" placeholder="Email" v-model='email'>
-        </div> 
+          <input type="email" name="email" placeholder="Email" v-model='email'>
+        </div>
         <div class="field-wrap">
           <input type="password" name="password" placeholder="password" v-model='pass'>
         </div> 

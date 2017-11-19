@@ -48,24 +48,17 @@ export default {
 	.main{
 		height: auto;
 		top: 4rem;
-
-		.title {
-			display: flex;
-			justify-content: center;
-		}
-
-		.newBatch{
-			margin:1rem;
-			width: 100%;
-
-		}
-
-		#createBtn {
-			margin: 1rem;
-		}
-
 	}
-
-
+	.title {
+		display: flex;
+		justify-content: center;
+	}
+	.newBatch{
+		margin:1rem;
+		width: 100%;
+	}
+	#createBtn {
+		margin: 1rem;
+	}
 }
 </style>

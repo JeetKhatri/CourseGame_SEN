@@ -53,14 +53,13 @@ export default {
 			this.$emit("closeAddTa");
 		},
 		addTa(){
-			console.log(this.batchid)
 			HTTP.post(`rest/ta/ta-insert`, {
 				emailid: this.email,
 				name: this.name,
 				batchId: this.batchid
 			})
 			.then(response => {
-				if (response.status === 200) {
+				if(response.status === 200){
 					let toast = this.$toasted.success('TA created successfully', {
 						theme: 'outline',
 						position: 'top-center',
@@ -73,7 +72,7 @@ export default {
 			})
 			.catch((e) => {
 				console.log(e)
-			})
+			}) 
 		}
 	}
 

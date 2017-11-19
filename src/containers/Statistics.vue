@@ -9,12 +9,12 @@
 				<h2>Manage Quiz</h2>
 			</div>
 		</div>
-		<div class="columns" id="lists" v-for="i in 10" :key="i">
+		<div class="columns" id="lists" v-for="content in data">
 			<div class="column">
-				Question
+				{{content.question}}
 			</div>
 			<div class="column">
-				Answer
+				{{content.answer}}
 			</div>
 			<div class="column">
 				<span class="tag is-info">Update</span>
@@ -25,20 +25,30 @@
 </template>
 
 <script type="text/javascript">
+import HTTP from '@/packages/HTTP';
 import addQuestion from '@/components/AddNewQuestionModal'
 export default {
 	name: 'statistics',
+	data() {
+		return {
+			quizId: ''
+		}
+	},
 	components: {
 		addQuestion
 	},
 
 	created() {
 		this.getId()
+		this.quizId = this.$route.params.quizid
+		console.log(this.quizId)
+		this.getQuestions()
 	},
 
 	data() {
 		return {
-			addQuestion: false
+			addQuestion: false,
+			data: []
 		}
 	},
 
@@ -54,41 +64,52 @@ export default {
 			} else {
 				this.$router.push('/')
 			}
+		},
+		getQuestions() {
+			HTTP.get(`rest/quiz-content/questions-list?quizid=
+				`+this.quizId, {
+
+				}).then(response => {
+					this.data = response.data.quizcontent
+					console.log(this.data)
+				}).catch((e) => {
+					console.log(e)
+				})
+			}
 		}
 	}
-}
-</script>
+	</script>
 
-<style lang="scss">
-.statistics {
-	font-family: 'Quicksand', sans-serif;
-	
-	#tags {
-		float: right;
-		font-size: 16px;
-	}
-	.columns {
-		margin: 0px;
-	}
-	#tags:hover {
-		cursor: pointer;
-	}
-	
-	#lists {
-		padding: 0.1rem;
-		padding-left: 5rem;
-	}
+	<style lang="scss">
+	.statistics {
+		font-family: 'Quicksand', sans-serif;
 
-	span:hover {
-		cursor: pointer;
-	}
+		#tags {
+			float: right;
+			font-size: 16px;
+		}
+		.columns {
+			margin: 0px;
+		}
+		#tags:hover {
+			cursor: pointer;
+		}
 
-	h2 {
-		font-size: 24px;
-		text-decoration: underline;
-		display: flex;
-		justify-content: center;
-		padding-left: 5rem;
+		#lists {
+			padding: 0.1rem;
+			padding-left: 5rem;
+		}
+
+		span:hover {
+			cursor: pointer;
+		}
+
+		h2 {
+			font-size: 24px;
+			text-decoration: underline;
+			display: flex;
+			justify-content: center;
+			padding-left: 5rem;
+		}
 	}
-}
-</style>
+	</style>

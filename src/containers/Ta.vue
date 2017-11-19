@@ -54,7 +54,6 @@ export default {
 			HTTP.get(`rest/ta/ta-list?batchid=`+this.batchid)
 			.then(response => {
 				this.data = response.data.TABeans;
-				console.log(this.data)
 			})
 			.catch(e=>{
 				console.log(e);
@@ -68,6 +67,9 @@ export default {
 			} else {
 				this.$router.push('/')
 			}
+		},
+		removeTa() {
+			alert("TA removed")
 		}
 	}
 
