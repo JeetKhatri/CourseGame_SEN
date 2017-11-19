@@ -12,16 +12,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import root.Bean.BatchBean;
 import root.Bean.QuizContentBean;
 import root.Bean.StatusBean;
 import root.Bean.StudentQuizBean;
-import root.Bean.UserBean;
-import root.DAO.BatchDAO;
-import root.DAO.FacultyDAO;
 import root.DAO.QuizContentDAO;
 import root.DAO.QuizDAO;
-import root.DAO.UserDAO;
 import root.Utils.GenrateMathodsUtils;
 
 @Path("/quiz-content")
@@ -162,5 +157,14 @@ public class QuizContentWebService {
 		String quizid = info.getQueryParameters().getFirst("quizid");
 		String batchid = info.getQueryParameters().getFirst("batchid");
 		return Response.ok(new QuizDAO().leaderBoardStudent(quizid, batchid)).header("Access-Control-Allow-Origin", "*").build();
+	}
+	
+	@GET
+	@Path("/main-leaderboard")
+	@Produces("application/json")
+	public Response leaderBoardMain(@Context UriInfo info) {
+
+		String batchid = info.getQueryParameters().getFirst("batchid");
+		return Response.ok(new QuizDAO().mainLeaderBoard(batchid)).header("Access-Control-Allow-Origin", "*").build();
 	}
 }

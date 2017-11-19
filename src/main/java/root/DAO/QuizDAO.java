@@ -10,7 +10,6 @@ import java.util.HashMap;
 import root.Bean.LeaderBoardStudentBean;
 import root.Bean.QuizBean;
 import root.Bean.StatusBean;
-import root.Bean.UserBean;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
@@ -188,7 +187,7 @@ public class QuizDAO {
 	public HashMap<String, Object> leaderBoardStudent(String quizid, String batchid) {
 
 		ArrayList<LeaderBoardStudentBean> arrayList = new ArrayList<LeaderBoardStudentBean>();
-		String sql = "select total,u.name as name from studentquiz s,quiz q,users u,student st where q.quizid=s.quizid and q.batchid=? and u.userid=st.userid and s.studentid=st.studentid and q.quizid=? order by s.total DESC";
+		String sql = "select total,u.name as name from studentquiz s,quiz q,users u,student st where q.quizid=s.quizid and q.batchid=? and u.userid=st.userid and s.studentid=st.studentid and q.quizid=? order by s.total desc";
 		conn = DBConnection.getConnection();
 
 		LeaderBoardStudentBean leaderBoardStudentBean = new LeaderBoardStudentBean();
@@ -229,25 +228,33 @@ public class QuizDAO {
 		return map;
 	}
 
-	public HashMap<String, Object> checkQuiz(String studentId, String quizId) {
-
-		String sql = "select * from studentquiz where studentid=? and quizid=?";
+	public HashMap<String, Object> mainLeaderBoard(String batchId) {
+		ArrayList<LeaderBoardStudentBean> arrayList = new ArrayList<LeaderBoardStudentBean>();
+		String sql = "select sum(total),name from studentquiz s,users u,student st,batch b where s.studentid=st.studentid and u.userid=st.userid and b.batchid=st.batchid  and b.batchid=? group by u.name";
 		conn = DBConnection.getConnection();
 
+		LeaderBoardStudentBean leaderBoardStudentBean;// = new LeaderBoardStudentBean();
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (conn != null) {
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, studentId);
-				pstmt.setString(2, quizId);
+				pstmt.setString(1, batchId);
 				rs = pstmt.executeQuery();
 
 				boolean flag = false;
 				while (rs.next()) {
 					flag = true;
+					leaderBoardStudentBean = new LeaderBoardStudentBean();
+					leaderBoardStudentBean.setMarks(rs.getString("sum"));
+					leaderBoardStudentBean.setStudentname(rs.getString("name"));
+					arrayList.add(leaderBoardStudentBean);
 				}
-				map.put("status", flag);
+				if (flag) {
+					map.put("status", true);
+					map.put("marklist", arrayList);
+				} else
+					map.put("status", false);
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -261,6 +268,5 @@ public class QuizDAO {
 		}
 
 		return map;
-
 	}
 }
