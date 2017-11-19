@@ -27,6 +27,18 @@ public class GameListScript : MonoBehaviour {
         Debug.Log("error");
     }
 
+    public void startArray()
+    {
+        Quiz quiz = QuizManager.getQuizList().map["Array"];
+        Debug.Log(quiz);
+        //this.startQuiz()
+    }
+
+    public void startQuiz(string quizId)
+    {
+
+    }
+
     // Update is called once per frame
     void Update () {
 		

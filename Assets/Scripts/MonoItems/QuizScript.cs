@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class countNumberQuiz : MonoBehaviour {
+public class QuizScript : MonoBehaviour {
 	public Text question;	
 	public Text op1,op2,op3,op4;
 

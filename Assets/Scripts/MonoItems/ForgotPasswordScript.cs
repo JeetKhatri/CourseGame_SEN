@@ -17,11 +17,18 @@ public class ForgotPasswordScript : MonoBehaviour {
 
     public void successForgotPassword(string data)
     {
-        Debug.Log("Got data: " + data);
+        if (data.Equals("true"))
+        {
+            Utils.showToastOnUiThread("Mail has been sent to your email address!");
+        }
+        else
+        {
+            Utils.showToastOnUiThread("You are not registered!");
+        }
     }
 
     public void errorMethod()
     {
-        Debug.Log("error");
+        Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
     }
 }

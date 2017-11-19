@@ -7,6 +7,10 @@ public class StudentManager
 
     public static bool isLogin()
     {
+        if (student == null)
+        {
+            return false;
+        }
         return !student.responseStatus.Equals("false");
     }
 
@@ -30,6 +34,7 @@ public class StudentManager
         if (!isLogin())
         {
             Debug.Log("checklogin failed, navigating to login page");
+            Utils.showToastOnUiThread("You need to login!");
             NavigationManager.NavigateTO(NavigationManager.login);
         }
     }

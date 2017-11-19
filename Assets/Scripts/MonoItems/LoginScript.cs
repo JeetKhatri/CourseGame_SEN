@@ -28,7 +28,7 @@ public class LoginScript : MonoBehaviour
         Student student = StudentManager.getStudentFromJson(data);
         if (student.responseStatus.Equals("false"))
         {
-            this.errorMethod();
+            Utils.showToastOnUiThread("Invalid username or password!");
             return;
         }
         StudentManager.setStudent(student);
@@ -36,7 +36,7 @@ public class LoginScript : MonoBehaviour
     }
     public void errorMethod()
     {
-        Utils.showToastOnUiThread("Invalid username or password!");
+        Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
     }
 
 }
