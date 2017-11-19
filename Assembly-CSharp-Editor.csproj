@@ -51,8 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\NewEditModeTest.cs" />
      <Compile Include="Assets\TheTopicbirdTools\UltimateHierarchyLite\Editor\UltimateHierarchyLiteEditor.cs" />
-     <None Include="Assets\MenuBoard\Doc\ReadMe.txt" />
      <None Include="Assets\Button\ColorfulButtons\Credits.txt" />
      <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
  <Reference Include="UnityEngine.UI">

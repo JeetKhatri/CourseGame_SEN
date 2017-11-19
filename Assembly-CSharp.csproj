@@ -55,7 +55,6 @@
      <Compile Include="Assets\Scripts\countNumberQuiz.cs" />
      <Compile Include="Assets\Scripts\PopupView.cs" />
      <Compile Include="Assets\TheTopicbirdTools\UltimateHierarchyLite\UltimateHierarchyLite.cs" />
-     <None Include="Assets\MenuBoard\Doc\ReadMe.txt" />
      <None Include="Assets\Button\ColorfulButtons\Credits.txt" />
      <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
  <Reference Include="UnityEngine.UI">

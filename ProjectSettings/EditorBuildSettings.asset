@@ -35,3 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/quizBefore.unity
     guid: 265ab09376d9446499fa44bd07820301
+  - enabled: 1
+    path: Assets/UITest/Examples/TestableGameScene.unity
+    guid: cf4b10a3abc1a406b82c6e856ad8899f
