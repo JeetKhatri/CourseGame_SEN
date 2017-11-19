@@ -874,6 +874,7 @@ GameObject:
   - component: {fileID: 1834710662}
   - component: {fileID: 1834710663}
   - component: {fileID: 1834710664}
+  - component: {fileID: 1834710665}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -919,6 +920,17 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!114 &1834710665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1834710661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24943b787e9cb6d4fbda117084a5b089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1855534120
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,8 +1007,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834710663}
-        m_MethodName: NavigateTOSetting
+      - m_Target: {fileID: 1834710665}
+        m_MethodName: toSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -626,8 +626,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834710663}
-        m_MethodName: navigateTOMainScreens
+      - m_Target: {fileID: 1834710664}
+        m_MethodName: toMain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1044,6 +1044,7 @@ GameObject:
   - component: {fileID: 1834710662}
   - component: {fileID: 1834710663}
   - component: {fileID: 1834710665}
+  - component: {fileID: 1834710664}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -1073,6 +1074,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6945d781a2aaa21428511eb80c24b93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1834710664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1834710661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24943b787e9cb6d4fbda117084a5b089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &1834710665
@@ -1168,8 +1180,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834710663}
-        m_MethodName: NavigateTOAchivement
+      - m_Target: {fileID: 1834710664}
+        m_MethodName: toAchivements
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1290,8 +1302,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834710663}
-        m_MethodName: NavigateTOLeaderBoard
+      - m_Target: {fileID: 1834710664}
+        m_MethodName: toLeaderboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

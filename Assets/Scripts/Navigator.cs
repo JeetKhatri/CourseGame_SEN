@@ -38,4 +38,10 @@ public class Navigator : MonoBehaviour {
     {
         NavigationManager.NavigateTO(NavigationManager.leaderboard);
     }
+
+    public void toAchivements()
+    {
+        NavigationManager.NavigateTO(NavigationManager.achivement);
+    }
+
 }
