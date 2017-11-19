@@ -18,6 +18,7 @@ public class LoginScript : MonoBehaviour
         map.Add("emailid", emailid);
         map.Add("password", password);
 
+        Debug.Log("making post call!");
         StartCoroutine(Utils.makePostCall(url, Utils.createForm(map),this,"successLogin","errorMethod"));
 	}
 
