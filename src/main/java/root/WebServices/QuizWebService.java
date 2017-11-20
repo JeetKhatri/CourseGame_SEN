@@ -1,6 +1,5 @@
 package root.WebServices;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.ws.rs.FormParam;
@@ -16,7 +15,6 @@ import javax.ws.rs.core.UriInfo;
 import root.Bean.QuizBean;
 import root.Bean.StatusBean;
 import root.DAO.QuizDAO;
-import root.DAO.UserDAO;
 
 @Path("/quiz")
 public class QuizWebService {

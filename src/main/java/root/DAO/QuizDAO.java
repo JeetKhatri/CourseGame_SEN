@@ -269,4 +269,39 @@ public class QuizDAO {
 
 		return map;
 	}
+	
+	public HashMap<String, Object> checkQuiz(String studentId, String quizId) {
+
+		String sql = "select * from studentquiz where studentid=? and quizid=?";
+		conn = DBConnection.getConnection();
+
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, studentId);
+				pstmt.setString(2, quizId);
+				rs = pstmt.executeQuery();
+
+				boolean flag = false;
+				while (rs.next()) {
+					flag = true;
+				}
+				map.put("status", flag);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return map;
+
+	}
 }
