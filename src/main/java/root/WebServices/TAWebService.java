@@ -8,15 +8,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import root.Bean.BatchBean;
-import root.Bean.FacultyBean;
 import root.Bean.TABean;
 import root.Bean.UserBean;
 import root.DAO.TADAO;
 import root.DAO.UserDAO;
-import root.Utils.GenrateMathodsUtils;
 
 @Path("/ta")
 public class TAWebService {
@@ -71,9 +68,11 @@ public class TAWebService {
 	@Path("/batch-list")
 	@Produces("application/json")
 	public Response batchList(@Context UriInfo info) {
+		
 		String userId = info.getQueryParameters().getFirst("userid");
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		ArrayList<BatchBean> beans = new TADAO().batchList(userId);
+		
 		if (beans == null || beans.size() == 0) {
 			hashMap.put("responseStatus", false);
 		} else {

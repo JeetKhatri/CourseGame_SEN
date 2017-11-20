@@ -25,7 +25,6 @@ public class TADAO {
 		String sql = "select * from users";
 		conn = DBConnection.getConnection();
 
-		boolean flag = false;
 		if (conn != null) {
 
 			try {
@@ -41,7 +40,6 @@ public class TADAO {
 					Bean.setUserRole(rs.getString("role"));
 					Bean.setResponseStatus(true);
 					list.add(Bean);
-					flag = true;
 				}
 
 			} catch (SQLException e) {
@@ -107,7 +105,7 @@ public class TADAO {
 		}
 		return false;
 	}
-	
+
 	public ArrayList<TABean> taList(String batchId) {
 
 		ArrayList<TABean> arrayList = new ArrayList<TABean>();
@@ -149,18 +147,19 @@ public class TADAO {
 	}
 
 	public ArrayList<BatchBean> batchList(String userId) {
-		
 
 		ArrayList<BatchBean> arrayList = new ArrayList<BatchBean>();
 
 		String sql = "select * from ta t,batch b where t.batchid=b.batchid and userid=?";
+		System.out.println(userId);
 		conn = DBConnection.getConnection();
 		if (conn != null) {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, userId);
 				rs = pstmt.executeQuery();
-				BatchBean bean = new BatchBean();
+				BatchBean bean;
+				
 				while (rs.next()) {
 					bean = new BatchBean();
 					bean.setBatchid(rs.getString("batchid"));
