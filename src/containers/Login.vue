@@ -64,7 +64,7 @@ export default {
               duration: 3000
             });
           } else if(response.data.userRole=="TA") {
-            this.$router.push('/ta-dashboard');
+            this.$router.push('/dashboard');
             this.userName = response.data.userName
             this.TA_id = response.data.userId
             this.role = response.data.userRole

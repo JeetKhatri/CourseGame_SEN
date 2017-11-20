@@ -3,7 +3,7 @@
 		<navbar :role="role"></navbar>
 		<div class="container">
 			<div class="card main" id="views">
-				<div class="columns is-mobile">
+				<div class="columns is-mobile" v-if="role == 'Faculty'">
 					<div class="column">
 						<div class="field has-addons title">
 							<p class="control is-fullwidth">
@@ -51,9 +51,16 @@ export default {
 		}
 	},
 	created(){
-		this.getBatches()
-		this.getFacultyId()
 		this.role = localStorage.getItem('role')
+		if(this.role == "Faculty") {
+			this.getFacultyId()
+			this.getBatches()
+		} else if(this.role == "TA") {
+			this.getTaId()
+			this.getTaBatches()
+		}
+		// this.getBatches()
+		// this.getFacultyId()
 	},
 	methods:{
 		batchRegistration(){
@@ -99,6 +106,17 @@ export default {
 			} else {
 				this.$router.push('/')
 			}
+		},
+		getTaId () {
+			var id = window.localStorage.getItem('TA_id')
+			if (id != null) {
+				return true
+			} else {
+				this.$router.push('/')
+			}
+		},
+		getTaBatches() {
+			console.log("ta dashboard")
 		}
 	}
 }
