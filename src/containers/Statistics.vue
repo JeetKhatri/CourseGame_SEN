@@ -31,7 +31,8 @@ export default {
 	name: 'statistics',
 	data() {
 		return {
-			quizId: ''
+			quizId: '',
+			batchId: ''
 		}
 	},
 	components: {
@@ -41,7 +42,6 @@ export default {
 	created() {
 		this.getId()
 		this.quizId = this.$route.params.quizid
-		console.log(this.quizId)
 		this.getQuestions()
 	},
 
@@ -71,7 +71,6 @@ export default {
 
 				}).then(response => {
 					this.data = response.data.quizcontent
-					console.log(this.data)
 				}).catch((e) => {
 					console.log(e)
 				})

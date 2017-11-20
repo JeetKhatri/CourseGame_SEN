@@ -1,30 +1,18 @@
 <template>
 	<div class="dashboard">
-		<navbar :name="name"></navbar>
+		<navbar :role="role"></navbar>
 		<div class="container">
 			<div class="card main" id="views">
-				<div class="columns is-mobile">
-					<div class="column">
-						<div class="field has-addons title">
-							<p class="control is-fullwidth">
-								<input class="input newBatch" type="text" v-model="batchName" placeholder="Create New Batch">
-							</p>
-							<p class="control">
-								<a class="button is-info" id="createBtn" @click="batchRegistration()"> Create </a>
-							</p>
-						</div>
-					</div>
-				</div>
 				<div class="columns is-multiline">
-					<div class="column is-one-third" v-for="batch in data">
+					<div class="column is-one-third" v-for="i in 12" :key="i">
 						<div class="card" id="batchCard">
 							<header class="card-header">
 								<p class="card-header-title">
-									{{batch.batchname}}
+									batch
 								</p>
 							</header>
 							<footer class="card-footer">
-								<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
+								<a class="card-footer-item">View</a>
 							</footer>
 						</div>
 					</div>
@@ -47,13 +35,17 @@ export default {
 			data: [],
 			TA_id:'',
 			batchName:'',
-			name: ''
+			name: '',
+			role: ''
 		}
 	},
 	created(){
 		// this.getBatches()
 		this.getTaId()
-		this.name = localStorage.getItem('TA_name')
+		this.role = localStorage.getItem('role')
+		this.name = localStorage.getItem('TA_name')	
+		console.log(this.role)
+		console.log(this.name)
 	},
 	methods:{
 		// batchRegistration(){
@@ -95,7 +87,6 @@ export default {
 		// },
 		getTaId () {
 			var id = window.localStorage.getItem('TA_id')
-			// this.username = id
 			if (id != null) {
 				return true
 			} else {

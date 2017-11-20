@@ -60,7 +60,7 @@ export default {
 			})
 			.then(response => {
 				if(response.status === 200){
-					let toast = this.$toasted.success('TA created successfully', {
+					let toast = this.$toasted.success('Creation Successfull! Please check your email.', {
 						theme: 'outline',
 						position: 'top-center',
 						duration: 3000

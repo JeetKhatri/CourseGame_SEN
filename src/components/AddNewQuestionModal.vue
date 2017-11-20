@@ -42,14 +42,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="column" id="correctAnswer">
-						<input class="input" type="text" v-model="correctAnswer" placeholder="Correct Answer">
+					<div class="columns">
+						<div class="column" id="correctAnswer">
+							<input class="input" type="text" v-model="correctAnswer" placeholder="Correct Answer">
+						</div>
+						<div class="column" id="correctAnswer">
+							<input class="input" type="number" v-model="correctMarks" placeholder="Marks">
+						</div>
 					</div>
 				</section>
 				<footer class="modal-card-foot">
 					<a class="button is-info" @click="addQuestion()">Save</a>
-					<a class="button is-info" @click="addQuestion()">Add New</a>
-					<a class="button is-info" id="closeBtn" @click="close">Close</a>
+					<a class="button is-info" @click="close">Close</a>
 				</footer>
 			</div>
 		</div>
@@ -67,30 +71,59 @@ export default {
 			option2:'',
 			option3:'',
 			option4:'',
-			correctAnswer:''
+			correctAnswer:'',
+			correctMarks:0,
+			difficulty:1,
+			quizId:''
 		}
+	},
+	created(){
+		this.quizId = this.$route.params.quizid
 	},
 	methods: {
 		close() {
+			this.getQuestions()
 			this.$emit('closeAddNewQuestion');
 		},
 		addQuestion(){
-			// HTTP.post(`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-insert?quizid=Eq2ozSiSi22jPuP&question=Hello&option1=A&option2=B&option3=C&option4=D&answer=A&mark=5&difficulty=1`,{
+			HTTP.post(`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-insert?quizid=`+this.quizId+`&question=`+this.question+`&option1=`+this.option1+`&option2=`+this.option2+`&option3=`+this.option3+`&option4=`+this.option4+`&answer=`+this.correctAnswer+`&mark=`+this.correctMarks+`&difficulty=`+this.difficulty,{
 
-			// })
-			// .then(response => {
-			// 	if (response.status === 200) {
-			// 		this.$emit('openAddNewQuestion');
-			// 	}
-			// })
-			// .catch((e) => {
-			// 	console.log(e)
-			// })
+			})
+			.then(response => {
+				if (response.status === 200) {
+					let toast = this.$toasted.success('Question Saved', {
+						theme: 'outline',
+						position: 'top-center',
+						duration: 3000
+					});
+					this.getQuestions()
+					this.question = ''
+					this.option1 = ''
+					this.option2 = ''
+					this.option3 = ''
+					this.option4 = ''
+					this.correctAnswer = ''
+					this.correctMarks = ''
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
+		},
+		getQuestions() {
+			HTTP.get(`rest/quiz-content/questions-list?quizid=
+				`+this.quizId, {
 
+				})
+			.then(response => {
+				this.data = response.data.quizcontent
+				console.log(this.data)
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		}
-
 	}
-
 }
 </script>
 

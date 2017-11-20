@@ -64,7 +64,7 @@ export default {
               duration: 3000
             });
           } else if(response.data.userRole=="TA") {
-            this.$router.push('/dashboard');
+            this.$router.push('/ta-dashboard');
             this.userName = response.data.userName
             this.TA_id = response.data.userId
             this.role = response.data.userRole
@@ -80,7 +80,7 @@ export default {
         }
       })
       .catch((e) => {
-        let toast = this.$toasted.success('Incorrect Username or Password', {
+        let toast = this.$toasted.error('Incorrect Username or Password', {
           theme: 'outline',
           position: 'top-center',
           duration: 3000

@@ -1,6 +1,6 @@
 <template>
 	<div class="view-details">
-		<navbar :name="name"></navbar>
+		<navbar :role="role"></navbar>
 		<div class="container">
 			<div class="columns">
 				<div class="column is-one-quarter">
@@ -27,7 +27,7 @@ export default {
 
 	data() {
 		return {
-			name: ''
+			role: ''
 		}
 	},
 
@@ -39,7 +39,7 @@ export default {
 
 	created() {
 		this.getId()
-		this.name = localStorage.getItem('faculty_name')
+		this.role = localStorage.getItem('role')
 	},
 
 	methods: {

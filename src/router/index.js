@@ -13,6 +13,7 @@ import AdminDashboard from '@/containers/Admin/AdminDashboard'
 import Faculties from '@/containers/Admin/Faculties'
 import ThankYou from '@/containers/ThankYou'
 import Statistics from '@/containers/Statistics'
+import TADashboard from '@/containers/TA/TADashboard'
 // import Batch from '@/containers/Batch'
 
 Vue.use(Router)
@@ -48,6 +49,11 @@ export default new Router({
 		]
 	},
 	{
+		path: '/ta-dashboard',
+		name: 'ta-dashboard',
+		component: TADashboard
+	},
+	{
 		path: '/view-details/:batchid',
 		name: 'view-details',
 		component: ViewDetails,
@@ -78,7 +84,7 @@ export default new Router({
 			component: LeaderBoard
 		},
 		{
-			path: '/statistics/:quizid',
+			path: '/:batchid/statistics/:quizid',
 			name: 'statistics',
 			component: Statistics
 		}

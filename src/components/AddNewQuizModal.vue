@@ -42,7 +42,6 @@ export default {
 	},
 	created(){
 		this.batchid = this.$route.params.batchid;
-
 	},
 	methods: {
 		addQuiz() {
@@ -76,7 +75,7 @@ export default {
 				})
 			.then(response => {
 				if (response.status === 200) {
-					this.data =response.data.quizBeans;
+					this.data = response.data.quizBeans;
 					console.log(this.data);
 
 				}
