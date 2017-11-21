@@ -101,9 +101,4 @@ public class GenrateMathodsUtils {
 		Timestamp timeStamp = new Timestamp(d.getTime());
 		return timeStamp;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(GenrateMathodsUtils.makeSHA512("sharvil"));
-	}
-
 }

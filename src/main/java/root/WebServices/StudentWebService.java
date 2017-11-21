@@ -14,8 +14,6 @@ import javax.ws.rs.core.UriInfo;
 
 import root.Bean.StatusBean;
 import root.Bean.StudentBean;
-import root.Bean.UserBean;
-import root.DAO.LoginDAO;
 import root.DAO.StudentDAO;
 import root.DAO.UserDAO;
 

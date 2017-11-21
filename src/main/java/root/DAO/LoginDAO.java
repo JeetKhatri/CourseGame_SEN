@@ -104,7 +104,6 @@ public class LoginDAO {
 		String sql = "select * from users where emailid=? and password=? and role='Admin'";
 		conn = DBConnection.getConnection();
 
-		boolean flag = false;
 		if (conn != null) {
 
 			try {
@@ -121,7 +120,6 @@ public class LoginDAO {
 					albumBean.setUserName(rs.getString("name"));
 					albumBean.setUserRole(rs.getString("role"));
 					albumBean.setResponseStatus(true);
-					flag = true;
 				}
 
 			} catch (SQLException e) {
@@ -146,7 +144,6 @@ public class LoginDAO {
 		String sql = "select * from users u,ta t where emailid=? and password=? and u.userid = t.userId and role='TA'";
 		conn = DBConnection.getConnection();
 
-		boolean flag = false;
 		if (conn != null) {
 
 			try {
@@ -167,7 +164,6 @@ public class LoginDAO {
 					bean.setTaid(rs.getString("taid"));
 					bean.setUserid(rs.getString("userid"));
 					bean.setBatchid(rs.getString("batchid"));
-					flag = true;
 				}
 
 			} catch (SQLException e) {
@@ -189,7 +185,6 @@ public class LoginDAO {
 		String sql = "select * from users where emailid=? and password=?";
 		conn = DBConnection.getConnection();
 
-		boolean flag = false;
 		if (conn != null) {
 
 			try {
@@ -206,7 +201,6 @@ public class LoginDAO {
 					albumBean.setUserName(rs.getString("name"));
 					albumBean.setUserRole(rs.getString("role"));
 					albumBean.setResponseStatus(true);
-					flag = true;
 				}
 
 			} catch (SQLException e) {

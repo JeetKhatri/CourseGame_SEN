@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 import root.Bean.QuizContentBean;
 import root.Bean.StudentQuizBean;
-import root.Bean.UserBean;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 

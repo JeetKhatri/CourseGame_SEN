@@ -18,7 +18,7 @@ import root.DAO.UserDAO;
 @Path("/ta")
 public class TAWebService {
 
-	@POST
+	/*@POST
 	@Path("/ta-insert")
 	@Produces("application/json")
 	public Response insertAlbum(@FormParam("emailid") String emailId,@FormParam("name") String userName,@FormParam("batchId") String batchId) {
@@ -30,7 +30,8 @@ public class TAWebService {
 
 		return Response.ok(new UserDAO().insertTA(userBean, batchId)).header("Access-Control-Allow-Origin", "*").build();
 	}
-	/*@POST
+	*/
+	@POST
 	@Path("/ta-insert")
 	@Produces("application/json")
 	public Response insertAlbum(@Context UriInfo info) {
@@ -44,7 +45,7 @@ public class TAWebService {
 		userBean.setUserName(userName);
 
 		return Response.ok(new UserDAO().insertTA(userBean, batchId)).header("Access-Control-Allow-Origin", "*").build();
-	}*/
+	}
 
 	
 	@GET

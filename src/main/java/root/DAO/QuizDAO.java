@@ -184,50 +184,6 @@ public class QuizDAO {
 		return map;
 	}
 
-	public HashMap<String, Object> leaderBoardStudent(String quizid, String batchid) {
-
-		ArrayList<LeaderBoardStudentBean> arrayList = new ArrayList<LeaderBoardStudentBean>();
-		String sql = "select total,u.name as name from studentquiz s,quiz q,users u,student st where q.quizid=s.quizid and q.batchid=? and u.userid=st.userid and s.studentid=st.studentid and q.quizid=? order by s.total desc";
-		conn = DBConnection.getConnection();
-
-		LeaderBoardStudentBean leaderBoardStudentBean = new LeaderBoardStudentBean();
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		if (conn != null) {
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, batchid);
-				pstmt.setString(2, quizid);
-				rs = pstmt.executeQuery();
-
-				boolean flag = false;
-				while (rs.next()) {
-					flag = true;
-					leaderBoardStudentBean = new LeaderBoardStudentBean();
-					leaderBoardStudentBean.setMarks(rs.getString("total"));
-					leaderBoardStudentBean.setStudentname(rs.getString("name"));
-					arrayList.add(leaderBoardStudentBean);
-				}
-				if (flag) {
-					map.put("status", true);
-					map.put("marklist", arrayList);
-				} else
-					map.put("status", false);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return map;
-	}
-
 	public HashMap<String, Object> mainLeaderBoard(String batchId) {
 		ArrayList<LeaderBoardStudentBean> arrayList = new ArrayList<LeaderBoardStudentBean>();
 		String sql = "select sum(total),name from studentquiz s,users u,student st,batch b where s.studentid=st.studentid and u.userid=st.userid and b.batchid=st.batchid  and b.batchid=? group by u.name";
@@ -303,5 +259,50 @@ public class QuizDAO {
 
 		return map;
 
+	}
+	
+	public HashMap<String, Object> leaderBoardStudent(String quizid, String batchid) {
+
+		ArrayList<LeaderBoardStudentBean> arrayList = new ArrayList<LeaderBoardStudentBean>();
+		String sql = "select total,u.name as name,emailid as e from studentquiz s,quiz q,users u,student st where q.quizid=s.quizid and q.batchid=? and u.userid=st.userid and s.studentid=st.studentid and q.quizid=? order by s.total desc";
+		conn = DBConnection.getConnection();
+
+		LeaderBoardStudentBean leaderBoardStudentBean = new LeaderBoardStudentBean();
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (conn != null) {
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, batchid);
+				pstmt.setString(2, quizid);
+				rs = pstmt.executeQuery();
+
+				boolean flag = false;
+				while (rs.next()) {
+					flag = true;
+					leaderBoardStudentBean = new LeaderBoardStudentBean();
+					leaderBoardStudentBean.setMarks(rs.getString("total"));
+					leaderBoardStudentBean.setStudentname(rs.getString("name"));
+					leaderBoardStudentBean.setEmailid(rs.getString("e"));
+					arrayList.add(leaderBoardStudentBean);
+				}
+				if (flag) {
+					map.put("status", true);
+					map.put("marklist", arrayList);
+				} else
+					map.put("status", false);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return map;
 	}
 }

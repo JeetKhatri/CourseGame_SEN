@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import root.Bean.BatchBean;
 import root.Bean.FacultyBean;
-import root.Bean.UserBean;
 import root.Controller.SendEmail;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
@@ -64,8 +63,11 @@ public class FacultyDAO {
 						conn.rollback();
 					}else {
 						SendEmail obj = new SendEmail();
-						obj.SendEmail("Request accepted", getFacultyEmail(userId),
-								"Request arrive, we accept your requst & password is "+random);
+						obj.sendEmail("Course Game 2k17", getFacultyEmail(userId),
+								"Welcome to CourseGame 2k17<br>"
+								+ "<font color='red'>Congratulation!<font> Your regestraion is Successful.<br>"
+								+ "Please find your Username and Password mention below <br>"
+								+ "<b>Username :- "+getFacultyEmail(userId)+"<br>Password :- "+random+"</b><br><br>Regards,<br>Course Game 2k17");
 						conn.commit();
 						conn.setAutoCommit(true);
 						return true;
@@ -85,7 +87,7 @@ public class FacultyDAO {
 		}
 		return false;
 	}
-
+	
 	public String getFacultyEmail(String id) {
 		String sql = "select * from users where userid = ?";
 	//	conn = DBConnection.getConnection();
@@ -148,10 +150,8 @@ public class FacultyDAO {
 				pstmt.setString(1, bean.getDegree());
 				pstmt.setString(2, bean.getIsApproved());
 				pstmt.setString(3, bean.getFacultyId());
-				System.out.println("Hi");
 				int temp = pstmt.executeUpdate();
 				if (temp > 0) {
-					System.out.println("Hello");
 					sql = "update users set " + "emailid=?,name=?,role=?,isavailable=? where userid=?";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, bean.getEmailId());

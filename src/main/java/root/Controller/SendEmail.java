@@ -4,7 +4,6 @@ import java.util.*;
 
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -18,7 +17,7 @@ import javax.mail.internet.MimeMessage;
  * @author dell
  */
 public class SendEmail {
-	public String SendEmail(String subject, String to, String message) {
+	public String sendEmail(String subject, String to, String message) {
 		String from = "coursegame2k17@gmail.com";
 		try {
 			Properties props = System.getProperties();
@@ -87,6 +86,6 @@ public class SendEmail {
 
 	}
 	public static void main(String[] args) {
-		new SendEmail().SendEmail("hi", "jeet.g.khatri@gmail.com", "good job..");
+		new SendEmail().sendEmail("hi", "jeet.g.khatri@gmail.com", "good job..");
 	}
 }

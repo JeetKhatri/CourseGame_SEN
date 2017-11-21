@@ -26,7 +26,6 @@ public class UserDAO {
 		String sql = "select * from users";
 		conn = DBConnection.getConnection();
 
-		boolean flag = false;
 		if (conn != null) {
 
 			try {
@@ -42,7 +41,6 @@ public class UserDAO {
 					albumBean.setUserRole(rs.getString("role"));
 					albumBean.setResponseStatus(true);
 					list.add(albumBean);
-					flag = true;
 				}
 
 			} catch (SQLException e) {
@@ -88,8 +86,6 @@ public class UserDAO {
 						conn.rollback();
 						return false;
 					} else {
-						SendEmail obj = new SendEmail();
-						obj.SendEmail("Request arrive", userBean.getEmailId(), "Request arrive we accept your requst");
 						return true;
 					}
 				}
@@ -142,7 +138,7 @@ public class UserDAO {
 						bean.setUserid(id);
 
 						SendEmail obj = new SendEmail();
-						obj.SendEmail("Request accepted", getTEmail(taid),
+						obj.sendEmail("Request accepted", getTEmail(taid),
 								"TA Request arrive we accept your requst & password is " + random);
 						conn.commit();
 						conn.setAutoCommit(true);
@@ -156,7 +152,6 @@ public class UserDAO {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -219,7 +214,7 @@ public class UserDAO {
 						conn.rollback();
 					} else {
 						SendEmail obj = new SendEmail();
-						obj.SendEmail("Dear Student ", studentBean.getEmailId(), ",   your password : "+pass);
+						obj.sendEmail("Dear Student ", studentBean.getEmailId(), ",   your password : "+pass);
 						status.setResponseStatus(true);
 					}
 				}
@@ -243,7 +238,6 @@ public class UserDAO {
 	
 	public StatusBean remove(String userId) {
 		StatusBean bean = new StatusBean();
-		boolean flag = false;
 		String sql = "delete from users where userid='" + userId + "'";
 		conn = DBConnection.getConnection();
 		if (conn != null) {
@@ -281,7 +275,7 @@ public class UserDAO {
 				int result = pstmt.executeUpdate();
 				if (result > 0) {
 					SendEmail send = new SendEmail();
-					send.SendEmail("Password", emailId, "Your Password is " + pass);
+					send.sendEmail("Password", emailId, "Your Password is " + pass);
 					return true;
 				} else {
 					return false;

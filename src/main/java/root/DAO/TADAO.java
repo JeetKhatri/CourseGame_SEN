@@ -86,7 +86,7 @@ public class TADAO {
 						return false;
 					} else {
 						SendEmail obj = new SendEmail();
-						obj.SendEmail("Request arrive", userBean.getEmailId(), "Request arrive we accept your requst");
+						obj.sendEmail("Request arrive", userBean.getEmailId(), "Request arrive we accept your requst");
 						return true;
 					}
 				}
@@ -141,7 +141,6 @@ public class TADAO {
 				}
 			}
 		}
-		System.out.println(arrayList.size());
 		return arrayList;
 
 	}
@@ -151,7 +150,6 @@ public class TADAO {
 		ArrayList<BatchBean> arrayList = new ArrayList<BatchBean>();
 
 		String sql = "select * from ta t,batch b where t.batchid=b.batchid and userid=?";
-		System.out.println(userId);
 		conn = DBConnection.getConnection();
 		if (conn != null) {
 			try {

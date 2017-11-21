@@ -4,6 +4,17 @@ public class LeaderBoardStudentBean {
 
 	private String studentname;
 	private String marks;
+	private String emailid;
+	
+	
+
+	public String getEmailid() {
+		return emailid;
+	}
+
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
+	}
 
 	public String getStudentname() {
 		return studentname;

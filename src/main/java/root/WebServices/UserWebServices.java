@@ -1,17 +1,10 @@
 package root.WebServices;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
-import root.Bean.FacultyBean;
 import root.Bean.UserBean;
 import root.DAO.UserDAO;
-import root.Utils.GenrateMathodsUtils;
 
 @Path("/user")
 public class UserWebServices {

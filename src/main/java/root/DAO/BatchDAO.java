@@ -17,7 +17,6 @@ public class BatchDAO {
 	PreparedStatement pstmt = null;
 	Connection conn = null;
 
-	
 	public boolean insert(String userId, String batchname) {
 
 		String sql = "insert into batch(facultyid,batchname,batchid) values(?,?,?)";
@@ -25,8 +24,7 @@ public class BatchDAO {
 		if (conn != null) {
 			try {
 				conn.setAutoCommit(false);
-				String facultyId = new FacultyDAO().getFacultyId(userId,conn);
-				System.out.println(facultyId);
+				String facultyId = new FacultyDAO().getFacultyId(userId, conn);
 				String batchid = GenrateMathodsUtils.getRandomString(15);
 				BatchBean obj = new BatchBean();
 				obj.setBatchid(batchid);
@@ -57,7 +55,7 @@ public class BatchDAO {
 		}
 		return false;
 	}
-	
+
 	public ArrayList<QuizBean> quizList(String batchid) {
 
 		ArrayList<QuizBean> arraylist = new ArrayList<QuizBean>();
@@ -92,10 +90,9 @@ public class BatchDAO {
 		}
 		return arraylist;
 	}
-	public String getFacultyId(String userId){
-		
-		
-		
+
+	public String getFacultyId(String userId) {
+
 		return userId;
 	}
 }

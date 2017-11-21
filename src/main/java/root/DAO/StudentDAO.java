@@ -75,7 +75,7 @@ public class StudentDAO {
 			password = GenrateMathodsUtils.getRandomPass(10);
 
 			queue.add(new Mail("Account Activation", perticular[0],
-					"Dear, "+perticular[1] + " we accepted your requst and your password is " + password));
+					"Dear, " + perticular[1] + " we accepted your requst and your password is " + password));
 
 			String temp = "('" + userid + "','" + perticular[0] + "','" + perticular[1] + "','"
 					+ GenrateMathodsUtils.makeSHA512(password) + "'," + "'Student','Y'),";
@@ -100,7 +100,7 @@ public class StudentDAO {
 					if (no == 0) {
 						conn.rollback();
 					} else {
-						
+
 						// send mail by thread
 						ThreadImplement th = new ThreadImplement(queue);
 						Thread thread = new Thread(th);
@@ -126,15 +126,4 @@ public class StudentDAO {
 		return false;
 
 	}
-
-	public static void main(String[] args) {
-		System.out.println("ok");
-
-		System.out.println(new StudentDAO().insertStudent(
-				"201612066@daiict.ac.in~Dhiral,201612038@daiict.ac.in~Avnsih,201612024@daiict.ac.in~Jeet,201612019@daiict.ac.in~hardik,",
-				"WwFIwWWJGIGZEWw"));
-
-		System.out.println(GenrateMathodsUtils.makeSHA512("123456"));
-	}
-
 }

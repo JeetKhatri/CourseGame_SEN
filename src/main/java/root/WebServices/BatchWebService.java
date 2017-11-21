@@ -8,7 +8,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import root.Bean.BatchBean;
 import root.Bean.QuizBean;
 import root.DAO.BatchDAO;
 
