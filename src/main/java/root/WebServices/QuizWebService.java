@@ -14,7 +14,9 @@ import javax.ws.rs.core.UriInfo;
 
 import root.Bean.QuizBean;
 import root.Bean.StatusBean;
+import root.DAO.QuizContentDAO;
 import root.DAO.QuizDAO;
+import root.DAO.UserDAO;
 
 @Path("/quiz")
 public class QuizWebService {
@@ -33,6 +35,23 @@ public class QuizWebService {
 		quiz.setCreatedBy(info.getQueryParameters().getFirst("createdby"));
 
 		return new QuizDAO().insert(quiz);
+	}
+	
+	@POST
+	@Path("/submit")
+	@Produces("application/json")
+	public Response quizSubmit(@FormParam("studentid") String studentId,@FormParam("quizid") String quizId,@FormParam("answers") String submittedAnswers) {
+		
+		/*String[] answers=submittedAnswers.split(";");
+		for(String answer:answers){
+			String[] key_value=answer.split(",");
+			
+			String quizContentId=key_value[0];
+			answer=key_value[1];
+			
+			boolean flag = new QuizContentDAO().answerAll(studentId, quizContentId, answer, quizId);
+		}*/
+		return Response.ok(new QuizContentDAO().answer(studentId, quizId, submittedAnswers)).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 	@PUT

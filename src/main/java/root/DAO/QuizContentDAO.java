@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.plaf.synth.SynthScrollBarUI;
+
 import root.Bean.QuizContentBean;
 import root.Bean.StudentQuizBean;
 import root.Utils.DBConnection;
@@ -193,6 +195,77 @@ public class QuizContentDAO {
 		return arrayList;
 	}
 
+	
+	public boolean answer(String studentId, String quizId, String submittedAnswers) {
+
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				conn.setAutoCommit(false);
+				String[] answers=submittedAnswers.split(":");
+				for(String answer:answers){
+					String[] key_value=answer.split(";");
+					String quizContentId=key_value[0];
+					String ans=key_value[1];
+					
+					boolean flag = new QuizContentDAO().answerAll(studentId, quizContentId, ans, quizId);
+					if(flag == false){
+						conn.rollback();
+						return false;
+					}
+						
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				try {
+					conn.commit();
+					conn.setAutoCommit(true);
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean answerAll(String studentId, String quizContentId, String selectedOption, String quizid) {
+
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+			try {
+				String insertSql = "insert into studentquizcontent(studentquizcontentid,studentid,quizcontentid,selectedoption,quizid) values(?,?,?,?,?)";
+
+				pstmt = conn.prepareStatement(insertSql);
+
+				pstmt.setString(1, GenrateMathodsUtils.getRandomString(15));
+				pstmt.setString(2, studentId);
+				pstmt.setString(3, quizContentId);
+				pstmt.setString(4, selectedOption);
+				pstmt.setString(5, quizid);
+
+				int rowAffected = pstmt.executeUpdate();
+				if (rowAffected > 0)
+					return true;
+
+				return false;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 	public boolean answerFirst(String studentId, String quizContentId, String selectedOption, String quizid) {
 
 		String delSql = "delete from studentquizcontent where studentid='" + studentId + "' and quizid = '" + quizid
