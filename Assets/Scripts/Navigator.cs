@@ -44,4 +44,18 @@ public class Navigator : MonoBehaviour {
         NavigationManager.NavigateTO(NavigationManager.achivement);
     }
 
+    public void toQuiz()
+    {
+        NavigationManager.NavigateTO(NavigationManager.quiz);
+    }
+
+    public void toQuizStart()
+    {
+        NavigationManager.NavigateTO(NavigationManager.quizStart);
+    }
+
+    public void toQuizSubmit()
+    {
+        NavigationManager.NavigateTO(NavigationManager.quizSubmit);
+    }
 }

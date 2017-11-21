@@ -11,6 +11,9 @@ public class NavigationManager{
     public const string achivement = "achivement";
     public const string settings = "SettingMenu";
     public const string game = "GameMenu";
+    public const string quizStart = "quizBefore";
+    public const string quiz = "quiz";
+    public const string quizSubmit = "quizSubmit";
 
     public static void NavigateTO(string scene)
     {

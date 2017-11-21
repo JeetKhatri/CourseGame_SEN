@@ -62,9 +62,15 @@ public class Utils{
             obj.GetType().GetMethod(successMethod).Invoke(obj, param);
         }
     }
-    public static Dictionary<string, string> getDataFromJson(string json)
+    public static Dictionary<string, object> getDataFromJson(string json)
     {
-        return JsonUtility.FromJson<Dictionary<string, string>>(json);
+        return JsonUtility.FromJson<Dictionary<string, object>>(json);
+    }
+
+    public static LeaderboardList getLeaderboardListFromJson(string json)
+    {
+        LeaderboardList list = JsonUtility.FromJson<LeaderboardList>(json);
+        return list;
     }
 
     public static void showToastOnUiThread(string msg)

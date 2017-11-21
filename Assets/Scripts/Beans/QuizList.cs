@@ -1,24 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
+[System.Serializable]
 public class QuizList
 {
     public string responseStatus;
     public List<Quiz> quizBeans;
-    public Dictionary<string, Quiz> map;
+    public Dictionary<string, Quiz> nameMap;
+    public Dictionary<string, Quiz> idMap;
 
     public QuizList()
     {
         this.createMap();
-        this.quizBeans = null;
     }
 
     public void createMap()
     {
-        foreach(Quiz quiz in this.quizBeans)
+        foreach (Quiz quiz in this.quizBeans)
         {
-            map.Add(quiz.name, quiz);
+            nameMap.Add(quiz.name, quiz);
+            idMap.Add(quiz.quizId, quiz);
         }
     }
 }

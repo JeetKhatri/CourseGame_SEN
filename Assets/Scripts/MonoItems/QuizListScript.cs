@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class GameListScript : MonoBehaviour {
+public class QuizListScript : MonoBehaviour {
 
     public void Start()
     {
@@ -19,24 +18,20 @@ public class GameListScript : MonoBehaviour {
     public void quizListSuccess(string data)
     {
         Debug.Log("quiz list: " + data);
-        QuizManager.setQuizList(QuizManager.getQuizListFromJson(data));
+        QuizListManager.quizList=QuizListManager.getQuizListFromJson(data);
+    }
+
+    public void startArray()
+    {
+        string id = QuizListManager.quizList.nameMap["Array"].quizId;
+        QuizManager.currentQuizId = id;
+
+        NavigationManager.NavigateTO(NavigationManager.quizStart);
     }
 
     public void quizListFailed()
     {
         Debug.Log("error");
-    }
-
-    public void startArray()
-    {
-        Quiz quiz = QuizManager.getQuizList().map["Array"];
-        Debug.Log(quiz);
-        //this.startQuiz()
-    }
-
-    public void startQuiz(string quizId)
-    {
-
     }
 
     // Update is called once per frame
