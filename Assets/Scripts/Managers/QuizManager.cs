@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuizManager{
 
     public static QuestionList questions;
-    public static List<string> answers;
+    public static Dictionary<string,string> answers;
     public static QuestionList getQuestionListFromJson(string data)
     {
         return JsonUtility.FromJson<QuestionList>(data);

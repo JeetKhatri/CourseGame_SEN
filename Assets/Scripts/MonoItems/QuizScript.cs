@@ -66,7 +66,7 @@ public class QuizScript : MonoBehaviour {
 
     public void next()
     {
-        QuizManager.answers.Add(this.selectedAns);
+        QuizManager.answers.Add(QuizManager.questions.quizcontent[QuizManager.currentIndex].question,this.selectedAns);
         QuizManager.currentIndex++;
         this.loadQuestion();
     }

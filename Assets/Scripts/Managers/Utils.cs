@@ -72,6 +72,11 @@ public class Utils{
         LeaderboardList list = JsonUtility.FromJson<LeaderboardList>(json);
         return list;
     }
+    public static SubmitStatus getSubmitStatusFromJson(string json)
+    {
+        SubmitStatus list = JsonUtility.FromJson<SubmitStatus>(json);
+        return list;
+    }
 
     public static void showToastOnUiThread(string msg)
     {
