@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.plaf.synth.SynthScrollBarUI;
-
 import root.Bean.QuizContentBean;
 import root.Bean.StudentQuizBean;
 import root.Utils.DBConnection;

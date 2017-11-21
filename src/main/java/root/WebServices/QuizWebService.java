@@ -14,9 +14,9 @@ import javax.ws.rs.core.UriInfo;
 
 import root.Bean.QuizBean;
 import root.Bean.StatusBean;
+import root.Bean.StudentQuizBean;
 import root.DAO.QuizContentDAO;
 import root.DAO.QuizDAO;
-import root.DAO.UserDAO;
 
 @Path("/quiz")
 public class QuizWebService {
@@ -51,7 +51,13 @@ public class QuizWebService {
 			
 			boolean flag = new QuizContentDAO().answerAll(studentId, quizContentId, answer, quizId);
 		}*/
-		return Response.ok(new QuizContentDAO().answer(studentId, quizId, submittedAnswers)).header("Access-Control-Allow-Origin", "*").build();
+		StatusBean st = new StatusBean();
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		st.setResponseStatus(new QuizContentDAO().answer(studentId, quizId, submittedAnswers));
+		hashMap.put("responseStatus", st.isResponseStatus());
+		StudentQuizBean bean = new QuizContentDAO().generateMarks(studentId, quizId);
+		hashMap.put("studentQuizDetail", bean);
+		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 	@PUT
