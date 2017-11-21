@@ -18,7 +18,7 @@ import root.DAO.UserDAO;
 public class FacultyWebServices {
 
 
-	@PUT
+	@POST
 	@Path("/faculty-approved")
 	@Produces("application/json")
 	public boolean facultyApproved(@Context UriInfo info) {
