@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import root.Bean.StatusBean;
 import root.Bean.StudentBean;
@@ -289,6 +290,34 @@ public class UserDAO {
 
 		}
 		return false;
+
+	}
+	
+	public HashMap<String, Object> getUserId(String facultyId) {
+		String sql = "select * from faculty where facultyid = ?";
+		conn = DBConnection.getConnection();
+		HashMap<String, Object> obj = new HashMap<String, Object>(); 
+		boolean flag=false;
+		if (conn != null) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, facultyId);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					obj.put("userId", rs.getString("userid"));
+					flag=true;
+				}
+				obj.put("status", flag);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			}
+
+		}
+		return obj;
 
 	}
 	
