@@ -228,6 +228,7 @@
     <Compile Include="Assets\Scripts\Beans\Student.cs" />
     <Compile Include="Assets\Scripts\ChangeScript.cs" />
     <Compile Include="Assets\Scripts\Managers\NavigationManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\QuestionListManager.cs" />
     <Compile Include="Assets\Scripts\Managers\QuizListManager.cs" />
     <Compile Include="Assets\Scripts\Managers\QuizManager.cs" />
     <Compile Include="Assets\Scripts\Managers\StudentManager.cs" />
@@ -240,6 +241,8 @@
     <Compile Include="Assets\Scripts\MonoItems\PopupView.cs" />
     <Compile Include="Assets\Scripts\MonoItems\QuizListScript.cs" />
     <Compile Include="Assets\Scripts\MonoItems\QuizScript.cs" />
+    <Compile Include="Assets\Scripts\MonoItems\QuizStartScript - Copy.cs" />
+    <Compile Include="Assets\Scripts\MonoItems\QuizSubmitScript.cs" />
     <Compile Include="Assets\Scripts\Navigator.cs" />
     <Compile Include="Assets\TheTopicbirdTools\UltimateHierarchyLite\UltimateHierarchyLite.cs" />
   </ItemGroup>

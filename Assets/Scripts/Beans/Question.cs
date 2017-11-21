@@ -19,4 +19,6 @@ public class Question{
     public string status;
     public string startTime;
     public string name;
+
+    public string choseAnswer;
 }

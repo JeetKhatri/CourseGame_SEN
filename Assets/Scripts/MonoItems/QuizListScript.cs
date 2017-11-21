@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class QuizListScript : MonoBehaviour {
 
+    private bool status=true;
+
     public void Start()
     {
-        Debug.Log("checking login");
+        /*Debug.Log("checking login");
         StudentManager.checkStudentLogin();
-
+        */
         Dictionary<string, string> map = new Dictionary<string, string>();
-        map.Add("batchid", StudentManager.getStudent().batchId);
+        // map.Add("batchid", StudentManager.getStudent().batchId);
+        map.Add("batchid","iNiJblvoVlbsVwF");
 
-        Debug.Log("getting data for batchID: " + StudentManager.getStudent().batchId);
+        //Debug.Log("getting data for batchID: " + StudentManager.getStudent().batchId);
         StartCoroutine(Utils.makePostCall(UrlManager.quizListUrl + "?" + Utils.createQueryString(map), Utils.createForm(map), this, "quizListSuccess", "quizListFailed"));
     }
 
@@ -19,12 +22,25 @@ public class QuizListScript : MonoBehaviour {
     {
         Debug.Log("quiz list: " + data);
         QuizListManager.quizList=QuizListManager.getQuizListFromJson(data);
+        QuizListManager.quizList.createMap();
+
+        Debug.Log(QuizListManager.quizList.responseStatus);
+        Debug.Log(QuizListManager.quizList.quizBeans);
+
+        if (QuizListManager.quizList.responseStatus.Equals("false")){
+            this.quizListFailed();
+            this.status=false;
+            return;
+        }
     }
 
     public void startArray()
     {
-        string id = QuizListManager.quizList.nameMap["Array"].quizId;
-        QuizManager.currentQuizId = id;
+        if(!status){
+            return;
+        }
+        QuizManager.currentQuiz=QuizListManager.quizList.idMap["UyybEGkvSG11vx7"];
+        QuizManager.currentIndex=0;
 
         NavigationManager.NavigateTO(NavigationManager.quizStart);
     }
@@ -33,9 +49,4 @@ public class QuizListScript : MonoBehaviour {
     {
         Debug.Log("error");
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

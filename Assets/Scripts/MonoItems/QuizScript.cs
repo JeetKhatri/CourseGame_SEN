@@ -1,53 +1,73 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class QuizScript : MonoBehaviour {
 	public Text question;	
 	public Text op1,op2,op3,op4;
+    public Toggle tog1, tog2, tog3, tog4;
 
-	int cnt=0; // Use this for initialization
-	string[] questions = {"Question1","Question2","Question3","Question4"};
-	string[] option1 = {"opttion1.1","opttion1.2","opttion1.3","opttion1.4"};
-	string[] option2 = {"opttion2.1","opttion2.2","opttion2.3","opttion2.4"};
-	string[] option3 = {"opttion3.1","opttion3.2","opttion3.3","opttion3.4"};
-	string[] option4 = {"opttion4.1","opttion4.2","opttion4.3","opttion4.4"};
+    private string selectedAns;
 
     void Start()
     {
-        Dictionary<string, string> map = new Dictionary<string, string>();
+        this.tog1 = GameObject.Find("Option1").GetComponent<Toggle>();
+        this.tog2 = GameObject.Find("Option2").GetComponent<Toggle>();
+        this.tog3 = GameObject.Find("Option3").GetComponent<Toggle>();
+        this.tog4 = GameObject.Find("Option4").GetComponent<Toggle>();
 
-        //map.Add("quizid", QuizManager.currentQuiz.quizId);
-        map.Add("quizid", "cCecccaiNlCcIlC");
-
-        //Debug.Log("getting data for quizId: " + QuizManager.currentQuiz.quizId);
-        StartCoroutine(Utils.makeGetCall(UrlManager.quizListUrl, Utils.createQueryString(map), this, "requestSuccess", "requestFailed"));
+        Debug.Log("starting quiz");
+        this.loadQuestion();
     }
 
-    public void ChangeText(){
-		if (cnt == 4) {
-			SceneManager.LoadScene ("quizSubmit");
-		} else {
-			question.text = questions [cnt];
-			op1.text = option1 [cnt];
-			op2.text = option2 [cnt];
-			op3.text = option3 [cnt];
-			op4.text = option4 [cnt];
-		}
-
-		cnt++;
-	}
-
-    public void requestSuccess(string data)
+    public void loadQuestion()
     {
-        QuizManager.questions = QuizManager.getQuestionListFromJson(data);
-        QuizManager.startQuiz(QuizManager.currentQuizId);
+        this.tog1.isOn = false;
+        this.tog2.isOn = false;
+        this.tog3.isOn = false;
+        this.tog4.isOn = false;
+
+        if (QuizManager.questions.quizcontent.Count == QuizManager.currentIndex)
+        {
+            NavigationManager.NavigateTO(NavigationManager.quizSubmit);
+            return;
+        }
+        else if (QuizManager.questions.quizcontent.Count - 1 == QuizManager.currentIndex)
+        {
+            Debug.Log("time to submit");
+        }
+
+        Question qst=QuizManager.questions.quizcontent[QuizManager.currentIndex];
+        this.question.text=qst.question;
+        this.op1.text=qst.option1;
+        this.op2.text=qst.option2;
+        this.op3.text=qst.option3;
+        this.op4.text=qst.option4;
+
+        Debug.Log("question uploaded");
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void optionA()
+    {
+        this.selectedAns = "A";
+    }
+    public void optionB()
+    {
+        this.selectedAns = "B";
+    }
+    public void optionC()
+    {
+        this.selectedAns = "C";
+    }
+    public void optionD()
+    {
+        this.selectedAns = "D";
+    }
+
+    public void next()
+    {
+        QuizManager.answers.Add(this.selectedAns);
+        QuizManager.currentIndex++;
+        this.loadQuestion();
+    }
 }
