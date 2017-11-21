@@ -48,7 +48,7 @@ public class GenrateMathodsUtils {
 	public static String getRandomPass(int length) {
 		Random r = new Random();
 		String output = "";
-		String alpha = "A!Bo34wCDE@1234pqrHsR01(k2ShTdfjfdyg6HYFHG5687dsf1569413dsjfffU#VtuvFMNO$PQW)XYZ567abdndhuyvfekfo083375%^#$khdbvf$%sjkcbd&djnj&kjbdv**%cdhjkGH=e(^fgJ89K)&mnx*yz";
+		String alpha = "ABo34wCDE@1234pqrHsR01k2ShTdfj324fdy4g6HYF6HG5687dsf1569413dsjfUVtuvFMN45O$PQWXYZ567abd678ndhuyvfekfo0835%$khdbvf$%sjkcbddj56nj8kjbdv%cdhjkGHefgJ89Kmnx7yz";
 		for (int i = 0; i < 5; i++) {
 			List<Character> characters = new ArrayList<Character>();
 			for (char c : alpha.toCharArray())

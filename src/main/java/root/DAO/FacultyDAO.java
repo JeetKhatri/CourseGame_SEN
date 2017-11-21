@@ -54,7 +54,7 @@ public class FacultyDAO {
 				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(sql);
 				if (pstmt.executeUpdate() != 0) {
-					String random = GenrateMathodsUtils.getRandomString(7);
+					String random = GenrateMathodsUtils.getRandomPass(10);
 					pstmt1 = conn.prepareStatement("update users set password=?,isavailable='Y' where userid=?");
 					pstmt1.setString(1, GenrateMathodsUtils.makeSHA512(random));
 					pstmt1.setString(2, userId);

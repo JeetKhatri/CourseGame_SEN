@@ -73,7 +73,7 @@ public class UserDAO {
 				pstmt.setString(3, userBean.getUserName());
 				pstmt.setString(4, "Faculty");
 				pstmt.setString(5, "N");
-				pstmt.setString(6, GenrateMathodsUtils.makeSHA512("hekdnknd0@#fk"));
+				pstmt.setString(6, GenrateMathodsUtils.makeSHA512(GenrateMathodsUtils.getRandomPass(10)));
 				int no = pstmt.executeUpdate();
 				if (no != 0) {
 
@@ -109,7 +109,7 @@ public class UserDAO {
 	public boolean insertTA(UserBean userBean, String batchId) {
 
 		TABean bean = new TABean();
-		String random = GenrateMathodsUtils.getRandomString(7);
+		String random = GenrateMathodsUtils.getRandomString(10);
 		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
 		conn = DBConnection.getConnection();
 		String id = GenrateMathodsUtils.getRandomString(15);
@@ -191,7 +191,7 @@ public class UserDAO {
 		String sql = "insert into users(userId,emailid,name,role,isAvailable,password) values(?,?,?,?,?,?)";
 		conn = DBConnection.getConnection();
 		String id = GenrateMathodsUtils.getRandomString(15);
-		String pass = GenrateMathodsUtils.getRandomString(7);
+		String pass = GenrateMathodsUtils.getRandomString(10);
 		StatusBean status= new StatusBean(); 
 		if (conn != null) {
 			try {
@@ -266,7 +266,7 @@ public class UserDAO {
 	public boolean forgotPass(String emailId) {
 		String sql = "update users set password = ? where emailId = ?";
 		conn = DBConnection.getConnection();
-		String pass = GenrateMathodsUtils.getRandomPass(15);
+		String pass = GenrateMathodsUtils.getRandomPass(10);
 		if (conn != null) {
 
 			try {

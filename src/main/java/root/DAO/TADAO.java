@@ -71,7 +71,7 @@ public class TADAO {
 				pstmt.setString(3, userBean.getUserName());
 				pstmt.setString(4, userBean.getUserRole());
 				pstmt.setString(5, "N");
-				pstmt.setString(6, GenrateMathodsUtils.makeSHA512("hekdnkndfk"));
+				pstmt.setString(6, GenrateMathodsUtils.makeSHA512(GenrateMathodsUtils.getRandomPass(10)));
 				int no = pstmt.executeUpdate();
 				if (no != 0) {
 
