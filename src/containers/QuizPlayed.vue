@@ -22,7 +22,7 @@
 						</header>
 						<footer class="card-footer">
 							<router-link class="card-footer-item" :to="{name: 'statistics', params:{quizid: quiz.quizId }}">View</router-link>
-							<a class="card-footer-item" @click="startQuiz">Start</a>
+							<a class="card-footer-item" @click="startQuiz(quiz.quizId)" v-if="quiz.status=='N'">Start</a>
 						</footer>
 					</div>
 				</div>
@@ -53,7 +53,8 @@ export default {
 			addNewQuiz: false,
 			addquestion: false,
 			batchid: '',
-			data:  []
+			data:  [],
+			status: ''
 		}
 	},
 	created(){
@@ -79,7 +80,7 @@ export default {
 			this.batchid=this.$route.params.batchid;
 			HTTP.post(`rest/batch/batch-quiz/?batchid=
 				`+this.batchid,{
-
+					
 				})
 			.then(response => {
 				if (response.status === 200) {
@@ -91,8 +92,19 @@ export default {
 				console.log(e)
 			})
 		},
-		startQuiz() {
-			alert('started')
+		startQuiz(quizid) {
+			this.batchid=this.$route.params.batchid;
+			HTTP.post(`rest/quiz/quiz-activation/?batchid=`+this.batchid+`&quizid=`+quizid, {
+				
+			})
+			.then(response => {
+				if (response.status === 200) {
+					this.getAllQuiz()
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		},
 		getId () {
 			var id = window.localStorage.getItem('faculty_id')

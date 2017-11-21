@@ -4,11 +4,17 @@
       <h1>Welcome To Course Game</h1>
       <div class="mainw3-agileinfo form"> 
         <div class="field-wrap">
-          <input type="email" name="email" placeholder="Email" v-model='email'>
+          <input type="email" name="email" placeholder="Email" v-model='email' v-validate="'required|email'">
+        </div>
+        <div class="notification is-danger" v-show="errors.has('email')">
+          <span>{{ errors.first('email') }}</span>
         </div>
         <div class="field-wrap">
-          <input type="password" name="password" placeholder="password" v-model='pass'>
+          <input type="password" name="password" placeholder="password" v-model='pass' @keyup.enter="validate" v-validate="'required|min:6|max:13'">
         </div> 
+        <div class="notification is-danger" v-show="errors.has('password')">
+          <span>{{ errors.first('password') }}</span>
+        </div>
         <button class="button button-block" @click="login">Log In</button> 
         <p class="forgot"><router-link to="facultyRegistration">SignUp for faculty?</router-link></p>
       </div>  
@@ -31,64 +37,80 @@ export default {
   },
 
   methods: {
-    login() {
-      HTTP.post(`rest/login/common?emailid=`+this.email+`&password=`+this.pass,{
+   validate() {
+    return this.$validator.validateAll();
+  },
+  login() {
+    this.validate()
+    .then(this.checkRole())
+    .catch(() => {
+      console.log("Error")
+    })
+  },
+  checkRole() {
+   HTTP.post(`rest/login/common?emailid=`+this.email+`&password=`+this.pass,{
 
-      })
-      .then(response => {
-        if (response.status === 200) {
-          if(response.data.userRole=="Faculty"){
-            this.$router.push('/dashboard');
-            this.name = response.data.userName
-            this.id = response.data.userId;
-            this.role = response.data.userRole
-            localStorage.setItem('faculty_id',this.id);
-            localStorage.setItem("faculty_name", this.name)
-            localStorage.setItem("role", this.role)
-            let toast = this.$toasted.success('You have successfully logged in', {
-              theme: 'outline',
-              position: 'top-center',
-              duration: 3000
-            });
-          } else if(response.data.userRole=="Admin"){
-            this.$router.push('/admin-dashboard');
-            this.id = response.data.userId
-            this.name = response.data.userName
-            this.role = response.data.userRole
-            localStorage.setItem('admin_id', this.id)
-            localStorage.setItem('admin_name', this.name)
-            localStorage.setItem('role', this.role)
-            let toast = this.$toasted.success('You have successfully logged in', {
-              theme: 'outline',
-              position: 'top-center',
-              duration: 3000
-            });
-          } else if(response.data.userRole=="TA") {
-            this.$router.push('/dashboard');
-            this.userName = response.data.userName
-            this.TA_id = response.data.userId
-            this.role = response.data.userRole
-            localStorage.setItem("TA_name", this.userName)
-            localStorage.setItem('TA_id',this.TA_id);
-            localStorage.setItem('role',this.role);
-            let toast = this.$toasted.success('You have successfully logged in', {
-              theme: 'outline',
-              position: 'top-center',
-              duration: 3000
-            });
-          }
-        }
-      })
-      .catch((e) => {
-        let toast = this.$toasted.error('Incorrect Username or Password', {
+   })
+   .then(response => {
+    if (response.status === 200) {
+      if(response.data.userRole=="Faculty"){
+        this.$router.push('/dashboard');
+        this.name = response.data.userName
+        this.id = response.data.userId;
+        this.role = response.data.userRole
+        localStorage.setItem('faculty_id',this.id);
+        localStorage.setItem("faculty_name", this.name)
+        localStorage.setItem("role", this.role)
+        let toast = this.$toasted.success('You have successfully logged in', {
           theme: 'outline',
           position: 'top-center',
           duration: 3000
         });
-        console.log(e)
-      }) 
+      } else if(response.data.userRole=="Admin"){
+        this.$router.push('/admin-dashboard');
+        this.id = response.data.userId
+        this.name = response.data.userName
+        this.role = response.data.userRole
+        localStorage.setItem('admin_id', this.id)
+        localStorage.setItem('admin_name', this.name)
+        localStorage.setItem('role', this.role)
+        localStorage.setItem('mainrole',"Faculty");
+
+        let toast = this.$toasted.success('You have successfully logged in', {
+          theme: 'outline',
+          position: 'top-center',
+          duration: 3000
+        });
+      } else if(response.data.userRole=="TA") {
+        this.$router.push('/dashboard');
+        console.log(response.data)
+        this.userName = response.data.userName
+        this.TA_id = response.data.userId
+        this.role = response.data.userRole
+        localStorage.setItem("TA_name", this.userName)
+        localStorage.setItem('TA_id',this.TA_id);
+        localStorage.setItem('role',"Faculty");
+        localStorage.setItem('mainrole',"TA");
+        localStorage.setItem('faculty_id',"TA");
+
+        let toast = this.$toasted.success('You have successfully logged in', {
+          theme: 'outline',
+          position: 'top-center',
+          duration: 3000
+        });
+      }
     }
-  }
+  })
+   .catch((e) => {
+    let toast = this.$toasted.error('Incorrect Username or Password', {
+      theme: 'outline',
+      position: 'top-center',
+      duration: 3000
+    });
+    console.log(e)
+  })
+ }
+}
 }
 </script>
 

@@ -6,12 +6,6 @@
 				<div class="column">
 					<div class="card main" id="views">
 						<div class="field has-addons title">
-							<p class="control is-fullwidth">
-								<input class="input newBatch" type="text" placeholder="Add Faculty">
-							</p>
-							<p class="control">
-								<a class="button is-info" id="createBtn" @click=""> Add </a>
-							</p>
 						</div>
 						<div class="columns is-multiline">
 							<div class="column is-one-third" v-for="faculty in data">
@@ -22,7 +16,10 @@
 										</p>
 									</header>
 									<footer class="card-footer">
-										<a class="card-footer-item" @click="viewfaculty=true">View</a>
+										<a class="card-footer-item" @click="viewFaculty(faculty)">View</a>
+										<a class="card-footer-item" @click="approveFaculty(faculty.facultyId)" v-if="faculty.isApproved=='N'">Approve</a>
+										<a class="card-footer-item" @click="loginAs(faculty)" v-if="faculty.isApproved=='Y'">Login As</a>
+
 									</footer>
 								</div>
 							</div>
@@ -46,18 +43,24 @@ export default {
 		viewDetails,
 		navbar
 	},
-
+	
 	data() {
 		return {
 			viewfaculty: false,
 			role: '',
-			data: []
+			data: [],
+			fetched_faculty_id: '',
+			temp:''
 		}
 	},
 
 	created() {
 		this.role = localStorage.getItem('role')
 		this.getAllfaculties()
+		console.log(this.facultyId)
+		localStorage.removeItem("faculty_id")
+		localStorage.removeItem("faculty_name")
+		localStorage.removeItem("faculty_degree")
 	},
 
 	methods: {
@@ -74,6 +77,68 @@ export default {
 			.catch((e) => {
 				console.log(e)
 			})
+		},
+		viewFaculty(fac){
+			localStorage.setItem("faculty_id",fac.facultyId)
+			localStorage.setItem("faculty_name",fac.userName)
+			localStorage.setItem("faculty_degree",fac.degree)
+			this.viewfaculty = true
+		},
+		approveFaculty(fid){
+			HTTP.get(`rest/user/get-userid?facultyid=`+fid
+				,{
+
+				})
+			.then(response => {
+				if (response.status === 200) {
+					
+					HTTP.post(`rest/faculty/faculty-approved/?userid=`+response.data.userId
+						,{
+
+						})
+					.then(response => {
+						if (response.status === 200) {
+							console.log(response)
+							this.getAllfaculties()			
+
+						}
+					})
+					.catch((e) => {
+						console.log(e)
+					})
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
+
+			
+		},
+		loginAs(fac){
+			HTTP.get(`rest/user/get-userid?facultyid=`+fac.facultyId
+				,{
+
+				})
+			.then(response => {
+				if (response.status === 200) {
+					localStorage.setItem("faculty_id",response.data.userId)
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
+
+			localStorage.setItem("faculty_id",this.fetched_faculty_id)
+			localStorage.setItem("mainrole","Faculty")
+			localStorage.setItem("faculty_name",fac.userName)
+			localStorage.setItem("role","Faculty")
+			localStorage.removeItem("faculty_degree")
+			localStorage.removeItem("admin_id")
+			localStorage.removeItem("admin_name")
+			localStorage.removeItem("faculty_id")
+			localStorage.setItem("faculty_id",this.fetched_faculty_id)
+
+			this.$router.push('/dashboard')
 		}
 	}
 }

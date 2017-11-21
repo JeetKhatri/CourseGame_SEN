@@ -1,28 +1,38 @@
 <template>
 	<div class="leaderboard">
 		<h2>Leaderboard</h2>
-		<div class="columns" id="lists" v-for="i in 20" :key="i">
+		<div class="columns" id="lists" v-for="i in lb">
 			<div class="column">
-				<h4>201612065</h4>
+				
+				<h4>{{i.emailid}}</h4>
+				
 			</div>
 			<div class="column">
-				<h4>Students</h4>
+				<h4>{{i.studentname}}</h4>
 			</div>
 			<div class="column">
-				<h4>Marks</h4>
+				<h4>{{i.marks}}</h4>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script type="text/javascript">
+import HTTP from '@/packages/HTTP'
 export default {
 	name: 'leaderboard',
-
-	created() {
-		this.getId()
+	data(){
+		return{
+			quizId:'',
+			batchId:'',
+			lb:[]
+		}
 	},
-
+	created(){
+		this.quizId = this.$route.params.quizid
+		this.batchId = this.$route.params.batchid
+		this.getStatistics()
+	},
 	methods: {
 		getId () {
 			var id = window.localStorage.getItem('faculty_id')
@@ -32,6 +42,21 @@ export default {
 			} else {
 				this.$router.push('/')
 			}
+		},
+		getStatistics(){
+			HTTP.get(`https://coursegame.herokuapp.com/rest/quiz-content/batch-wise-result?quizid=`+this.quizId+`&batchid=`+this.batchId,{
+
+			})
+			.then(response => {
+				if (response.status === 200) {
+					
+					this.lb = response.data.marklist
+			
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		}
 	}
 }

@@ -7,12 +7,18 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="field-wrap">
-								<input type="text" name="text" placeholder="First Name" v-model="firstname">
+								<input type="text" name="First Name" placeholder="First Name" v-model="firstname" v-validate="'required|alpha'">
+							</div>
+							<div class="notification is-danger" v-show="errors.has('First Name')">
+								<span>{{ errors.first('First Name') }}</span>
 							</div>
 						</div>
 						<div class="field">
 							<div class="field-wrap">
-								<input type="text" name="text" placeholder="Last Name" v-model="lastname">
+								<input type="text" name="Last Name" placeholder="Last Name" v-model="lastname" v-validate="'required|alpha'">
+							</div>
+							<div class="notification is-danger" v-show="errors.has('Last Name')">
+								<span>{{ errors.first('Last Name') }}</span>
 							</div>
 						</div>
 					</div>
@@ -21,12 +27,18 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="field-wrap">
-								<input type="email" name="email" placeholder="Email Address" v-model="emailAddress">
+								<input type="email" name="Email" placeholder="Email Address" v-model="emailAddress"v-validate="'required|email'">
+							</div>
+							<div class="notification is-danger" v-show="errors.has('Email')">
+								<span>{{ errors.first('Email') }}</span>
 							</div>
 						</div>
 						<div class="field">
 							<div class="field-wrap">
-								<input type="text" name="degree" placeholder="Degree" v-model="degree">
+								<input type="text" name="Degree" placeholder="Degree" v-model="degree" v-validate="'required'">
+							</div>
+							<div class="notification is-danger" v-show="errors.has('Degree')">
+								<span>{{ errors.first('Degree') }}</span>
 							</div>
 						</div>
 					</div>
@@ -51,22 +63,30 @@ export default {
 	},
 
 	methods: {
+		validate() {
+			return this.$validator.validateAll()
+		},
 		register() {
-			HTTP.post(`rest/faculty/faculty-insert/?emailid=`+this.emailAddress+`&name=`+this.firstname+` `+this.lastname+`&degree=`+this.degree, {
-				
-			}).then(response => {
-				if(response.status===200)
-				{
-					if(response.data == true)
+			if(this.validate()) {
+				console.log("Error")
+			} else {
+				HTTP.post(`rest/faculty/faculty-insert/?emailid=`+this.emailAddress+`&name=`+this.firstname+` `+this.lastname+`&degree=`+this.degree, {
+
+				}).then(response => {
+					if(response.status===200)
 					{
-						let toast = this.$toasted.success('Registration Successfull! Mail has been sent to your email address', {
-							theme: 'outline',
-							position: 'top-center',
-							duration: 3000
-						});
+						if(response.data == true)
+						{
+						// let toast = this.$toasted.success('Registration Successfull! Mail has been sent to your email address', {
+						// 	theme: 'outline',
+						// 	position: 'top-center',
+						// 	duration: 3000
+						// });
+						this.$router.push('/thank-you')
 					}
 				}
-			})
+			})	
+			}
 		}
 	}
 }

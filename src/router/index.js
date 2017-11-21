@@ -59,32 +59,32 @@ export default new Router({
 		component: ViewDetails,
 		children:[
 		{
-			path: '/view-details/:batchid',
+			path: '/:batchid/view-details',
 			name: 'view-details',
 			component: Students
 		},
 		{
-			path: '/ta/:batchid',
+			path: '/:batchid/ta',
 			name: 'ta',
 			component: Ta
 		},
 		{
-			path: '/games-lists/:batchid',
+			path: '/:batchid/games-lists',
 			name: 'games-lists',
 			component: GamesLists
 		},
 		{
-			path: '/quiz-played/:batchid',
+			path: '/:batchid/quiz-played',
 			name: 'quiz-played',
 			component: QuizPlayed
 		},
 		{
-			path: '/leaderboard',
+			path: '/:batchid/:quizid/leaderboard',
 			name: 'leaderboard',
 			component: LeaderBoard
 		},
 		{
-			path: '/:batchid/statistics/:quizid',
+			path: '/:batchid/:quizid/statistics',
 			name: 'statistics',
 			component: Statistics
 		}

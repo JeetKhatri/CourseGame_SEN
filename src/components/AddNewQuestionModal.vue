@@ -9,34 +9,43 @@
 				</header>
 				<section class="modal-card-body">
 					<div class="details">
-						<textarea class="textarea" v-model="question" placeholder="Enter question for quiz"></textarea>
+						<textarea class="textarea" name="Question" v-model="question" placeholder="Enter question for quiz"></textarea>
+						<div >
+							<span class="notification is-danger" v-show="errors.has('Question')">{{ errors.first('Question') }}</span>
+						</div>
 						<br>
 						<div class="columns">
 							<div class="column">
 								<div class="field">
 									<div class="control">
-										<input class="input" type="text" v-model="option1" placeholder="Option A">
+										<input class="input" name="Option A" type="text" v-model="option1" placeholder="Option A">
+									</div>
+								</div>
+								<div class="notification is-danger" v-show="errors.has('Option A')">
+									<span>{{ errors.first('Option A') }}</span>
+								</div>
+							</div>
+							<div class="column">
+								<div class="field">
+									<div class="control">
+										<input class="input" name="Option B" v-model="option2" type="text" placeholder="Option B">
 									</div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="field">
 									<div class="control">
-										<input class="input" v-model="option2" type="text" placeholder="Option B">
+										<input class="input" name="Option C" type="text" v-model="option3" placeholder="Option c">
 									</div>
 								</div>
-							</div>
+<!-- 								<div class="notification is-danger">
+									<span>{{ errors.first('Option C') }}</span>
+								</div>
+ -->							</div>
 							<div class="column">
 								<div class="field">
 									<div class="control">
-										<input class="input" type="text" v-model="option3" placeholder="Option c">
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="field">
-									<div class="control">
-										<input class="input" type="text" v-model="option4" placeholder="Option D">
+										<input class="input" name="Option D" type="text" v-model="option4" placeholder="Option D" >
 									</div>
 								</div>
 							</div>
@@ -44,10 +53,16 @@
 					</div>
 					<div class="columns">
 						<div class="column" id="correctAnswer">
-							<input class="input" type="text" v-model="correctAnswer" placeholder="Correct Answer">
+							<input class="input" type="text" name="Correct Answer" v-model="correctAnswer" placeholder="Correct Answer" >
+						</div>
+						<div class="notification is-danger" v-show="errors.has('Correct Answer')">
+							<span>{{ errors.first('Correct Answer') }}</span>
 						</div>
 						<div class="column" id="correctAnswer">
-							<input class="input" type="number" v-model="correctMarks" placeholder="Marks">
+							<input class="input" type="number" name="Correct Marks" v-model="correctMarks" placeholder="Marks" >
+						</div>
+						<div class="notification is-danger" v-show="errors.has('Correct Marks')">
+							<span>{{ errors.first('Correct Marks') }}</span>
 						</div>
 					</div>
 				</section>
@@ -72,7 +87,7 @@ export default {
 			option3:'',
 			option4:'',
 			correctAnswer:'',
-			correctMarks:0,
+			correctMarks:1,
 			difficulty:1,
 			quizId:''
 		}
@@ -81,6 +96,9 @@ export default {
 		this.quizId = this.$route.params.quizid
 	},
 	methods: {
+		validate() {
+			return this.$validator.validateAll()
+		},
 		close() {
 			this.getQuestions()
 			this.$emit('closeAddNewQuestion');

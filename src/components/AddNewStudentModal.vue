@@ -13,7 +13,10 @@
 							<div class="field-body">
 								<div class="field">
 									<div class="field-wrap">
-										<input type="file" name="student" required>
+										<input type="file" name="File" required v-validate="'required'">
+									</div>
+									<div class="notification is-danger" v-show="errors.has('File')">
+										<span>{{ errors.first('File') }}</span>
 									</div>
 								</div>
 							</div>
@@ -62,7 +65,9 @@ export default {
 			this.$emit("closeAddStudent");
 		},
 		upload() {
+			
 			document.getElementById("csvForm").submit();
+			
 		}
 	}
 

@@ -2,7 +2,9 @@
 	<div class="thank-you">
 		<div class="greeting">
 			<p>Thank You</p>
-			<small>Your Registration was successfull mail has been sent to your mail id.</small>
+			<small>Your registration was successfull. We will review your request and get back to you soon.</small>
+			<br>
+			<router-link to="/">Home</router-link>
 		</div>
 	</div>	
 </template>

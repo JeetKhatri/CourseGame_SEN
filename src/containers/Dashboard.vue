@@ -3,29 +3,48 @@
 		<navbar :role="role"></navbar>
 		<div class="container">
 			<div class="card main" id="views">
-				<div class="columns is-mobile" v-if="role == 'Faculty'">
-					<div class="column">
-						<div class="field has-addons title">
-							<p class="control is-fullwidth">
-								<input class="input newBatch" type="text" v-model="batchName" placeholder="Create New Batch">
-							</p>
-							<p class="control">
-								<a class="button is-info" id="createBtn" @click="batchRegistration()"> Create </a>
-							</p>
+				<div class="faculty" v-if="role == 'Faculty'">
+					<div class="columns is-mobile">
+						<div class="column">
+							<div class="field has-addons title">
+								<p class="control is-fullwidth">
+									<input class="input newBatch" type="text" v-model="batchName" placeholder="Create New Batch">
+								</p>
+								<p class="control">
+									<a class="button is-info" id="createBtn" @click="batchRegistration()"> Create </a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="columns is-multiline">
+						<div class="column is-one-third" v-for="batch in data">
+							<div class="card" id="batchCard">
+								<header class="card-header">
+									<p class="card-header-title">
+										{{batch.batchname}}
+									</p>
+								</header>
+								<footer class="card-footer">
+									<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
+								</footer>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="columns is-multiline">
-					<div class="column is-one-third" v-for="batch in data">
-						<div class="card" id="batchCard">
-							<header class="card-header">
-								<p class="card-header-title">
-									{{batch.batchname}}
-								</p>
-							</header>
-							<footer class="card-footer">
-								<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
-							</footer>
+				<div class="ta" v-else>
+					<div class="columns is-multiline">
+						<div class="column is-one-third" v-for="btch in data">
+							<div class="card" id="batchCard">
+								<header class="card-header">
+									<p class="card-header-title">	
+										{{btch.batchname}}
+									</p>
+								</header>
+
+								<footer class="card-footer">
+									<router-link :to="{name: 'view-details', params:{batchid: btch.batchid}}" class="card-footer-item">View</router-link>
+								</footer>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -47,11 +66,12 @@ export default {
 			data: [],
 			faculty_id:'',
 			batchName:'',
-			role: ''
+			role: '',
+			mainrole:''
 		}
 	},
 	created(){
-		this.role = localStorage.getItem('role')
+		this.role = localStorage.getItem('mainrole')
 		if(this.role == "Faculty") {
 			this.getFacultyId()
 			this.getBatches()
@@ -64,25 +84,33 @@ export default {
 	},
 	methods:{
 		batchRegistration(){
-			this.faculty_id=localStorage.getItem('faculty_id');
-			HTTP.post(`rest/batch/batch-insert?userid=`+this.faculty_id+`&batchName=
-				`+this.batchName,{
+			if(this.batchName == '') {
+				let toast = this.$toasted.error('Batch Name is required', {
+					theme: 'outline',
+					position: 'top-center',
+					duration: 3000
+				});
+			} else {
+				this.faculty_id=localStorage.getItem('faculty_id');
+				HTTP.post(`rest/batch/batch-insert?userid=`+this.faculty_id+`&batchName=
+					`+this.batchName,{
 
+					})
+				.then(response => {
+					if (response.status === 200) {
+						let toast = this.$toasted.success('Batch Created Successfully', {
+							theme: 'outline',
+							position: 'top-center',
+							duration: 3000
+						});
+						this.getBatches()
+						this.batchName = ''
+					}
 				})
-			.then(response => {
-				if (response.status === 200) {
-					let toast = this.$toasted.success('Batch Created Successfully', {
-						theme: 'outline',
-						position: 'top-center',
-						duration: 3000
-					});
-					this.getBatches()
-					this.batchName = ''
-				}
-			})
-			.catch((e) => {
-				console.log(e)
-			})	
+				.catch((e) => {
+					console.log(e)
+				})
+			}
 		},
 		getBatches() {
 			this.faculty_id = localStorage.getItem('faculty_id');
@@ -117,6 +145,16 @@ export default {
 		},
 		getTaBatches() {
 			console.log("ta dashboard")
+			var ta_id = localStorage.getItem('TA_id')
+			HTTP.get(`rest/ta/batch-list?userid=`+ta_id, {
+
+			})
+			.then(response => {
+				this.data = response.data.batchData
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		}
 	}
 }

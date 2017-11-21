@@ -45,24 +45,32 @@ export default {
 	},
 	methods: {
 		addQuiz() {
-			this.created_by_id = localStorage.getItem('faculty_id');
-			HTTP.post(`rest/quiz/quiz-insert?name=`+this.quiz_name+`&batchid=`+this.batchid+`&starttime=1996-08-28&endtime=1996-08-28&createdby=`+this.created_by_id,{
+			if(this.quiz_name == '') {
+				let toast = this.$toasted.error('Quiz Name is required', {
+					theme: 'outline',
+					position: 'top-center',
+					duration: 3000
+				});
+			} else {
+				this.created_by_id = localStorage.getItem('faculty_id');
+				HTTP.post(`rest/quiz/quiz-insert?name=`+this.quiz_name+`&batchid=`+this.batchid+`&starttime=1996-08-28&endtime=1996-08-28&createdby=`+this.created_by_id,{
 
-			})
-			.then(response => {
-				if (response.status === 200) {
-					let toast = this.$toasted.success('Quiz Created', {
-						theme: 'outline',
-						position: 'top-center',
-						duration: 3000
-					});
-					this.getAllQuiz()
-					this.$emit('closeAddNewQuiz');
-				}
-			})
-			.catch((e) => {
-				console.log(e)
-			})
+				})
+				.then(response => {
+					if (response.status === 200) {
+						let toast = this.$toasted.success('Quiz Created', {
+							theme: 'outline',
+							position: 'top-center',
+							duration: 3000
+						});
+						this.getAllQuiz()
+						this.$emit('closeAddNewQuiz');
+					}
+				})
+				.catch((e) => {
+					console.log(e)
+				})
+			}
 		},
 		close() {
 			this.$emit('closeAddNewQuiz');

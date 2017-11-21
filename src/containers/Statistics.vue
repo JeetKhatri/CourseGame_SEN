@@ -3,7 +3,7 @@
 		<div>
 			<div class="column" id="tags">
 				<span class="tag is-info" @click="addQuestion=true">Add Questions</span>
-				<router-link class="tag is-info" to="/leaderboard">View Leaderboard</router-link>
+				<router-link class="tag is-info" :to="{name: 'leaderboard'}">View Leaderboard</router-link>
 			</div>
 			<div class="column">
 				<h2>Manage Quiz</h2>
@@ -17,7 +17,7 @@
 				{{content.answer}}
 			</div>
 			<div class="column">
-				<span class="tag is-info">Update</span>
+				<span class="tag is-info" @click="show(content.quizContentId)">Update</span>
 			</div>
 		</div>
 		<addQuestion @closeAddNewQuestion="close" v-if="addQuestion"></addQuestion>
@@ -55,6 +55,7 @@ export default {
 	methods: {
 		close() {
 			this.addQuestion = false
+			this.getQuestions()
 		},
 		getId () {
 			var id = window.localStorage.getItem('faculty_id')
@@ -74,6 +75,10 @@ export default {
 				}).catch((e) => {
 					console.log(e)
 				})
+			},
+			show(op)
+			{
+				console.log(op)
 			}
 		}
 	}

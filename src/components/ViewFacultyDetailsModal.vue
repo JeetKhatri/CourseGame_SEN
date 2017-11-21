@@ -13,12 +13,12 @@
 							<div class="field-body">
 								<div class="field">
 									<div class="field-wrap">
-										<input type="text" placeholder="Facutly Name" v-modal="name">
+										<input type="text" placeholder="Facutly Name" v-model="name">
 									</div>
 								</div>
 								<div class="field">
 									<div class="field-wrap">
-										<input type="text" placeholder="Degree" v-modal="degree">
+										<input type="text" placeholder="Degree" v-model="degree">
 									</div>
 								</div>
 							</div>
@@ -34,20 +34,29 @@
 </template>
 
 <script type="text/javascript">
+import HTTP from '@/packages/HTTP'
 export default {
 	name: 'view-faculty',
 
 	data() {
 		return{
-			name: "abc",
-			degree: "Phd"
+			id: '',
+			name: '',
+			degree: ''
 		}
 	},
-
 	methods: {
 		close() {
 			this.$emit("closeDetails");
+		},
+		approveFaculty(){
+			
 		}
+	},
+	created(){
+		this.id = localStorage.getItem("faculty_id")
+		this.name = localStorage.getItem("faculty_name")
+		this.degree = localStorage.getItem("faculty_degree")
 	}
 
 }
