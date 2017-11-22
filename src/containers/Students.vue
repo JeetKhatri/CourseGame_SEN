@@ -31,7 +31,7 @@ export default {
 	data(){
 		return{
 			batchid: '',
-			addNewStudent:false,
+			addNewStudent: false,
 			data: []
 		}
 	},

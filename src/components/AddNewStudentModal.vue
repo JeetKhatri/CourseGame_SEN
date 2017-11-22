@@ -15,6 +15,9 @@
 									<div class="field-wrap">
 										<input type="file" name="student" required>
 									</div>
+									<div class="field-wrap" hidden>
+										<input type="text" name="faculty_id" v-model="faculty_id" hidden>
+									</div>
 								</div>
 							</div>
 							<div class="field-body">
@@ -46,7 +49,11 @@
 <script type="text/javascript">
 export default {
 	name: 'add-new-student',
-
+	data(){
+		return{
+			faculty_id: ''
+		}
+	},
 	props: {
 		batchid: {
 			required: true
@@ -55,6 +62,7 @@ export default {
 
 	created() {
 		console.log(this.batchid)
+		this.faculty_id = localStorage.getItem("faculty_id")
 	},
 
 	methods: {

@@ -2,10 +2,10 @@
 	<div class="navigation-bar">
 		<nav class="navbar is-info">
 			<div class="navbar-brand">
-				<a class="navbar-item">
+				<router-link to="/dashboard" class="navbar-item">
 					<img src="../assets/courseGame.png" alt="course-game" width="40" height="28">Course-Game
-				</a>
-				<router-link to="/dashboard" class="navbar-item">Home</router-link>
+				</router-link>
+				<!-- <router-link to="/dashboard" class="navbar-item">Home</router-link> -->
 				<div class="navbar-burger burger" data-target="navMenuTransparentExample">
 					<span></span>
 					<span></span>

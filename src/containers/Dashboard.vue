@@ -1,84 +1,84 @@
-<template>
-	<div class="dashboard">
-		<navbar :role="role"></navbar>
-		<div class="container">
-			<div class="card main" id="views">
-				<div class="faculty" v-if="role == 'Faculty'">
-					<div class="columns is-mobile">
-						<div class="column">
-							<div class="field has-addons title">
-								<p class="control is-fullwidth">
-									<input class="input newBatch" type="text" v-model="batchName" placeholder="Create New Batch">
-								</p>
-								<p class="control">
-									<a class="button is-info" id="createBtn" @click="batchRegistration()"> Create </a>
-								</p>
+	<template>
+		<div class="dashboard">
+			<navbar :role="role"></navbar>
+			<div class="container">
+				<div class="card main" id="views">
+					<div class="faculty" v-if="role == 'Faculty'">
+						<div class="columns is-mobile">
+							<div class="column">
+								<div class="field has-addons title">
+									<p class="control is-fullwidth">
+										<input class="input newBatch" type="text" v-model="batchName" placeholder="Create New Batch">
+									</p>
+									<p class="control">
+										<a class="button is-info" id="createBtn" @click="batchRegistration()"> Create </a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="columns is-multiline">
+							<div class="column is-one-third" v-for="batch in data">
+								<div class="card" id="batchCard">
+									<header class="card-header">
+										<p class="card-header-title">
+											{{batch.batchname}}
+										</p>
+									</header>
+									<footer class="card-footer">
+										<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
+									</footer>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="columns is-multiline">
-						<div class="column is-one-third" v-for="batch in data">
-							<div class="card" id="batchCard">
-								<header class="card-header">
-									<p class="card-header-title">
-										{{batch.batchname}}
-									</p>
-								</header>
-								<footer class="card-footer">
-									<router-link :to="{name: 'view-details', params:{batchid: batch.batchid}}" class="card-footer-item">View</router-link>
-								</footer>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="ta" v-else>
-					<div class="columns is-multiline">
-						<div class="column is-one-third" v-for="btch in data">
-							<div class="card" id="batchCard">
-								<header class="card-header">
-									<p class="card-header-title">	
-										{{btch.batchname}}
-									</p>
-								</header>
+					<div class="ta" v-else>
+						<div class="columns is-multiline">
+							<div class="column is-one-third" v-for="btch in data">
+								<div class="card" id="batchCard">
+									<header class="card-header">
+										<p class="card-header-title">	
+											{{btch.batchname}}
+										</p>
+									</header>
 
-								<footer class="card-footer">
-									<router-link :to="{name: 'view-details', params:{batchid: btch.batchid}}" class="card-footer-item">View</router-link>
-								</footer>
+									<footer class="card-footer">
+										<router-link :to="{name: 'view-details', params:{batchid: btch.batchid}}" class="card-footer-item">View</router-link>
+									</footer>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>	
-</template>
+		</div>	
+	</template>
 
-<script type="text/javascript">
-import navbar from '@/components/Navbar'
-import HTTP from '@/packages/HTTP'
-export default {
-	name: 'dashboard',
-	components:{
-		navbar
-	},
-	data(){
-		return {
-			data: [],
-			faculty_id:'',
-			batchName:'',
-			role: '',
-			mainrole:''
-		}
-	},
-	created(){
-		this.role = localStorage.getItem('mainrole')
-		if(this.role == "Faculty") {
-			this.getFacultyId()
-			this.getBatches()
-		} else if(this.role == "TA") {
-			this.getTaId()
-			this.getTaBatches()
-		}
+	<script type="text/javascript">
+	import navbar from '@/components/Navbar'
+	import HTTP from '@/packages/HTTP'
+	export default {
+		name: 'dashboard',
+		components:{
+			navbar
+		},
+		data(){
+			return {
+				data: [],
+				faculty_id:'',
+				batchName:'',
+				role: '',
+				mainrole:''
+			}
+		},
+		created(){
+			this.role = localStorage.getItem('mainrole')
+			if(this.role == "Faculty") {
+				this.getFacultyId()
+				this.getBatches()
+			} else if(this.role == "TA") {
+				this.getTaId()
+				this.getTaBatches()
+			}
 		// this.getBatches()
 		// this.getFacultyId()
 	},
@@ -169,7 +169,7 @@ export default {
 		top: 5rem;
 	}
 
-	.title {
+	.field.has-addons {
 		display: flex;
 		justify-content: center;
 	}

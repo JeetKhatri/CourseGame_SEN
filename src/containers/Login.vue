@@ -132,7 +132,7 @@ export default {
   h1 {
     font-size: 3em;
     text-align: center;
-    color: #ddd;
+    color: cyan;
     font-weight: 100;
   }
 
@@ -170,7 +170,6 @@ export default {
     -ms-transform: translateY(14px);
     transform: translateY(14px);
     left: 2px;
-    color: rgba(255, 255, 255, 0.45);
     -webkit-transition: all 0.25s;
     -moz-transition: all 0.25s; 
     transition: all 0.25s;
@@ -205,7 +204,7 @@ export default {
     background-image: none;
     border: none;
     border-bottom: 1px solid #8e8e8e;
-    color: #fff;
+    color: white;
     border-radius: 0;
     -webkit-transition: border-color .25s ease, box-shadow .25s ease;
     -moz-transition: border-color .25s ease, box-shadow .25s ease; 
