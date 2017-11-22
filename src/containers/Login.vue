@@ -10,7 +10,7 @@
           <span>{{ errors.first('email') }}</span>
         </div>
         <div class="field-wrap">
-          <input type="password" name="password" placeholder="password" v-model='pass' @keyup.enter="validate" v-validate="'required|min:6|max:13'">
+          <input type="password" name="password" placeholder="password" v-model='pass' @keyup.enter="validate" v-validate="'required|min:8|max:13'">
         </div> 
         <div class="notification is-danger" v-show="errors.has('password')">
           <span>{{ errors.first('password') }}</span>
