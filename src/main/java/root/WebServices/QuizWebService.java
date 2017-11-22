@@ -36,28 +36,32 @@ public class QuizWebService {
 
 		return new QuizDAO().insert(quiz);
 	}
-	
+
 	@POST
 	@Path("/submit")
 	@Produces("application/json")
-	public Response quizSubmit(@FormParam("studentid") String studentId,@FormParam("quizid") String quizId,@FormParam("answers") String submittedAnswers) {
-		
-		/*String[] answers=submittedAnswers.split(";");
-		for(String answer:answers){
-			String[] key_value=answer.split(",");
-			
-			String quizContentId=key_value[0];
-			answer=key_value[1];
-			
-			boolean flag = new QuizContentDAO().answerAll(studentId, quizContentId, answer, quizId);
-		}*/
+	public Response quizSubmit(@FormParam("studentid") String studentId, @FormParam("quizid") String quizId,
+			@FormParam("answers") String submittedAnswers) {
+
+		/*
+		 * String[] answers=submittedAnswers.split(";"); for(String
+		 * answer:answers){ String[] key_value=answer.split(",");
+		 * 
+		 * String quizContentId=key_value[0]; answer=key_value[1];
+		 * 
+		 * boolean flag = new QuizContentDAO().answerAll(studentId,
+		 * quizContentId, answer, quizId); }
+		 */
 		StatusBean st = new StatusBean();
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		st.setResponseStatus(new QuizContentDAO().answer(studentId, quizId, submittedAnswers));
 		hashMap.put("responseStatus", st.isResponseStatus());
 		StudentQuizBean bean = new QuizContentDAO().generateMarks(studentId, quizId);
-		hashMap.put("studentQuizDetail", bean);
-		return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
+		if (bean != null)
+			return Response.ok(bean).header("Access-Control-Allow-Origin", "*").build();
+		else {
+			return Response.ok(hashMap).header("Access-Control-Allow-Origin", "*").build();
+		}
 	}
 
 	@PUT
@@ -77,7 +81,7 @@ public class QuizWebService {
 
 		return new QuizDAO().update(quiz);
 	}
-	
+
 	@POST
 	@Path("/quiz-activation")
 	@Produces("application/json")
@@ -88,7 +92,7 @@ public class QuizWebService {
 		StatusBean list = new QuizDAO().quizActivation(batchId, quizId);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
-	
+
 	@GET
 	@Path("/batch-wise-quiz")
 	@Produces("application/json")
@@ -98,13 +102,13 @@ public class QuizWebService {
 		HashMap<String, Object> list = new QuizDAO().batchWiseQuiz(batchId);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
-	
+
 	@POST
 	@Path("/check-quiz")
 	@Produces("application/json")
-	public Response checkQuiz(@FormParam("studentid") String studentId,@FormParam("quizid") String quizId) {
-		
-		HashMap<String, Object> list = new QuizDAO().checkQuiz(studentId,quizId);
+	public Response checkQuiz(@FormParam("studentid") String studentId, @FormParam("quizid") String quizId) {
+
+		HashMap<String, Object> list = new QuizDAO().checkQuiz(studentId, quizId);
 		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
 	}
 }
