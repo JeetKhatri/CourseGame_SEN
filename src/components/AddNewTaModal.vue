@@ -13,7 +13,7 @@
 							<div class="field-body">
 								<div class="field">
 									<div class="field-wrap">
-										<input type="email"  name="Email" v-model="email" placeholder="Email Id" v-validate="'required|email'">
+										<input type="email"  name="Email" v-model="email" placeholder="Email Id" v-validate="'required|email'" required>
 									</div>
 									<div class="notification is-danger" v-show="errors.has('Email')">
 										<span>{{ errors.first('Email') }}</span>
@@ -21,7 +21,7 @@
 								</div>
 								<div class="field">
 									<div class="field-wrap">
-										<input type="text" name="Name" v-model="name" placeholder="Name" v-validate="'required|alpha'">
+										<input type="text" name="Name" v-model="name" placeholder="Name" v-validate="'required'">
 									</div>
 									<div class="notification is-danger" v-show="errors.has('Name')">
 										<span>{{ errors.first('Name') }}</span>
@@ -62,26 +62,24 @@ export default {
 			this.$emit("closeAddTa");
 		},
 		addTa(){
-			
-				HTTP.post(`rest/ta/ta-insert?emailid=`+this.email+`&name=`+this.name+`&batchId=`+this.batchid, {
-	
-				})
-				.then(response => {
-					if(response.status === 200){
-						let toast = this.$toasted.success('Creation Successfull! Please check your email.', {
-							theme: 'outline',
-							position: 'top-center',
-							duration: 3000
-						});
-						this.$emit("closeAddTa");
-						this.emailId = '';
-						this.name = '';
-					}
-				})
-				.catch((e) => {
-					console.log(e)
-				})
-			
+			HTTP.post(`rest/ta/ta-insert?emailid=`+this.email+`&name=`+this.name+`&batchId=`+this.batchid, {
+
+			})
+			.then(response => {
+				if(response.status === 200){
+					let toast = this.$toasted.success('Creation Successfull! Please check your email.', {
+						theme: 'outline',
+						position: 'top-center',
+						duration: 3000
+					});
+					this.$emit("closeAddTa");
+					this.emailId = '';
+					this.name = '';
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		}
 	}
 }

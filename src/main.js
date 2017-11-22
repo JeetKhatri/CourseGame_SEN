@@ -11,6 +11,7 @@ Vue.use(ToggleButton)
 Vue.use(Toasted)
 Vue.use(VeeValidate)
 
+
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',

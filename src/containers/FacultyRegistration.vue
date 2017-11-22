@@ -10,7 +10,7 @@
 								<input type="text" name="First Name" placeholder="First Name" v-model="firstname" v-validate="'required|alpha'">
 							</div>
 							<div class="notification is-danger" v-show="errors.has('First Name')">
-								<span>{{ errors.first('First Name') }}</span>
+								The First Name is required and should contain only letters.
 							</div>
 						</div>
 						<div class="field">
@@ -18,7 +18,7 @@
 								<input type="text" name="Last Name" placeholder="Last Name" v-model="lastname" v-validate="'required|alpha'">
 							</div>
 							<div class="notification is-danger" v-show="errors.has('Last Name')">
-								<span>{{ errors.first('Last Name') }}</span>
+								The Last Name is required and should contain only letters.
 							</div>
 						</div>
 					</div>
@@ -66,7 +66,7 @@ export default {
 		validate() {
 			return this.$validator.validateAll()
 		},
-		register() {
+		register() {			
 			if(this.validate()) {
 				console.log("Error")
 			} else {
@@ -85,8 +85,11 @@ export default {
 						this.$router.push('/thank-you')
 					}
 				}
-			})	
-			}
+			})
+			}	
+		},
+		submit() {
+			
 		}
 	}
 }
