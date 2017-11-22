@@ -62,24 +62,33 @@ export default {
 			this.$emit("closeAddTa");
 		},
 		addTa(){
-			HTTP.post(`rest/ta/ta-insert?emailid=`+this.email+`&name=`+this.name+`&batchId=`+this.batchid, {
+			if(this.email == '' || this.name == '') {
+				this.validate()
+				let toast = this.$toasted.error('Ooops somethings is missing', {
+					theme: 'outline',
+					position: 'top-center',
+					duration: 3000
+				});
+			} else {
+				HTTP.post(`rest/ta/ta-insert?emailid=`+this.email+`&name=`+this.name+`&batchId=`+this.batchid, {
 
-			})
-			.then(response => {
-				if(response.status === 200){
-					let toast = this.$toasted.success('Creation Successfull! Please check your email.', {
-						theme: 'outline',
-						position: 'top-center',
-						duration: 3000
-					});
-					this.$emit("closeAddTa");
-					this.emailId = '';
-					this.name = '';
-				}
-			})
-			.catch((e) => {
-				console.log(e)
-			})
+				})
+				.then(response => {
+					if(response.status === 200){
+						let toast = this.$toasted.success('TA Creation Successfull! Please check your email.', {
+							theme: 'outline',
+							position: 'top-center',
+							duration: 3000
+						});
+						this.$emit("closeAddTa");
+						this.emailId = '';
+						this.name = '';
+					}
+				})
+				.catch((e) => {
+					console.log(e)
+				})
+			}
 		}
 	}
 }

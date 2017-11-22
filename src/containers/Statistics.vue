@@ -21,22 +21,28 @@
 			</div>
 		</div>
 		<addQuestion @closeAddNewQuestion="close" v-if="addQuestion"></addQuestion>
+		<updateQuestion @closeUpdateQuestion="closeUpdate" v-if="update"></updateQuestion>
 	</div>
 </template>
 
 <script type="text/javascript">
 import HTTP from '@/packages/HTTP';
 import addQuestion from '@/components/AddNewQuestionModal'
+import updateQuestion from '@/components/UpdateQuestionModal'
 export default {
 	name: 'statistics',
 	data() {
 		return {
 			quizId: '',
-			batchId: ''
+			batchId: '',
+			addQuestion: false,
+			update: false,
+			data: []
 		}
 	},
 	components: {
-		addQuestion
+		addQuestion,
+		updateQuestion
 	},
 
 	created() {
@@ -45,17 +51,14 @@ export default {
 		this.getQuestions()
 	},
 
-	data() {
-		return {
-			addQuestion: false,
-			data: []
-		}
-	},
-
 	methods: {
 		close() {
 			this.addQuestion = false
 			this.getQuestions()
+		},
+		closeUpdate() {
+			this.update = false
+			// alert("hello")
 		},
 		getId () {
 			var id = window.localStorage.getItem('faculty_id')
@@ -78,6 +81,7 @@ export default {
 			},
 			show(op)
 			{
+				this.update = true
 				console.log(op)
 			}
 		}

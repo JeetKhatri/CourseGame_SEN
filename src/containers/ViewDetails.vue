@@ -39,7 +39,7 @@ export default {
 
 	created() {
 		this.getId()
-		this.role = localStorage.getItem('role')
+		this.role = localStorage.getItem('mainrole')
 	},
 
 	methods: {

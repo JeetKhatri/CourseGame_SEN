@@ -4,7 +4,7 @@
 			<div class="modal-background"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">Add Question For Quiz</p>
+					<p class="modal-card-title">Update Question</p>
 					<button class="delete" @click="close"></button>
 				</header>
 				<section class="modal-card-body">
@@ -58,7 +58,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info" @click="addQuestion()">Save</a>
+					<a class="button is-info" @click="updateQuestion()">Save</a>
 					<a class="button is-info" @click="close">Close</a>
 				</footer>
 			</div>
@@ -91,10 +91,9 @@ export default {
 			return this.$validator.validateAll()
 		},
 		close() {
-			this.getQuestions()
-			this.$emit('closeAddNewQuestion');
+			this.$emit('closeUpdateQuestion');
 		},
-		addQuestion(){
+		updateQuestion(){
 			if(this.question == '' || this.option1 == '' || this.option2 == '' || this.option3 == '' || this.option4 == '' || this.correctAnswer == '') {
 				this.validate()
 				let toast = this.$toasted.error('Something is missing', {

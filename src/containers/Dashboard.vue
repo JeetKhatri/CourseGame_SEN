@@ -166,7 +166,7 @@ export default {
 
 	.main{
 		height: auto;
-		top: 4.5rem;
+		top: 5rem;
 	}
 
 	.title {

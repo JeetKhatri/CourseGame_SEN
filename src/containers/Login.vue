@@ -36,6 +36,11 @@ export default {
     }
   },
 
+  created() {
+    localStorage.removeItem('faculty_id')
+    localStorage.removeItem('mainrole')
+  },
+
   methods: {
    validate() {
     return this.$validator.validateAll();
@@ -61,6 +66,7 @@ export default {
         localStorage.setItem('faculty_id',this.id);
         localStorage.setItem("faculty_name", this.name)
         localStorage.setItem("role", this.role)
+        localStorage.setItem("mainrole", "Faculty")
         let toast = this.$toasted.success('You have successfully logged in', {
           theme: 'outline',
           position: 'top-center',
@@ -92,7 +98,6 @@ export default {
         localStorage.setItem('role',"Faculty");
         localStorage.setItem('mainrole',"TA");
         localStorage.setItem('faculty_id',"TA");
-
         let toast = this.$toasted.success('You have successfully logged in', {
           theme: 'outline',
           position: 'top-center',
