@@ -202,7 +202,9 @@ public class QuizContentDAO {
 				for(String answer:answers){
 					String[] key_value=answer.split(";");
 					String quizContentId=key_value[0];
-					String ans=key_value[1];
+					String ans="";
+					if(key_value.length!=1)
+					ans = key_value[1];
 					
 					boolean flag = new QuizContentDAO().answerAll(studentId, quizContentId, ans, quizId);
 					if(flag == false){
