@@ -23,6 +23,7 @@
 									</div>
 									<div id="moreDropdown" class="navbar-dropdown is-boxed">
 										<a class="navbar-item" @click="logout">Logout</a>
+										<a class="navbar-item" @click="change=true">Change Password</a>
 									</div>
 								</div>
 							</p>
@@ -30,11 +31,13 @@
 					</div>
 				</div>
 			</div>
-		</nav>		
+		</nav>	
+		<changePassword v-if="change"></changePassword>	
 	</div>
 </template>
 
 <script type="text/javascript">
+import changePassword from '@/components/changePassword'
 export default {
 	name: 'navbar',
 	props: {
@@ -43,9 +46,14 @@ export default {
 		}
 	},
 
+	components: {
+		changePassword
+	},
+
 	data() {
 		return {
-			name: ''
+			name: '',
+			change: false
 		}
 	},
 
@@ -111,12 +119,21 @@ export default {
 		margin-right: 2rem;
 	}
 
+	.navbar-brand {
+		padding-left: 5rem;
+	}
+
 	.navbar-item {
 		padding-bottom: 0px;
+		padding-right: 2.2rem;
 	}
 
 	.navbar.is-info {
 		height: 60px;
+	}
+
+	.navbar-link {
+		pading-right: 1rem;
 	}
 }
 </style>

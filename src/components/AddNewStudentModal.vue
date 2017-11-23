@@ -8,7 +8,7 @@
 					<button class="delete" @click="close"></button>
 				</header>
 				<section class="modal-card-body">
-					<form id="csvForm" method="POST" action="https://rtdemo.000webhostapp.com/coursegame/importstudent.php" enctype="multipart/form-data">
+					<form id="csvForm" method="POST" action="http://carsikho.in/coursegame/importstudent.php" enctype="multipart/form-data">
 						<div class="field is-horizontal">
 							<div class="field-body">
 								<div class="field">
