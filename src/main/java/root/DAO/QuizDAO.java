@@ -244,7 +244,7 @@ public class QuizDAO {
 				while (rs.next()) {
 					flag = true;
 				}
-				map.put("status", flag);
+				map.put("status", flag+"");
 
 			} catch (SQLException e) {
 				e.printStackTrace();
