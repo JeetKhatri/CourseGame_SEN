@@ -18,7 +18,7 @@ import root.Utils.GenrateMathodsUtils;
 public class UserDAO {
 
 	ResultSet rs = null;
-	PreparedStatement pstmt = null;
+	PreparedStatement pstmt = null,pstmt1 = null;
 	Connection conn = null;
 
 	public ArrayList<UserBean> getList() {
@@ -318,6 +318,39 @@ public class UserDAO {
 
 		}
 		return obj;
+
+	}
+	
+	public Boolean changePassword(String userid, String oldpassword, String newpassword) {
+
+		String sql = "select * from users where userid=?";
+		conn = DBConnection.getConnection();
+		if (conn != null) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userid);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					String password = rs.getString("password");
+					if (GenrateMathodsUtils.makeSHA512(oldpassword).equals(password)) {
+						pstmt1 = conn.prepareStatement("update users set password=? where userid=?");
+						pstmt1.setString(1, GenrateMathodsUtils.makeSHA512(newpassword));
+						pstmt1.setString(2, userid);
+						int n = pstmt1.executeUpdate();
+						if (n != 0)
+							return true;
+					}
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			}
+
+		}
+		return false;
 
 	}
 	

@@ -40,4 +40,17 @@ public class UserWebServices {
 		HashMap<String, Object> result = new UserDAO().getUserId(facultyId);
 		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
 	}
+	
+	@POST
+	@Path("/change-pass")
+	@Produces("application/json")
+	public Response changePassword(@Context UriInfo info) {
+		
+		String userid = info.getQueryParameters().getFirst("userid");
+		String oldpassword = info.getQueryParameters().getFirst("oldpassword");
+		String newpassword = info.getQueryParameters().getFirst("newpassword");
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("status", new UserDAO().changePassword(userid,oldpassword,newpassword));
+		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
+	}
 }
