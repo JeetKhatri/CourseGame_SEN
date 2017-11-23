@@ -9,7 +9,16 @@ public class QuizBean {
 	private String startTime;
 	private String endTime;
 	private String createdBy;
-	private boolean reaponseStatus=false;
+	private boolean reaponseStatus = false;
+	private String resp = "";
+
+	public String getResp() {
+		return resp;
+	}
+
+	public void setResp(String resp) {
+		this.resp = resp;
+	}
 
 	public boolean isReaponseStatus() {
 		return reaponseStatus;
