@@ -7,12 +7,16 @@ public class QuizListScript : MonoBehaviour {
 
     public void Start()
     {
-        /*Debug.Log("checking login");
-        StudentManager.checkStudentLogin();
-        */
+        Debug.Log("checking login");
+        if (!StudentManager.isLogin())
+        {
+            NavigationManager.NavigateTO(NavigationManager.login);
+            return;
+        }
+
         Dictionary<string, string> map = new Dictionary<string, string>();
-        // map.Add("batchid", StudentManager.getStudent().batchId);
-        map.Add("batchid","iNiJblvoVlbsVwF");
+        map.Add("batchid", StudentManager.getStudent().batchId);
+        //map.Add("batchid","iNiJblvoVlbsVwF");
 
         //Debug.Log("getting data for batchID: " + StudentManager.getStudent().batchId);
         StartCoroutine(Utils.makePostCall(UrlManager.quizListUrl + "?" + Utils.createQueryString(map), Utils.createForm(map), this, "quizListSuccess", "quizListFailed"));
@@ -39,10 +43,17 @@ public class QuizListScript : MonoBehaviour {
         if(!status){
             return;
         }
-        QuizManager.currentQuiz=QuizListManager.quizList.idMap["UyybEGkvSG11vx7"];
-        QuizManager.currentIndex=0;
+        try
+        {
+            QuizManager.currentQuiz = QuizListManager.quizList.idMap["UyybEGkvSG11vx7"];
+            QuizManager.currentIndex = 0;
 
-        NavigationManager.NavigateTO(NavigationManager.quizStart);
+            NavigationManager.NavigateTO(NavigationManager.quizStart);
+        }
+        catch(KeyNotFoundException e)
+        {
+            Debug.Log("Please wait!!");
+        }
     }
 
     public void quizListFailed()

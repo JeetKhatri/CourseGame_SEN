@@ -11,6 +11,15 @@ public class QuizManager{
         return JsonUtility.FromJson<QuestionList>(data);
     }
 
+    public static void reset()
+    {
+        questions = null;
+        answers = null;
+        currentIndex = 0;
+        currentQuiz = null;
+        quizRunning = false;
+    }
+
     public static Quiz currentQuiz;
     public static int currentIndex = 0;
     public static bool quizRunning=false;

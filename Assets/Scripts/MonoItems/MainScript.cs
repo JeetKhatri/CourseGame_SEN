@@ -9,6 +9,10 @@ public class MainScript : MonoBehaviour
     public void Start()
     {
         Debug.Log("checking login");
-        StudentManager.checkStudentLogin();
+        if (!StudentManager.isLogin())
+        {
+            NavigationManager.NavigateTO(NavigationManager.login);
+            return;
+        }
     }
 }

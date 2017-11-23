@@ -1,12 +1,12 @@
 ﻿[System.Serializable]
 public class SubmitStatus
 {
-    public string responseStatus;
     public string studentid;
     public string studentquizid;
     public string total;
-    public string quizId;
+    public bool responseStatus;
     public string batchId;
+    public string quizId;
     public string createdBy;
     public string endTime;
     public string status;

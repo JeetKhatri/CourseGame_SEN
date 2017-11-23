@@ -6,15 +6,22 @@ public class QuizStartScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	}
+        Debug.Log("checking login in quizstart");
+        if (!StudentManager.isLogin())
+        {
+            NavigationManager.NavigateTO(NavigationManager.login);
+            return;
+        }
+    }
 
 	public void startQuiz(){
 		string url = UrlManager.questionListUrl;
 
         Dictionary<string, string> map = new Dictionary<string, string>();
-        //map.Add("quizid",QuizManager.currentQuiz.quizId);
-        map.Add("quizid", "cCecccaiNlCcIlC");
+        map.Add("quizid",QuizManager.currentQuiz.quizId);
+        //map.Add("quizid", "cCecccaiNlCcIlC");
 
+        Debug.Log("getting question for quizid: "+QuizManager.currentQuiz.quizId);
         StartCoroutine(Utils.makeGetCall(url, Utils.createQueryString(map), this, "requestSuccess", "requestFailed"));
 	}
 	

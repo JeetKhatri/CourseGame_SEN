@@ -30,11 +30,14 @@ public class Utils{
     public static IEnumerator makePostCall(string url, WWWForm form, Object obj, string successMethod, string errorMethod)
     {
         UnityWebRequest www = UnityWebRequest.Post(url, form);
+        Debug.Log("making post call inside makepostcall method");
+        Debug.Log("sending post call request!");
         yield return www.SendWebRequest();
+        Debug.Log("got response!");
 
         if (www.isNetworkError || www.isHttpError)
         {
-            Debug.Log(www.error);
+            Debug.Log("error: "+www.error);
             obj.GetType().GetMethod(errorMethod).Invoke(obj, null);
         }
         else

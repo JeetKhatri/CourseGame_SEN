@@ -7,10 +7,17 @@ public class QuizScript : MonoBehaviour {
 	public Text op1,op2,op3,op4;
     public Toggle tog1, tog2, tog3, tog4;
 
-    private string selectedAns;
+    private string selectedAns = "";
 
     void Start()
     {
+        Debug.Log("checking login");
+        if (!StudentManager.isLogin())
+        {
+            NavigationManager.NavigateTO(NavigationManager.login);
+            return;
+        }
+
         this.tog1 = GameObject.Find("Option1").GetComponent<Toggle>();
         this.tog2 = GameObject.Find("Option2").GetComponent<Toggle>();
         this.tog3 = GameObject.Find("Option3").GetComponent<Toggle>();
@@ -66,7 +73,7 @@ public class QuizScript : MonoBehaviour {
 
     public void next()
     {
-        QuizManager.answers.Add(QuizManager.questions.quizcontent[QuizManager.currentIndex].question,this.selectedAns);
+        QuizManager.answers.Add(QuizManager.questions.quizcontent[QuizManager.currentIndex].quizContentId,this.selectedAns);
         QuizManager.currentIndex++;
         this.loadQuestion();
     }
