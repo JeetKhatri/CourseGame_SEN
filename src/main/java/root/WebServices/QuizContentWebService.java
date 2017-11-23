@@ -167,4 +167,13 @@ public class QuizContentWebService {
 		String batchid = info.getQueryParameters().getFirst("batchid");
 		return Response.ok(new QuizDAO().mainLeaderBoard(batchid)).header("Access-Control-Allow-Origin", "*").build();
 	}
+	
+	@GET
+	@Path("/quiz-content-list")
+	@Produces("application/json")
+	public Response quizContentList(@Context UriInfo info) {
+
+		String quizcontentid = info.getQueryParameters().getFirst("quizcontentid");
+		return Response.ok(new QuizContentDAO().quizContentListById(quizcontentid)).header("Access-Control-Allow-Origin", "*").build();
+	}
 }
