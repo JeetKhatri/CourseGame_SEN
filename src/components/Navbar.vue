@@ -106,6 +106,7 @@ export default {
 	width: 100%;
 	height: 100px;
 	z-index: 2;
+	
 	#menus {
 		margin-right: 2rem;
 	}
@@ -114,7 +115,7 @@ export default {
 		padding-bottom: 0px;
 	}
 
-	.navbar {
+	.navbar.is-info {
 		height: 60px;
 	}
 }

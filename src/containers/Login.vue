@@ -103,15 +103,16 @@ export default {
           position: 'top-center',
           duration: 3000
         });
+      } else {
+        let toast = this.$toasted.error('Incorrect Username or Password', {
+          theme: 'outline',
+          position: 'top-center',
+          duration: 3000
+        });
       }
     }
   })
    .catch((e) => {
-    let toast = this.$toasted.error('Incorrect Username or Password', {
-      theme: 'outline',
-      position: 'top-center',
-      duration: 3000
-    });
     console.log(e)
   })
  }

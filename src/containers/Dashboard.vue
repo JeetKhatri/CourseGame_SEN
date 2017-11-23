@@ -164,9 +164,9 @@
 .dashboard {
 	font-family: 'Quicksand', sans-serif;
 
-	.main{
+	.card.main{
 		height: auto;
-		top: 5.3rem;
+		top: 5.2rem;
 	}
 
 	.field.has-addons {
