@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import root.Bean.QuizContentBean;
-import root.Bean.StudentQuizBean;
+import root.Bean.*;
 import root.Utils.DBConnection;
 import root.Utils.GenrateMathodsUtils;
 
@@ -464,6 +463,46 @@ public class QuizContentDAO {
 
 		}
 		return hash;
+	}
+	
+	public QuizContentBean quizContentListById(String quizcontentid) {
+		QuizContentBean obj = new QuizContentBean();
+		String sql = "select * from quizcontent where quizcontentid =?";
+		conn = DBConnection.getConnection();
+
+		if (conn != null) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, quizcontentid);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					obj.setAnswer(rs.getString("answer"));
+					obj.setDifficulty(rs.getString("difficulty"));
+					obj.setIsAvailable(rs.getString("isAvailable"));
+					obj.setMark(rs.getString("mark"));
+					obj.setOption1(rs.getString("option1"));
+					obj.setOption2(rs.getString("option2"));
+					obj.setOption3(rs.getString("option3"));
+					obj.setOption4(rs.getString("option4"));
+					obj.setQuestion(rs.getString("questioncontent"));
+					obj.setQuizId(rs.getString("quizid"));
+					obj.setReaponseStatus(true);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return obj;
 	}
 
 }
