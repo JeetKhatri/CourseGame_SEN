@@ -12,8 +12,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <tabs></tabs> -->
-			<!-- <router-view></router-view> -->
 		</div>
 	</div>
 </template>

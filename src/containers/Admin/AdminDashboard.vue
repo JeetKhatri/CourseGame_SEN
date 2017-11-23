@@ -57,7 +57,6 @@ export default {
 	created() {
 		this.role = localStorage.getItem('role')
 		this.getAllfaculties()
-		console.log(this.facultyId)
 		localStorage.removeItem("faculty_id")
 		localStorage.removeItem("faculty_name")
 		localStorage.removeItem("faculty_degree")
@@ -90,8 +89,7 @@ export default {
 
 				})
 			.then(response => {
-				if (response.status === 200) {
-					
+				if (response.status === 200) {	
 					HTTP.post(`rest/faculty/faculty-approved/?userid=`+response.data.userId
 						,{
 
@@ -100,7 +98,6 @@ export default {
 						if (response.status === 200) {
 							console.log(response)
 							this.getAllfaculties()			
-
 						}
 					})
 					.catch((e) => {
@@ -111,8 +108,6 @@ export default {
 			.catch((e) => {
 				console.log(e)
 			})
-
-			
 		},
 		loginAs(fac){
 			HTTP.get(`rest/user/get-userid?facultyid=`+fac.facultyId
@@ -127,7 +122,6 @@ export default {
 			.catch((e) => {
 				console.log(e)
 			})
-
 			localStorage.setItem("faculty_id",this.fetched_faculty_id)
 			localStorage.setItem("mainrole","Faculty")
 			localStorage.setItem("faculty_name",fac.userName)
@@ -137,7 +131,6 @@ export default {
 			localStorage.removeItem("admin_name")
 			localStorage.removeItem("faculty_id")
 			localStorage.setItem("faculty_id",this.fetched_faculty_id)
-
 			this.$router.push('/dashboard')
 		}
 	}

@@ -97,7 +97,7 @@ export default {
 			this.$emit('closeUpdateQuestion');
 		},
 		getQuestionContent(quizContentId){
-			HTTP.get(`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-list?quizcontentid=`+quizContentId,{
+			HTTP.get(`rest/quiz-content/quiz-content-list?quizcontentid=`+quizContentId,{
 
 			})
 			.then(response => {
@@ -125,8 +125,7 @@ export default {
 					duration: 3000
 				});
 			} else {
-				HTTP.put(
-					`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-update?quizid=`+this.quizId+`&question=`+this.question+`&option1=`+this.option1+`&option2=`+this.option2+`&option3=`+this.option3+`&option4=`+this.option4+`&answer=`+this.correctAnswer+`&mark=`+this.correctMarks+`&difficulty=`+this.difficulty+`&quizcontentid=`+this.quizContentId,{
+				HTTP.put(`rest/quiz-content/quiz-content-update?quizid=`+this.quizId+`&question=`+this.question+`&option1=`+this.option1+`&option2=`+this.option2+`&option3=`+this.option3+`&option4=`+this.option4+`&answer=`+this.correctAnswer+`&mark=`+this.correctMarks+`&difficulty=`+this.difficulty+`&quizcontentid=`+this.quizContentId,{
 
 				})
 				.then(response => {

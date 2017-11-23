@@ -77,19 +77,11 @@ export default {
 					{
 						if(response.data == true)
 						{
-						// let toast = this.$toasted.success('Registration Successfull! Mail has been sent to your email address', {
-						// 	theme: 'outline',
-						// 	position: 'top-center',
-						// 	duration: 3000
-						// });
-						this.$router.push('/thank-you')
+							this.$router.push('/thank-you')
+						}
 					}
-				}
-			})
+				})
 			}	
-		},
-		submit() {
-			
 		}
 	}
 }

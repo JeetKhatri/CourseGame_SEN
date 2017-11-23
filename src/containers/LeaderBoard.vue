@@ -3,9 +3,7 @@
 		<h2>Leaderboard</h2>
 		<div class="columns" id="lists" v-for="i in lb">
 			<div class="column">
-				
 				<h4>{{i.emailid}}</h4>
-				
 			</div>
 			<div class="column">
 				<h4>{{i.studentname}}</h4>
@@ -44,14 +42,12 @@ export default {
 			}
 		},
 		getStatistics(){
-			HTTP.get(`https://coursegame.herokuapp.com/rest/quiz-content/batch-wise-result?quizid=`+this.quizId+`&batchid=`+this.batchId,{
+			HTTP.get(`rest/quiz-content/batch-wise-result?quizid=`+this.quizId+`&batchid=`+this.batchId,{
 
 			})
 			.then(response => {
 				if (response.status === 200) {
-					
 					this.lb = response.data.marklist
-			
 				}
 			})
 			.catch((e) => {

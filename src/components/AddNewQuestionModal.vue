@@ -103,7 +103,7 @@ export default {
 					duration: 3000
 				});
 			} else {
-				HTTP.post(`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-insert?quizid=`+this.quizId+`&question=`+this.question+`&option1=`+this.option1+`&option2=`+this.option2+`&option3=`+this.option3+`&option4=`+this.option4+`&answer=`+this.correctAnswer+`&mark=`+this.correctMarks+`&difficulty=`+this.difficulty,{
+				HTTP.post(`rest/quiz-content/quiz-content-insert?quizid=`+this.quizId+`&question=`+this.question+`&option1=`+this.option1+`&option2=`+this.option2+`&option3=`+this.option3+`&option4=`+this.option4+`&answer=`+this.correctAnswer+`&mark=`+this.correctMarks+`&difficulty=`+this.difficulty,{
 
 				})
 				.then(response => {

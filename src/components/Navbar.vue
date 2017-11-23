@@ -22,8 +22,8 @@
 										{{ name }}
 									</div>
 									<div id="moreDropdown" class="navbar-dropdown is-boxed">
-										<a class="navbar-item" @click="logout">Logout</a>
 										<a class="navbar-item" @click="change=true">Change Password</a>
+										<a class="navbar-item" @click="logout">Logout</a>
 									</div>
 								</div>
 							</p>
@@ -32,7 +32,7 @@
 				</div>
 			</div>
 		</nav>	
-		<changePassword v-if="change"></changePassword>	
+		<changePassword @changePasswordClose="close" v-if="change"></changePassword>	
 	</div>
 </template>
 
@@ -103,6 +103,9 @@ export default {
 			} else if(this.role == 'TA') {
 				this.name = localStorage.getItem('TA_name')
 			}
+		},
+		close() {
+			this.change = false
 		}
 	}
 }
