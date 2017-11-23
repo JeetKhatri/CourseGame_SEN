@@ -4,9 +4,16 @@ using UnityEngine.UI;
 
 public class ForgotPasswordScript : MonoBehaviour {
 
+    private InputField inputUsername_fp;
+
+    void Start()
+    {
+        this.inputUsername_fp = GameObject.Find("inputUsername_fp").GetComponent<InputField>();
+    }
+
     public void forgotPassword()
     {
-        string emailid = GameObject.Find("inputUsername_fp").GetComponent<InputField>().text;
+        string emailid = this.inputUsername_fp.text;
         string url = UrlManager.studentForgotPasswordUrl;
 
         Dictionary<string, string> map = new Dictionary<string, string>();

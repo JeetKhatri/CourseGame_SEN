@@ -80,6 +80,11 @@ public class Utils{
         SubmitStatus list = JsonUtility.FromJson<SubmitStatus>(json);
         return list;
     }
+    public static Status getStatusFromJson(string json)
+    {
+        Status list = JsonUtility.FromJson<Status>(json);
+        return list;
+    }
 
     public static void showToastOnUiThread(string msg)
     {

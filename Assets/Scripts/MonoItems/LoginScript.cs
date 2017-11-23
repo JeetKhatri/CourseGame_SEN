@@ -8,17 +8,25 @@ using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
+    private InputField inputUsername,inputPassword;
+
+    void Start()
+    {
+        this.inputUsername = GameObject.Find("inputUsername").GetComponent<InputField>();
+        this.inputPassword = GameObject.Find("inputPassword").GetComponent<InputField>();
+    }
+
     public void studentLogin ()
 	{
-        string emailid = GameObject.Find("inputUsername").GetComponent<InputField>().text;
-        string password = GameObject.Find("inputPassword").GetComponent<InputField>().text;
+        string emailid = this.inputUsername.text;
+        string password = this.inputPassword.text;
         string url = UrlManager.studentLoginUrl;
 
         Dictionary<string, string> map = new Dictionary<string, string>();
         map.Add("emailid", emailid);
         map.Add("password", password);
 
-        Debug.Log("making post call!");
+        Debug.Log("making post call for login!");
         StartCoroutine(Utils.makePostCall(url, Utils.createForm(map),this,"successLogin","errorMethod"));
 	}
 
@@ -28,7 +36,8 @@ public class LoginScript : MonoBehaviour
         Student student = StudentManager.getStudentFromJson(data);
         if (student.responseStatus.Equals("false"))
         {
-            Utils.showToastOnUiThread("Invalid username or password!");
+            Debug.Log("Invalid username or password!");
+            //Utils.showToastOnUiThread("Invalid username or password!");
             return;
         }
         StudentManager.setStudent(student);
@@ -36,7 +45,8 @@ public class LoginScript : MonoBehaviour
     }
     public void errorMethod()
     {
-        Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
+        Debug.Log("We are sorry. Server got into trouble!");
+        //Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
     }
 
 }

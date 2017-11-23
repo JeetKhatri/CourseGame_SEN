@@ -14,6 +14,8 @@ public class QuizScript : MonoBehaviour {
         Debug.Log("checking login");
         if (!StudentManager.isLogin())
         {
+            //Utils.showToastOnUiThread("You need to login!");
+            Debug.Log("You need to login!");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
         }

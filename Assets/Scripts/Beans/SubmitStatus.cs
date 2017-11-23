@@ -5,6 +5,7 @@ public class SubmitStatus
     public string studentquizid;
     public string total;
     public bool responseStatus;
+    public string resp;
     public string batchId;
     public string quizId;
     public string createdBy;

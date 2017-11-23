@@ -8,6 +8,8 @@ public class QuizSubmitScript : MonoBehaviour {
         Debug.Log("checking login in quizsubmit");
         if (!StudentManager.isLogin())
         {
+            //Utils.showToastOnUiThread("You need to login!");
+            Debug.Log("You need to login");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
         }
@@ -41,7 +43,8 @@ public class QuizSubmitScript : MonoBehaviour {
     {
         Debug.Log("Submit result: "+data);
         SubmitStatus status = Utils.getSubmitStatusFromJson(data);
-        if (!status.responseStatus)
+        Debug.Log(status.resp);
+        if (status.resp.Equals("false"))
         {
             this.requestFailed();
             return;
@@ -53,6 +56,7 @@ public class QuizSubmitScript : MonoBehaviour {
 
     public void requestFailed()
     {
-        Debug.Log("error");
+        Debug.Log("Unable to submit result! Please wait...");
+        //Utils.showToastOnUiThread("Unable to submit result! Please wait...");
     }
 }

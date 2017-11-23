@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class QuizStartScript : MonoBehaviour {
@@ -9,6 +8,8 @@ public class QuizStartScript : MonoBehaviour {
         Debug.Log("checking login in quizstart");
         if (!StudentManager.isLogin())
         {
+            //Utils.showToastOnUiThread("You need to login!");
+            Debug.Log("You need to login!");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
         }
@@ -36,6 +37,7 @@ public class QuizStartScript : MonoBehaviour {
 
     public void requestFailed()
     {
-        Debug.Log("error bc");
+        Debug.Log("Unable to fetch list of questions of quiz: " + QuizManager.currentQuiz.name);
+        //Utils.showToastOnUiThread("Unable to fetch list of questions of quiz: "+QuizManager.currentQuiz.name);
     }
 }
