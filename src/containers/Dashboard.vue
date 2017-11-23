@@ -166,7 +166,7 @@
 
 	.main{
 		height: auto;
-		top: 5rem;
+		top: 5.3rem;
 	}
 
 	.field.has-addons {

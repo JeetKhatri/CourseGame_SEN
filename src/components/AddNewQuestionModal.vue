@@ -113,19 +113,12 @@ export default {
 							position: 'top-center',
 							duration: 3000
 						});
-						this.getQuestions()
-						this.question = ''
-						this.option1 = ''
-						this.option2 = ''
-						this.option3 = ''
-						this.option4 = ''
-						this.correctAnswer = ''
-						this.correctMarks = ''
 					}
 				})
 				.catch((e) => {
 					console.log(e)
 				})
+				
 			}
 		},
 		getQuestions() {

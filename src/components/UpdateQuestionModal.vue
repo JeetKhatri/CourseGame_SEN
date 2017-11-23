@@ -58,7 +58,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-info" @click="updateQuestion()">Save</a>
+					<a class="button is-info" @click="updateQuestion()">Update</a>
 					<a class="button is-info" @click="close">Close</a>
 				</footer>
 			</div>
@@ -80,11 +80,14 @@ export default {
 			correctAnswer:'',
 			correctMarks:1,
 			difficulty:1,
-			quizId:''
+			quizId:'',
+			quizContentId: ''
 		}
 	},
 	created(){
 		this.quizId = this.$route.params.quizid
+		this.quizContentId = localStorage.getItem('quizContentId')
+		this.getQuestionContent(this.quizContentId)
 	},
 	methods: {
 		validate() {
@@ -92,6 +95,26 @@ export default {
 		},
 		close() {
 			this.$emit('closeUpdateQuestion');
+		},
+		getQuestionContent(quizContentId){
+			HTTP.get(`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-list?quizcontentid=`+quizContentId,{
+
+			})
+			.then(response => {
+				if (response.status === 200) {
+					this.question = response.data.question
+					this.option1 = response.data.option1
+					this.option2 = response.data.option2
+					this.option3 =response.data.option3
+					this.option4 = response.data.option4
+					this.correctAnswer =response.data.answer
+					this.correctMarks =response.data.mark 
+
+				}
+			})
+			.catch((e) => {
+				console.log(e)
+			})
 		},
 		updateQuestion(){
 			if(this.question == '' || this.option1 == '' || this.option2 == '' || this.option3 == '' || this.option4 == '' || this.correctAnswer == '') {
@@ -102,24 +125,19 @@ export default {
 					duration: 3000
 				});
 			} else {
-				HTTP.post(`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-insert?quizid=`+this.quizId+`&question=`+this.question+`&option1=`+this.option1+`&option2=`+this.option2+`&option3=`+this.option3+`&option4=`+this.option4+`&answer=`+this.correctAnswer+`&mark=`+this.correctMarks+`&difficulty=`+this.difficulty,{
+				HTTP.put(
+					`https://coursegame.herokuapp.com/rest/quiz-content/quiz-content-update?quizid=`+this.quizId+`&question=`+this.question+`&option1=`+this.option1+`&option2=`+this.option2+`&option3=`+this.option3+`&option4=`+this.option4+`&answer=`+this.correctAnswer+`&mark=`+this.correctMarks+`&difficulty=`+this.difficulty+`&quizcontentid=`+this.quizContentId,{
 
 				})
 				.then(response => {
 					if (response.status === 200) {
-						let toast = this.$toasted.success('Question Saved', {
+						let toast = this.$toasted.success('Question Updated!', {
 							theme: 'outline',
 							position: 'top-center',
 							duration: 3000
 						});
-						this.getQuestions()
-						this.question = ''
-						this.option1 = ''
-						this.option2 = ''
-						this.option3 = ''
-						this.option4 = ''
-						this.correctAnswer = ''
-						this.correctMarks = ''
+						
+						this.$emit('closeUpdateQuestion');
 					}
 				})
 				.catch((e) => {

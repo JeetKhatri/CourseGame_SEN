@@ -49,6 +49,7 @@ export default {
 		this.getId()
 		this.quizId = this.$route.params.quizid
 		this.getQuestions()
+		localStorage.removeItem('quizContentId')
 	},
 
 	methods: {
@@ -58,7 +59,7 @@ export default {
 		},
 		closeUpdate() {
 			this.update = false
-			// alert("hello")
+			this.getQuestions()
 		},
 		getId () {
 			var id = window.localStorage.getItem('faculty_id')
@@ -79,10 +80,10 @@ export default {
 					console.log(e)
 				})
 			},
-			show(op)
+			show(quizContentId)
 			{
 				this.update = true
-				console.log(op)
+				localStorage.setItem('quizContentId',quizContentId)
 			}
 		}
 	}

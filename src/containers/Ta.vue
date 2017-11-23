@@ -15,9 +15,6 @@
 			<div class="column">
 				<h4>{{ta.userName}}</h4>
 			</div>
-			<div class="column">
-				<span class="tag is-info" @click="removeTa()">Remove</span>
-			</div>
 		</div>	
 		<addTa v-if="addTa" @closeAddTa="close"></addTa>
 	</div>
