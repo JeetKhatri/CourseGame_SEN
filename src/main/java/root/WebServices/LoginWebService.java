@@ -21,7 +21,7 @@ public class LoginWebService {
 	public Response studentLogin(@FormParam("emailid") String emailId,@FormParam("password") String password) {
 
 		StudentBean list = new LoginDAO().studentLogin(emailId, password);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(list).header("Access-Control-Allow-Origin", "https://course-game.firebaseapp.com").build();
 
 		// return new LoginDAO().studentLogin(emailId,password);
 	}
@@ -35,7 +35,7 @@ public class LoginWebService {
 		String password = info.getQueryParameters().getFirst("password");
 
 		TABean list = new LoginDAO().taLogin(emailId, password);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(list).header("Access-Control-Allow-Origin", "https://course-game.firebaseapp.com").build();
 
 		// return new LoginDAO().studentLogin(emailId,password);
 	}
@@ -49,7 +49,7 @@ public class LoginWebService {
 		String password = info.getQueryParameters().getFirst("password");
 
 		FacultyBean list = new LoginDAO().facultyLogin(emailId, password);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(list).header("Access-Control-Allow-Origin", "https://course-game.firebaseapp.com").build();
 
 		// return new LoginDAO().studentLogin(emailId,password);
 	}
@@ -63,7 +63,7 @@ public class LoginWebService {
 		String password = info.getQueryParameters().getFirst("password");
 
 		UserBean list = new LoginDAO().adminLogin(emailId, password);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(list).header("Access-Control-Allow-Origin", "https://course-game.firebaseapp.com").build();
 
 		// return new LoginDAO().studentLogin(emailId,password);
 	}
@@ -76,7 +76,7 @@ public class LoginWebService {
 		String password = info.getQueryParameters().getFirst("password");
 
 		UserBean list = new LoginDAO().login(emailId, password);
-		return Response.ok(list).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(list).header("Access-Control-Allow-Origin", "https://course-game.firebaseapp.com").build();
 	}
 
 }
