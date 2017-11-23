@@ -55,7 +55,7 @@ public class QuizWebService {
 		StatusBean st = new StatusBean();
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		st.setResponseStatus(new QuizContentDAO().answer(studentId, quizId, submittedAnswers));
-		hashMap.put("responseStatus", st.isResponseStatus());
+		hashMap.put("responseStatus", st.isResponseStatus()?"true":"false");
 		StudentQuizBean bean = new QuizContentDAO().generateMarks(studentId, quizId);
 		if (bean != null)
 			return Response.ok(bean).header("Access-Control-Allow-Origin", "*").build();
