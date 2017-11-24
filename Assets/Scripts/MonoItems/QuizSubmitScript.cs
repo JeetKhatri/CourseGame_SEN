@@ -8,7 +8,8 @@ public class QuizSubmitScript : MonoBehaviour {
         Debug.Log("checking login in quizsubmit");
         if (!StudentManager.isLogin())
         {
-            Utils.showToastOnUiThread("You need to login!");
+            if (Application.platform == RuntimePlatform.Android)
+                Utils.showToastOnUiThread("You need to login!");
             Debug.Log("You need to login");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
@@ -57,6 +58,7 @@ public class QuizSubmitScript : MonoBehaviour {
     public void requestFailed()
     {
         Debug.Log("Unable to submit result! Please wait...");
-        Utils.showToastOnUiThread("Unable to submit result! Please wait...");
+        if (Application.platform == RuntimePlatform.Android)
+            Utils.showToastOnUiThread("Unable to submit result! Please wait...");
     }
 }

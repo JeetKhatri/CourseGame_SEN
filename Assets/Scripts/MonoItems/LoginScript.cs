@@ -37,7 +37,8 @@ public class LoginScript : MonoBehaviour
         if (student.responseStatus.Equals("false"))
         {
             Debug.Log("Invalid username or password!");
-            Utils.showToastOnUiThread("Invalid username or password!");
+            if (Application.platform == RuntimePlatform.Android)
+                Utils.showToastOnUiThread("Invalid username or password!");
             return;
         }
         StudentManager.setStudent(student);
@@ -46,7 +47,8 @@ public class LoginScript : MonoBehaviour
     public void errorMethod()
     {
         Debug.Log("We are sorry. Server got into trouble!");
-        Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
+        if (Application.platform == RuntimePlatform.Android)
+            Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
     }
 
 }

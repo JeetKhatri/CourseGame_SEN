@@ -18,7 +18,8 @@ public class leaderboardScript : MonoBehaviour {
         Debug.Log("checking login");
         if (!StudentManager.isLogin())
         {
-            Utils.showToastOnUiThread("You need to login!");
+            if (Application.platform == RuntimePlatform.Android)
+                Utils.showToastOnUiThread("You need to login!");
             Debug.Log("You need to login!");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
@@ -53,7 +54,10 @@ public class leaderboardScript : MonoBehaviour {
 
     public void requestFailed()
     {
-        Utils.showToastOnUiThread("Unable to fetch some data!");
+        if (Application.platform == RuntimePlatform.Android)
+            Utils.showToastOnUiThread("Unable to fetch some data!");
         Debug.Log("Unable to fetch some data!");
+
+        NavigationManager.NavigateTO(LeaderboardManager.back);
     }
 }

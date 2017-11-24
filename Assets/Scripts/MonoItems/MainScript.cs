@@ -12,7 +12,8 @@ public class MainScript : MonoBehaviour
         if (!StudentManager.isLogin())
         {
             Debug.Log("You need to login again!");
-            Utils.showToastOnUiThread("You need to login again!");
+            if (Application.platform == RuntimePlatform.Android)
+                Utils.showToastOnUiThread("You need to login again!");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
         }

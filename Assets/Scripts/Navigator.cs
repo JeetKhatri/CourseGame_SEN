@@ -34,6 +34,8 @@ public class Navigator : MonoBehaviour {
 
     public void toLeaderboard()
     {
+        LeaderboardManager.reset();
+        LeaderboardManager.prms.Add("batchid", StudentManager.getStudent().batchId);
         NavigationManager.NavigateTO(NavigationManager.leaderboard);
     }
 

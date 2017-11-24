@@ -26,16 +26,24 @@ public class ForgotPasswordScript : MonoBehaviour {
     {
         if (data.Equals("true"))
         {
-            Utils.showToastOnUiThread("Mail has been sent to your email address!");
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                Utils.showToastOnUiThread("Mail has been sent to your email address!");
+            }
+            Debug.Log("mail sent");
         }
         else
         {
-            Utils.showToastOnUiThread("You are not registered!");
+            if (Application.platform == RuntimePlatform.Android)
+                Utils.showToastOnUiThread("You are not registered!");
+            Debug.Log("not registered");
         }
     }
 
     public void errorMethod()
     {
-        Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
+        if (Application.platform == RuntimePlatform.Android)
+            Utils.showToastOnUiThread("We are sorry. Server got into trouble!");
+        Debug.Log("server error");
     }
 }

@@ -8,7 +8,8 @@ public class QuizStartScript : MonoBehaviour {
         Debug.Log("checking login in quizstart");
         if (!StudentManager.isLogin())
         {
-            Utils.showToastOnUiThread("You need to login!");
+            if (Application.platform == RuntimePlatform.Android)
+                Utils.showToastOnUiThread("You need to login!");
             Debug.Log("You need to login!");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
@@ -16,7 +17,8 @@ public class QuizStartScript : MonoBehaviour {
 
         if (QuizManager.currentQuiz == null)
         {
-            Debug.Log("Questions not found! Please contact admin");
+            if (Application.platform == RuntimePlatform.Android)
+                Debug.Log("Questions not found! Please contact admin");
             Utils.showToastOnUiThread("Questions not found! Please contact admin");
             NavigationManager.NavigateTO(NavigationManager.game);
             return;
@@ -47,6 +49,7 @@ public class QuizStartScript : MonoBehaviour {
     public void requestFailed()
     {
         Debug.Log("Unable to fetch list of questions of quiz: " + QuizManager.currentQuiz.name);
-        Utils.showToastOnUiThread("Unable to fetch list of questions of quiz: "+QuizManager.currentQuiz.name);
+        if (Application.platform == RuntimePlatform.Android)
+            Utils.showToastOnUiThread("Unable to fetch list of questions of quiz: "+QuizManager.currentQuiz.name);
     }
 }
