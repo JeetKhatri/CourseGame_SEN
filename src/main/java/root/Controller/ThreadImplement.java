@@ -18,7 +18,9 @@ public class ThreadImplement implements Runnable {
 
 		while(q.size()>0){
 			Mail m = q.poll();
+			System.out.println(m.getTo()+ " start");
 			send.sendEmail(m.getSubject(), m.getTo(), m.getMessage());
+			System.out.println(m.getTo()+ " done");
 		}
 	}
 
