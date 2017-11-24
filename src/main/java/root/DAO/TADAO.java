@@ -86,7 +86,16 @@ public class TADAO {
 						return false;
 					} else {
 						SendEmail obj = new SendEmail();
-						obj.sendEmail("Request arrive", userBean.getEmailId(), "Request arrive we accept your requst");
+						String msg="<table style='border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;max-width:800px;background-color: #fff;' cellpadding='0' cellspacing='0' role='presentation'><tbody><tr><td>"
+								+ "<div style='max-width: 800px;text-align: center;padding: 10px 0;'><a href='https://course-game.firebaseapp.com'><img src='https://coursegame.herokuapp.com/imgs/logo.png' style='max-height: 60px;max-width: 100%;display: inline-block;' />"
+								+ "</a></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div><div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 1em;line-height: 1.5;font-family: sans-serif;'>"
+								+ "<strong style='display: block;margin-bottom: 20px;'>Hi "+ userBean.getUserName() +",</strong><p style='margin: 0;display: block;margin-bottom: 15px;'>We are happy to inform you that your request is arrived, we will accept your request.<br /></p>"
+								+ "<p style='margin: 0;display: block;margin-bottom: 20px;'>"
+								+ "</p>"
+								+ "<p style='margin: 0;'>Regards,</p><strong style='display: block;'>Course Game 2k17</strong></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div>"
+								+ "<div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 0.8em;line-height: 1.5;font-family: sans-serif;'><p style='margin: 0;display: block;'>Copyright &#169; 2017. Course Game 2k17. All rights reserved.</p>"
+								+ "</div></td</tr></tbody></table>";
+						obj.sendEmail("Request arrive", userBean.getEmailId(), msg);
 						return true;
 					}
 				}

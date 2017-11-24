@@ -139,8 +139,17 @@ public class UserDAO {
 						bean.setUserid(id);
 
 						SendEmail obj = new SendEmail();
+						String msg="<table style='border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;max-width:800px;background-color: #fff;' cellpadding='0' cellspacing='0' role='presentation'><tbody><tr><td>"
+								+ "<div style='max-width: 800px;text-align: center;padding: 10px 0;'><a href='https://course-game.firebaseapp.com'><img src='https://coursegame.herokuapp.com/imgs/logo.png' style='max-height: 60px;max-width: 100%;display: inline-block;' />"
+								+ "</a></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div><div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 1em;line-height: 1.5;font-family: sans-serif;'>"
+								+ "<strong style='display: block;margin-bottom: 20px;'>Hi "+ userBean.getUserName() +",</strong><p style='margin: 0;display: block;margin-bottom: 15px;'>We are happy to inform you that now you are joined our website. Your password is <b></u>"+random+ "</u></b>.<br /></p>"
+								+ "<p style='margin: 0;display: block;margin-bottom: 20px;'>"
+								+ "</p>"
+								+ "<p style='margin: 0;'>Regards,</p><strong style='display: block;'>Course Game 2k17</strong></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div>"
+								+ "<div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 0.8em;line-height: 1.5;font-family: sans-serif;'><p style='margin: 0;display: block;'>Copyright &#169; 2017. Course Game 2k17. All rights reserved.</p>"
+								+ "</div></td</tr></tbody></table>";
 						obj.sendEmail("Request accepted", getTEmail(taid),
-								"TA Request arrive we accept your requst & password is " + random);
+								msg);
 						conn.commit();
 						conn.setAutoCommit(true);
 						return true;
@@ -215,7 +224,16 @@ public class UserDAO {
 						conn.rollback();
 					} else {
 						SendEmail obj = new SendEmail();
-						obj.sendEmail("Dear Student ", studentBean.getEmailId(), ",   your password : "+pass);
+						String msg="<table style='border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;max-width:800px;background-color: #fff;' cellpadding='0' cellspacing='0' role='presentation'><tbody><tr><td>"
+								+ "<div style='max-width: 800px;text-align: center;padding: 10px 0;'><a href='https://course-game.firebaseapp.com'><img src='https://coursegame.herokuapp.com/imgs/logo.png' style='max-height: 60px;max-width: 100%;display: inline-block;' />"
+								+ "</a></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div><div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 1em;line-height: 1.5;font-family: sans-serif;'>"
+								+ "<strong style='display: block;margin-bottom: 20px;'>Hi "+ studentBean.getEmailId() +",</strong><p style='margin: 0;display: block;margin-bottom: 15px;'>We are happy to inform you that now you are joined our website. Your password is <b></u>"+pass+ "</u></b>.<br /></p>"
+								+ "<p style='margin: 0;display: block;margin-bottom: 20px;'>"
+								+ "</p>"
+								+ "<p style='margin: 0;'>Regards,</p><strong style='display: block;'>Course Game 2k17</strong></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div>"
+								+ "<div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 0.8em;line-height: 1.5;font-family: sans-serif;'><p style='margin: 0;display: block;'>Copyright &#169; 2017. Course Game 2k17. All rights reserved.</p>"
+								+ "</div></td</tr></tbody></table>";
+						obj.sendEmail("Dear Student ", studentBean.getEmailId(),msg);
 						status.setResponseStatus(true);
 					}
 				}
@@ -276,7 +294,16 @@ public class UserDAO {
 				int result = pstmt.executeUpdate();
 				if (result > 0) {
 					SendEmail send = new SendEmail();
-					send.sendEmail("Password", emailId, "Your Password is " + pass);
+					String msg="<table style='border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;max-width:800px;background-color: #fff;' cellpadding='0' cellspacing='0' role='presentation'><tbody><tr><td>"
+							+ "<div style='max-width: 800px;text-align: center;padding: 10px 0;'><a href='https://course-game.firebaseapp.com'><img src='https://coursegame.herokuapp.com/imgs/logo.png' style='max-height: 60px;max-width: 100%;display: inline-block;' />"
+							+ "</a></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div><div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 1em;line-height: 1.5;font-family: sans-serif;'>"
+							+ "<strong style='display: block;margin-bottom: 20px;'>Hi "+ emailId +",</strong><p style='margin: 0;display: block;margin-bottom: 15px;'> Your password is <b></u>"+pass+ "</u></b>.<br /></p>"
+							+ "<p style='margin: 0;display: block;margin-bottom: 20px;'>"
+							+ "</p>"
+							+ "<p style='margin: 0;'>Regards,</p><strong style='display: block;'>Course Game 2k17</strong></div><div style='background-color: #b03851;height: 4px;width: 100%;'></div>"
+							+ "<div style='max-width: 600px;margin: 0 auto;padding:25px 15px;text-align: left;color: #8e959c;font-size: 0.8em;line-height: 1.5;font-family: sans-serif;'><p style='margin: 0;display: block;'>Copyright &#169; 2017. Course Game 2k17. All rights reserved.</p>"
+							+ "</div></td</tr></tbody></table>";
+					send.sendEmail("Password", emailId, "Your Password is " + msg);
 					return true;
 				} else {
 					return false;
