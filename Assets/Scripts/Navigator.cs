@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Navigator : MonoBehaviour {
 
@@ -34,19 +32,8 @@ public class Navigator : MonoBehaviour {
         NavigationManager.NavigateTO(NavigationManager.settings);
     }
 
-    public void toMainLeaderboard()
-    {
-        LeaderboardManager.reset();
-        LeaderboardManager.prms.Add("batchid", StudentManager.getStudent().batchId);
-        NavigationManager.NavigateTO(NavigationManager.leaderboard);
-    }
-
     public void toLeaderboard()
     {
-        LeaderboardManager.back = NavigationManager.quizStart;
-        LeaderboardManager.url = UrlManager.leaderboardUrl;
-        LeaderboardManager.prms.Add("batchid", StudentManager.getStudent().batchId);
-        LeaderboardManager.prms.Add("quizid", QuizManager.currentQuiz.quizId);
         NavigationManager.NavigateTO(NavigationManager.leaderboard);
     }
 
@@ -68,5 +55,15 @@ public class Navigator : MonoBehaviour {
     public void toQuizSubmit()
     {
         NavigationManager.NavigateTO(NavigationManager.quizSubmit);
+    }
+	public void toArrayGame()
+	{
+		NavigationManager.NavigateTO(NavigationManager.ArrayGamePlay);
+	}
+
+    public void toLogout()
+    {
+        StudentManager.setStudent(null);
+        NavigationManager.NavigateTO(NavigationManager.login);
     }
 }

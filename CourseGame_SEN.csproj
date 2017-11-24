@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -221,20 +219,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BallCollision.cs" />
     <Compile Include="Assets\Scripts\Beans\LeaderboardEntity.cs" />
     <Compile Include="Assets\Scripts\Beans\LeaderboardList.cs" />
     <Compile Include="Assets\Scripts\Beans\Question.cs" />
     <Compile Include="Assets\Scripts\Beans\QuestionList.cs" />
     <Compile Include="Assets\Scripts\Beans\Quiz.cs" />
     <Compile Include="Assets\Scripts\Beans\QuizList.cs" />
-    <Compile Include="Assets\Scripts\Beans\Student.cs" />
     <Compile Include="Assets\Scripts\Beans\Status.cs" />
+    <Compile Include="Assets\Scripts\Beans\Student.cs" />
     <Compile Include="Assets\Scripts\Beans\SubmitStatus.cs" />
     <Compile Include="Assets\Scripts\ChangeScript.cs" />
+    <Compile Include="Assets\Scripts\DragDrop.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\InitialVelocity.cs" />
+    <Compile Include="Assets\Scripts\Managers\LeaderboardManager.cs" />
     <Compile Include="Assets\Scripts\Managers\NavigationManager.cs" />
     <Compile Include="Assets\Scripts\Managers\QuestionListManager.cs" />
     <Compile Include="Assets\Scripts\Managers\QuizListManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\LeaderboardManager.cs" />
     <Compile Include="Assets\Scripts\Managers\QuizManager.cs" />
     <Compile Include="Assets\Scripts\Managers\StudentManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UrlManager.cs" />
@@ -248,7 +250,9 @@
     <Compile Include="Assets\Scripts\MonoItems\QuizScript.cs" />
     <Compile Include="Assets\Scripts\MonoItems\QuizStartScript.cs" />
     <Compile Include="Assets\Scripts\MonoItems\QuizSubmitScript.cs" />
+    <Compile Include="Assets\Scripts\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Navigator.cs" />
+    <Compile Include="Assets\Scripts\toogleChange.cs" />
     <Compile Include="Assets\TheTopicbirdTools\UltimateHierarchyLite\UltimateHierarchyLite.cs" />
   </ItemGroup>
   <ItemGroup>

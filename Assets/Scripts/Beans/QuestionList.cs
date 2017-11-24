@@ -4,7 +4,7 @@
 public class QuestionList
 {
 
-    public string createdBy;
+    public string createdby;
     public string name;
     public string endtime;
     public string starttime;

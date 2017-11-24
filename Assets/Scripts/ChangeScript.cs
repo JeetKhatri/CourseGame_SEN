@@ -15,20 +15,22 @@ public class ChangeScript : MonoBehaviour
 				Scene scene = SceneManager.GetActiveScene ();
 				string sceneString = scene.name;
 				if (sceneString == "SettingMenu") {
-                    NavigationManager.NavigateTO(NavigationManager.main);
+					NavigationManager.NavigateTO (NavigationManager.main);
 				} else if (sceneString == "GameMenu") {
-                    NavigationManager.NavigateTO(NavigationManager.main);
-                } else if (sceneString == "MAIN") {
+					NavigationManager.NavigateTO (NavigationManager.main);
+				} else if (sceneString == "MAIN") {
 					UnityEngine.Application.Quit ();
 				} else if (sceneString == "forgotpassword") {
-                    NavigationManager.NavigateTO(NavigationManager.login);
-                } else if (sceneString == "leaderboard") {
-                    NavigationManager.NavigateTO(NavigationManager.settings);
-                } else if (sceneString == "achivement") {
-                    NavigationManager.NavigateTO(NavigationManager.settings);
-                } else if (sceneString == "login") {
+					NavigationManager.NavigateTO (NavigationManager.login);
+				} else if (sceneString == "leaderboard") {
+					NavigationManager.NavigateTO (NavigationManager.settings);
+				} else if (sceneString == "achivement") {
+					NavigationManager.NavigateTO (NavigationManager.settings);
+				} else if (sceneString == "login") {
 					UnityEngine.Application.Quit ();
-				}
+				} else if (sceneString == "ArrayGamePlay") {
+					NavigationManager.NavigateTO (NavigationManager.game);
+				} 
 
 			} 
 		}

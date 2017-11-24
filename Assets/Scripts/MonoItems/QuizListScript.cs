@@ -7,8 +7,8 @@ public class QuizListScript : MonoBehaviour {
     private bool arrayStatus = false, llStatus = false;
     private bool arrayCheck = false, llCheck = false;
 
-    private string arrayid = "UyybEGkvSG11vx7";
-    private string llid = "UyybEGkvSG11vx7";
+    private string arrayid = "dSDaGRYGa2uamSS";
+    private string llid = "dSDaGRYGa2uamSS";
 
     public void reset()
     {
@@ -27,7 +27,7 @@ public class QuizListScript : MonoBehaviour {
         if (!StudentManager.isLogin())
         {
             Debug.Log("You need to login again!");
-            //Utils.showToastOnUiThread("You need to login again!");
+            Utils.showToastOnUiThread("You need to login again!");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
         }
@@ -80,7 +80,7 @@ public class QuizListScript : MonoBehaviour {
     {
         this.arrayCheck = true;
         Status st = Utils.getStatusFromJson(data);
-        if (st.status.Equals("false"))
+        if (st.status.Equals("true"))
         {
             this.arrayStatus = false;
             return;
@@ -91,9 +91,9 @@ public class QuizListScript : MonoBehaviour {
     {
         this.arrayCheck = true;
         Status st = Utils.getStatusFromJson(data);
-        if (st.status.Equals("false"))
+        if (st.status.Equals("true"))
         {
-            //Utils.showToastOnUiThread("");
+            Utils.showToastOnUiThread("You've already given this test!");
             this.llStatus = false;
             return;
         }
@@ -103,14 +103,14 @@ public class QuizListScript : MonoBehaviour {
     {
         this.arrayCheck = true;
         this.arrayStatus = false;
-        //Utils.showToastOnUiThread("Unable to fetch some data!");
+        Utils.showToastOnUiThread("Unable to check array available for user or not!");
         Debug.Log("Unable to check array available for user or not!");
     }
     public void llFailed()
     {
         this.arrayCheck = true;
         this.llStatus = false;
-        //Utils.showToastOnUiThread("Unable to fetch some data!");
+        Utils.showToastOnUiThread("Unable to check ll available for user or not!");
         Debug.Log("Unable to check ll available for user or not!");
     }
 
@@ -118,19 +118,19 @@ public class QuizListScript : MonoBehaviour {
     {
         if (!this.status)
         {
-            //Utils.showToastOnUiThread("Data are being fetched! Please wait...");
+            Utils.showToastOnUiThread("Data are being fetched! Please wait...");
             Debug.Log("Data are being fetched! Please wait...");
             return;
         }
         if (!this.arrayCheck)
         {
-            //Utils.showToastOnUiThread("Checking if array available for you! Please wait...");
+            Utils.showToastOnUiThread("Checking if array available for you! Please wait...");
             Debug.Log("Checking if array available for you! Please wait...");
             return;
         }
         if (!this.arrayStatus)
         {
-            //Utils.showToastOnUiThread("You've already given this test!");
+            Utils.showToastOnUiThread("You've already given this test!");
             Debug.Log("You've already given this test!");
             return;
         }
@@ -139,7 +139,7 @@ public class QuizListScript : MonoBehaviour {
             QuizManager.currentQuiz = QuizListManager.quizList.idMap[this.arrayid];
             QuizManager.currentIndex = 0;
 
-            NavigationManager.NavigateTO(NavigationManager.quizStart);
+            NavigationManager.NavigateTO(NavigationManager.ArrayGamePlay);
         }
         catch(KeyNotFoundException e)
         {
@@ -151,19 +151,19 @@ public class QuizListScript : MonoBehaviour {
     {
         if (!this.status)
         {
-            //Utils.showToastOnUiThread("Data are being fetched! Please wait...");
+            Utils.showToastOnUiThread("Data are being fetched! Please wait...");
             Debug.Log("Data are being fetched! Please wait...");
             return;
         }
         if (!this.llCheck)
         {
-            //Utils.showToastOnUiThread("Checking if linkedList available for you! Please wait...");
+            Utils.showToastOnUiThread("Checking if Stack is available for you! Please wait...");
             Debug.Log("Checking if linkedList available for you! Please wait...");
             return;
         }
         if (!this.llStatus)
         {
-            //Utils.showToastOnUiThread("You've already given this test!");
+            Utils.showToastOnUiThread("You've already given this test!");
             Debug.Log("You've already given this test!");
             return;
         }
@@ -183,7 +183,7 @@ public class QuizListScript : MonoBehaviour {
 
     public void quizListFailed()
     {
-        //Utils.showToastOnUiThread("Unable to fetch data of quiz list!");
+        Utils.showToastOnUiThread("Unable to fetch data of quiz list!");
         Debug.Log("Unable to fetch data of quiz list!");
     }
 }

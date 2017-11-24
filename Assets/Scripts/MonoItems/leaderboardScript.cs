@@ -18,7 +18,7 @@ public class leaderboardScript : MonoBehaviour {
         Debug.Log("checking login");
         if (!StudentManager.isLogin())
         {
-            //Utils.showToastOnUiThread("You need to login!");
+            Utils.showToastOnUiThread("You need to login!");
             Debug.Log("You need to login!");
             NavigationManager.NavigateTO(NavigationManager.login);
             return;
@@ -53,7 +53,7 @@ public class leaderboardScript : MonoBehaviour {
 
     public void requestFailed()
     {
-        //Utils.showToastOnUiThread("You need to login!");
-        Debug.Log("You need to login!");
+        Utils.showToastOnUiThread("Unable to fetch some data!");
+        Debug.Log("Unable to fetch some data!");
     }
 }

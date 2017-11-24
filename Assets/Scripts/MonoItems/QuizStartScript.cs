@@ -8,9 +8,17 @@ public class QuizStartScript : MonoBehaviour {
         Debug.Log("checking login in quizstart");
         if (!StudentManager.isLogin())
         {
-            //Utils.showToastOnUiThread("You need to login!");
+            Utils.showToastOnUiThread("You need to login!");
             Debug.Log("You need to login!");
             NavigationManager.NavigateTO(NavigationManager.login);
+            return;
+        }
+
+        if (QuizManager.currentQuiz == null)
+        {
+            Debug.Log("Questions not found! Please contact admin");
+            Utils.showToastOnUiThread("Questions not found! Please contact admin");
+            NavigationManager.NavigateTO(NavigationManager.game);
             return;
         }
     }
@@ -19,6 +27,7 @@ public class QuizStartScript : MonoBehaviour {
 		string url = UrlManager.questionListUrl;
 
         Dictionary<string, string> map = new Dictionary<string, string>();
+
         map.Add("quizid",QuizManager.currentQuiz.quizId);
         //map.Add("quizid", "cCecccaiNlCcIlC");
 
@@ -38,6 +47,6 @@ public class QuizStartScript : MonoBehaviour {
     public void requestFailed()
     {
         Debug.Log("Unable to fetch list of questions of quiz: " + QuizManager.currentQuiz.name);
-        //Utils.showToastOnUiThread("Unable to fetch list of questions of quiz: "+QuizManager.currentQuiz.name);
+        Utils.showToastOnUiThread("Unable to fetch list of questions of quiz: "+QuizManager.currentQuiz.name);
     }
 }

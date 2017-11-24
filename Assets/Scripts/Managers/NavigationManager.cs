@@ -14,6 +14,7 @@ public class NavigationManager{
     public const string quizStart = "quizBefore";
     public const string quiz = "quiz";
     public const string quizSubmit = "quizSubmit";
+    public const string ArrayGamePlay = "ArrayGamePlay";
 
     public static void NavigateTO(string scene)
     {
