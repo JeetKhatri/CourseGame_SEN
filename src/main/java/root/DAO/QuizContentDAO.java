@@ -423,7 +423,7 @@ public class QuizContentDAO {
 				pstmt.setString(1, quizid);
 				rs1 = pstmt.executeQuery();
 				if (rs1.next()) {
-					
+
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, quizid);
 					rs = pstmt.executeQuery();
@@ -437,7 +437,23 @@ public class QuizContentDAO {
 						bean.setOption2(rs.getString("option2"));
 						bean.setOption3(rs.getString("option3"));
 						bean.setOption4(rs.getString("option4"));
-						bean.setAnswer(rs.getString("answer"));
+						if(rs.getString("answer").equalsIgnoreCase("A"))
+						{
+							bean.setAnswer(rs.getString("option1"));
+						}
+						if(rs.getString("answer").equalsIgnoreCase("B"))
+						{
+							bean.setAnswer(rs.getString("option2"));
+						}
+						if(rs.getString("answer").equalsIgnoreCase("C"))
+						{
+							bean.setAnswer(rs.getString("option3"));
+						}
+						if(rs.getString("answer").equalsIgnoreCase("D"))
+						{
+							bean.setAnswer(rs.getString("option4"));
+						}
+						
 						bean.setMark(rs.getString("mark"));
 						bean.setDifficulty(rs.getString("difficulty"));
 						bean.setIsAvailable(rs.getString("isavailable"));
@@ -446,10 +462,10 @@ public class QuizContentDAO {
 					}
 					if (flag == true) {
 						hash.put("quizcontent", list);
-						hash.put("name",rs1.getString("name"));
-						hash.put("starttime",rs1.getString("starttime"));
-						hash.put("endtime",rs1.getString("endtime"));
-						hash.put("createdby",rs1.getString("createdby"));
+						hash.put("name", rs1.getString("name"));
+						hash.put("starttime", rs1.getString("starttime"));
+						hash.put("endtime", rs1.getString("endtime"));
+						hash.put("createdby", rs1.getString("createdby"));
 					}
 					hash.put("responseStatus", flag);
 				}
