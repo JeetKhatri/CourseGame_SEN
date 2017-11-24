@@ -4,7 +4,7 @@
 			<div class="modal-background"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">Add New Quiz</p>
+					<p class="modal-card-title">Change Password</p>
 					<button class="delete" @click="close"></button>
 				</header>
 				<section class="modal-card-body">

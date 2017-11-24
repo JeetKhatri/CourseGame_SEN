@@ -19,7 +19,7 @@
 <script type="text/javascript">
 import navbar from '@/components/Navbar';
 import sidebar from '@/components/Sidebar';
-import tabs from '@/components/Tabs';
+// import tabs from '@/components/Tabs';
 export default {
 	name: 'view-details',
 
@@ -31,7 +31,6 @@ export default {
 
 	components: {
 		navbar,
-		tabs,
 		sidebar
 	},
 

@@ -18,7 +18,7 @@
 						<div class="field is-grouped" id="menus">
 							<p class="control">
 								<div class="navbar-item has-dropdown is-hoverable">
-									<div class="navbar-link">
+									<div class="navbar-link" id="navlink">
 										{{ name }}
 									</div>
 									<div id="moreDropdown" class="navbar-dropdown is-boxed">
@@ -135,8 +135,8 @@ export default {
 		height: 60px;
 	}
 
-	.navbar-link {
-		pading-right: 1rem;
+	#navlink {
+		padding-right: 2.2rem;
 	}
 }
 </style>

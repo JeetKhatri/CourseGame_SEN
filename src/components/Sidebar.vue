@@ -6,7 +6,6 @@
 					<li><router-link :to="{name: 'view-details', params:{batchid: batchid}}">Students</router-link></li>
 					<li><router-link :to="{name: 'ta', params:{batchid: batchid}}">TA</router-link></li>
 					<li><router-link :to="{name: 'quiz-played', params:{batchid: batchid}}">Quiz</router-link></li>
-					<li><router-link :to="{name: 'games-lists', params:{batchid: batchid}}">Games</router-link></li>
 				</ul>
 			</aside>
 		</div>		

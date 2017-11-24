@@ -67,8 +67,8 @@ export default {
 			return this.$validator.validateAll()
 		},
 		register() {			
-			if(this.validate()) {
-				console.log("Error")
+			if(this.firstname == '' || this.lastname == '' || this.emailAddress == '' || this.degree == '') {
+				this.validate();
 			} else {
 				HTTP.post(`rest/faculty/faculty-insert/?emailid=`+this.emailAddress+`&name=`+this.firstname+` `+this.lastname+`&degree=`+this.degree, {
 
